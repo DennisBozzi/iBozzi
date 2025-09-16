@@ -11,6 +11,18 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+
+
+  pessoa = {
+    nome: '',
+    email: '',
+    password: ''
+  }
+
+
+
+
+
   email!: string;
   password!: string;
   isLoading: boolean = false;
