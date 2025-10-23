@@ -1,11 +1,31 @@
 import { Routes } from '@angular/router';
-import { redirectGuard } from './guards/redirect.guard';
-import authRoutes from './routes/auth.routes';
-import pagesRoutes from './routes/pages.routes';
+import { authGuard } from './core/guards/auth.guard';
+import { redirectGuard } from './core/guards/redirect.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    ...authRoutes,
-    ...pagesRoutes,
-    { path: '**', canActivate: [redirectGuard], children: [] }
+  // Redireciona raiz para login
+  {
+    path: '',
+    redirectTo: '/auth/login',
+    pathMatch: 'full'
+  },
+
+  // Rotas de autenticação (sem layout)
+  {
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
+  },
+
+  // Rotas protegidas com layout
+  {
+    path: '',
+    loadChildren: () => import('./core/layout/layout.routes').then(m => m.LAYOUT_ROUTES)
+  },
+
+  // Rota 404 - catch all
+  {
+    path: '**',
+    canActivate: [redirectGuard],
+    children: []
+  }
 ];

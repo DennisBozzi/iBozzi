@@ -1,0 +1,121 @@
+<div
+    class="flex h-dvh bg-cover bg-[url('https://firebasestorage.googleapis.com/v0/b/espbozzi.firebasestorage.app/o/public%2Fassets%2Fcasteloanimado.png?alt=media&token=dbb9c2e7-e939-4507-a12e-d1f37f07241a')]">
+
+    <div class="flex flex-col self-center max-w-96 p-12 gap-4 m-auto w-96 bg-base-300 rounded-2xl">
+
+        <div>
+            <input [(ngModel)]="email" class="w-full input input-neutral" minlength="4" email required #name="ngModel">
+
+            @if (submitted && name.invalid) {
+            <div class="!text-sm text-red-300 flex items-center gap-1">
+                <span class="material-symbols-outlined !text-sm">info</span>
+                Invalid
+            </div>
+            }
+
+            <pre class="text-xs bg-neutral text-neutral-content p-2 rounded mt-2">
+{{
+                {
+                value: name.value,
+                valid: name.valid,
+                invalid: name.invalid,
+                touched: name.touched,
+                dirty: name.dirty,
+                errors: name.errors,
+                untouched: name.untouched,
+                } | json
+                }}
+            </pre>
+        </div>
+
+
+
+        <button class="btn btn-neutral" type="submit" (click)="submitted = true">Confirmar</button>
+
+    </div>
+</div>
+
+<!-- component -->
+<!-- <div class="bg-no-repeat bg-cover bg-center"
+    style="background-image: url(https://firebasestorage.googleapis.com/v0/b/espbozzi.firebasestorage.app/o/public%2Fassets%2Ffundo.png?alt=media);">
+    <div class="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-35 inset-0 z-0"></div>
+    <div class="min-h-screen flex px-0 md:px-16 justify-center">
+        <div class="hidden lg:flex items-center p-10 sm:max-w-5xl xl:max-w-2xl z-10">
+            <div class="flex flex-col text-secondary-content">
+                <h1 class="mb-3 font-bold text-5xl">Welcome back to iBozzi</h1>
+                <p class="pr-3">Lorem ipsum is placeholder text commonly used in the graphic, print,
+                    and publishing industries for previewing layouts and visual mockups</p>
+            </div>
+        </div>
+        <div class="flex items-center z-10">
+            <div class="card card-lg !bg-base-100 border-base-100 w-auto lg:w-96 shadow-sm">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h3 class="font-semibold text-2xl">Sign In </h3>
+                        <p>Please sign in to your account.</p>
+                    </div>
+                    <div class="space-y-5">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium tracking-wide">Email</label>
+                            <input class=" w-full text-base px-4 py-2 border rounded-lg focus:outline-none"
+                                placeholder="pedro@mail.com">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="mb-5 text-sm font-medium tracking-wide">
+                                Password
+                            </label>
+                            <input
+                                class="w-full content-center text-base px-4 py-2 border rounded-lg focus:outline-none"
+                                placeholder="Enter your password" type="password">
+                        </div>
+                        <div class="text-sm text-end">
+                            <a href="#" class="link link-hover text-primary">
+                                Forgot your password?
+                            </a>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary w-full ">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="divider my-2">Or</div>
+
+                    <button class="btn mb-2 bg-white text-black border-[#e5e5e5]">
+                        <svg aria-label="Google logo" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
+                            <g>
+                                <path d="m0 0H512V512H0" fill="#fff"></path>
+                                <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
+                                <path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
+                                <path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>
+                                <path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55">
+                                </path>
+                            </g>
+                        </svg>
+                        Login with Google
+                    </button>
+
+                    <button class="btn bg-black text-white border-black">
+                        <svg aria-label="GitHub logo" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24">
+                            <path fill="white"
+                                d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z">
+                            </path>
+                        </svg>
+                        Login with GitHub
+                    </button>
+
+                    <div class="pt-5 text-center text-gray-400 text-xs">
+                        <span>
+                            Copyright © 2025
+                            <a [href]="'https://github.com/dennisbozzi'" target="_blank"
+                                class="text-green hover:text-green-500">Dennis Bozzi</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
