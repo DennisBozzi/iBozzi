@@ -1,11 +1,8 @@
-import { ApartmentResponse } from '@/interfaces/apartment-response.interface';
-import { ApartmentTypeEnum } from '@/interfaces/enums/apartment-type.enum';
-import { FloorEnum } from '@/interfaces/enums/floor.enum';
-import { PagedResult } from '@/interfaces/paged-result.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '@/environments/environments';
 import { ApiService } from './api.service';
+import { FloorEnum, ApartmentTypeEnum, PagedResult, ApartmentResponse } from '@/shared/interfaces';
 
 export interface CreateApartmentRequest {
   number: string;

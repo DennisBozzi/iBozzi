@@ -1,4 +1,4 @@
-<div
+<!-- <div
     class="flex h-dvh bg-cover bg-[url('https://firebasestorage.googleapis.com/v0/b/espbozzi.firebasestorage.app/o/public%2Fassets%2Fcasteloanimado.png?alt=media&token=dbb9c2e7-e939-4507-a12e-d1f37f07241a')]">
 
     <div class="flex flex-col self-center max-w-96 p-12 gap-4 m-auto w-96 bg-base-300 rounded-2xl">
@@ -33,10 +33,10 @@
         <button class="btn btn-neutral" type="submit" (click)="submitted = true">Confirmar</button>
 
     </div>
-</div>
+</div> -->
 
 <!-- component -->
-<!-- <div class="bg-no-repeat bg-cover bg-center"
+<div class="bg-no-repeat bg-cover bg-center"
     style="background-image: url(https://firebasestorage.googleapis.com/v0/b/espbozzi.firebasestorage.app/o/public%2Fassets%2Ffundo.png?alt=media);">
     <div class="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-35 inset-0 z-0"></div>
     <div class="min-h-screen flex px-0 md:px-16 justify-center">
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="flex items-center z-10">
-            <div class="card card-lg !bg-base-100 border-base-100 w-auto lg:w-96 shadow-sm">
+            <div class="card card-lg !bg-base-100 border-base-100 md:w-96 lg:p-4 lg:w-104 shadow-sm">
                 <div class="card-body">
                     <div class="mb-4">
                         <h3 class="font-semibold text-2xl">Sign In </h3>
@@ -57,16 +57,17 @@
                     <div class="space-y-5">
                         <div class="space-y-2">
                             <label class="text-sm font-medium tracking-wide">Email</label>
-                            <input class=" w-full text-base px-4 py-2 border rounded-lg focus:outline-none"
+                            <input [(ngModel)]="email"
+                                class=" w-full text-base px-4 py-2 border rounded-lg focus:outline-none"
                                 placeholder="pedro@mail.com">
                         </div>
                         <div class="space-y-2">
                             <label class="mb-5 text-sm font-medium tracking-wide">
                                 Password
                             </label>
-                            <input
+                            <input [(ngModel)]="password"
                                 class="w-full content-center text-base px-4 py-2 border rounded-lg focus:outline-none"
-                                placeholder="Enter your password" type="password">
+                                placeholder="enter your password" type="password">
                         </div>
                         <div class="text-sm text-end">
                             <a href="#" class="link link-hover text-primary">
@@ -74,7 +75,8 @@
                             </a>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary w-full ">
+                            <button type="submit" (click)="signInWithEmail()" class="btn btn-primary w-full">
+                                <span *ngIf="isLoading" class="loading loading-spinner"></span>
                                 Sign in
                             </button>
                         </div>
@@ -82,11 +84,11 @@
 
                     <div class="divider my-2">Or</div>
 
-                    <button class="btn mb-2 bg-white text-black border-[#e5e5e5]">
+                    <button class="btn mb-2 bg-white text-black border-white hover:bg-white/80 hover:border-white/80">
                         <svg aria-label="Google logo" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
                             <g>
-                                <path d="m0 0H512V512H0" fill="#fff"></path>
+                                <path d="m0 0H512V512H0" fill="transparent"></path>
                                 <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
                                 <path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
                                 <path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>
@@ -97,7 +99,7 @@
                         Login with Google
                     </button>
 
-                    <button class="btn bg-black text-white border-black">
+                    <button class="btn bg-black text-white border-black hover:bg-black/80 hover:border-black/80">
                         <svg aria-label="GitHub logo" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24">
                             <path fill="white"
@@ -118,4 +120,4 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>

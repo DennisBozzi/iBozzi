@@ -15,6 +15,8 @@ export class FirebaseService {
     private readonly storage: FirebaseStorage;
     private readonly googleProvider: GoogleAuthProvider;
     private readonly githubProvider: GithubAuthProvider;
+    private userCache: FirebaseUser | null | undefined = undefined;
+    private authInitialized = false;
 
     constructor() {
         this.auth = auth;
@@ -22,6 +24,15 @@ export class FirebaseService {
         this.storage = getStorage(app);
         this.googleProvider = new GoogleAuthProvider();
         this.githubProvider = new GithubAuthProvider();
+
+        this.initAuthStateListener();
+    }
+
+    private initAuthStateListener(): void {
+        onAuthStateChanged(this.auth, (user: FirebaseUser | null) => {
+            this.userCache = user;
+            this.authInitialized = true;
+        });
     }
 
     // Auth
@@ -32,6 +43,7 @@ export class FirebaseService {
                 payload.email,
                 payload.password
             );
+            this.userCache = userCredential.user;
             return { data: { user: userCredential.user }, error: null };
         } catch (error: any) {
             let errorMessage = error.message;
@@ -43,6 +55,7 @@ export class FirebaseService {
         try {
             const result = await signInWithPopup(this.auth, this.googleProvider);
             const user = result.user;
+            this.userCache = user;
 
             return { data: { user: user }, error: null };
         } catch (error: any) {
@@ -57,6 +70,7 @@ export class FirebaseService {
         try {
             const result = await signInWithPopup(this.auth, this.githubProvider);
             const user = result.user;
+            this.userCache = user;
 
             return { data: { user: user }, error: null };
         } catch (error: any) {
@@ -74,6 +88,7 @@ export class FirebaseService {
                 email,
                 password
             );
+            this.userCache = userCredential.user;
             return { data: { user: userCredential.user }, error: null };
         } catch (error: any) {
             let errorMessage = error.message;
@@ -84,6 +99,7 @@ export class FirebaseService {
     async signOut() {
         try {
             await signOut(this.auth);
+            this.userCache = null;
             return { error: null };
         } catch (error: any) {
             return { error: { message: error.message } };
@@ -96,9 +112,14 @@ export class FirebaseService {
 
     //User
     async getUser(): Promise<{ data: { user: FirebaseUser | null } }> {
+        if (this.authInitialized)
+            return Promise.resolve({ data: { user: this.userCache ?? null } });
+
         return new Promise((resolve) => {
             const unsubscribe = onAuthStateChanged(this.auth, (user: FirebaseUser | null) => {
                 unsubscribe();
+                this.userCache = user;
+                this.authInitialized = true;
                 resolve({ data: { user } });
             });
         });

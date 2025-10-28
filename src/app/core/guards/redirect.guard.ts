@@ -11,7 +11,7 @@ export const redirectGuard: CanActivateFn = async (route, state) => {
     if (result.data.user) {
         router.navigate(['/home']);
     } else {
-        router.navigate(['/login']);
+        router.navigate(['/auth/login']);
     }
     
     return false;

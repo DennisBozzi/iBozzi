@@ -14,13 +14,6 @@ export class LoginComponent {
 
   submitted: boolean = false;
 
-
-  pessoa = {
-    nome: '',
-    email: '',
-    password: ''
-  }
-
   email!: string;
   password!: string;
   isLoading: boolean = false;
@@ -93,7 +86,7 @@ export class LoginComponent {
 
   navigateToSignup() {
     if (this.isLoading) return
-    this.router.navigate(['/signup']);
+    this.router.navigate(['auth/signup']);
   }
 
   onImageLoaded() {

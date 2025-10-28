@@ -8,7 +8,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
 
   const result = await firebaseService.getUser();
   if (!result.data.user) {
-    router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
   return true;

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FirebaseService } from '@/core/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,4 +10,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: 'home.component.html',
 })
 
-export class HomeComponent { }
+export class HomeComponent {
+  private readonly firebaseService = inject(FirebaseService);
+  private readonly router = inject(Router);
+
+  async signOut() {
+    await this.firebaseService.signOut();
+    this.router.navigate(['/auth/login']);
+  }
+}

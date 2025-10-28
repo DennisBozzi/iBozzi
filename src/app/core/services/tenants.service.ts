@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { PagedResult } from '@/interfaces/paged-result.interface';
-import { TenantResponse } from '@/interfaces/tenant-response.interface';
 import { environment } from '@/environments/environments';
+import { PagedResult, TenantResponse } from '@/shared/interfaces';
 
 export interface CreateTenantRequest {
   firstName: string,
