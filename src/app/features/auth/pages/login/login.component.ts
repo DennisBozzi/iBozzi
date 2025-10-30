@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, NgModel } from '@angular/forms';
 import { FirebaseService } from '@/core/services/firebase.service';
+import { ToastService } from '@/core/services/toast.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,15 +21,15 @@ export class LoginComponent {
   isImageLoading: boolean = true;
 
   private readonly firebaseService = inject(FirebaseService);
+  private readonly toastService = inject(ToastService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
   async signInWithEmail(emailCtrl: NgModel, passwordCtrl: NgModel) {
     if (this.isLoading) return
-    
+
     this.submitted = true;
     if (this.invalidInputs(emailCtrl, passwordCtrl)) return;
-
 
     this.isLoading = true;
 
@@ -39,8 +40,9 @@ export class LoginComponent {
 
     this.isLoading = false
     if (error) {
-      //TODO: Implementar erro de requisição
+      this.toastService.error('Oops! That login information doesn’t look right.');
     } else {
+      this.toastService.success('Welcome back! Great to see you again.');
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
@@ -58,8 +60,9 @@ export class LoginComponent {
     this.isLoading = false;
 
     if (error) {
-      //TODO: Implementar erro de requisição
+      this.toastService.error('Failed to connect with Google. Please try again.');
     } else {
+      this.toastService.success('Welcome back! Great to see you again.');
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
@@ -77,8 +80,9 @@ export class LoginComponent {
     this.isLoading = false;
 
     if (error) {
-      //TODO: Implementar erro de requisição
+      this.toastService.error('Failed to connect with Github. Please try again.');
     } else {
+      this.toastService.success('Welcome back! Great to see you again.');
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);

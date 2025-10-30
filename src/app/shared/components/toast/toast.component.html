@@ -1,0 +1,14 @@
+<div class="toast toast-end z-50">
+    <div *ngFor="let toast of toasts$ | async" 
+         [class]="'alert relative ' + getAlertClass(toast.type) + ' shadow-lg'"
+         [@toastAnimation]>
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined" *ngIf="toast.type === 'success'">check_circle</span>
+            <span class="material-symbols-outlined" *ngIf="toast.type === 'error'">error</span>
+            <span class="material-symbols-outlined" *ngIf="toast.type === 'warning'">warning</span>
+            <span class="material-symbols-outlined" *ngIf="toast.type === 'info'">info</span>
+            <span>{{ toast.message }}</span>
+        </div>
+        <button (click)="close(toast.id)" class="btn btn-xs btn-outline">Close</button>
+    </div>
+</div>
