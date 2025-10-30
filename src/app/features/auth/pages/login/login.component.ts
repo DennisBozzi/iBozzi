@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { FirebaseService } from '@/core/services/firebase.service';
 import { CommonModule } from '@angular/common';
 
@@ -23,8 +23,12 @@ export class LoginComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  async signInWithEmail() {
+  async signInWithEmail(emailCtrl: NgModel, passwordCtrl: NgModel) {
     if (this.isLoading) return
+    
+    this.submitted = true;
+    if (this.invalidInputs(emailCtrl, passwordCtrl)) return;
+
 
     this.isLoading = true;
 
@@ -91,5 +95,12 @@ export class LoginComponent {
 
   onImageLoaded() {
     this.isImageLoading = false;
+  }
+
+  invalidInputs(emailCtrl: NgModel, passwordCtrl: NgModel): boolean {
+    if (emailCtrl.invalid) return true;
+    if (passwordCtrl.invalid) return true;
+
+    return false;
   }
 }

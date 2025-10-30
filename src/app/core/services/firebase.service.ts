@@ -4,7 +4,7 @@ import { getDatabase, ref, get, set, onValue, off, Database } from 'firebase/dat
 import { FirebaseStorage, getDownloadURL, getStorage, uploadBytes, ref as stRef } from 'firebase/storage';
 import { auth, app } from '../config/firebase.config';
 import imageCompression from 'browser-image-compression';
-import { LoginPayload } from '../../types/user.type';
+import { LoginPayload } from '@/shared/types/user.type';
 
 @Injectable({
     providedIn: 'root',
