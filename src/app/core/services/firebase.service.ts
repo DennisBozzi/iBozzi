@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser, Auth, updateProfile, GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser, Auth, updateProfile, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, linkWithPopup } from 'firebase/auth';
 import { getDatabase, ref, get, set, onValue, off, Database } from 'firebase/database';
 import { FirebaseStorage, getDownloadURL, getStorage, uploadBytes, ref as stRef } from 'firebase/storage';
 import { auth, app } from '../config/firebase.config';
@@ -56,7 +56,6 @@ export class FirebaseService {
             const result = await signInWithPopup(this.auth, this.googleProvider);
             const user = result.user;
             this.userCache = user;
-
             return { data: { user: user }, error: null };
         } catch (error: any) {
             const errorCode = error.code;
@@ -71,7 +70,6 @@ export class FirebaseService {
             const result = await signInWithPopup(this.auth, this.githubProvider);
             const user = result.user;
             this.userCache = user;
-
             return { data: { user: user }, error: null };
         } catch (error: any) {
             const errorCode = error.code;
@@ -136,6 +134,32 @@ export class FirebaseService {
         await updateProfile(this.auth.currentUser, {
             displayName: userName
         });
+    }
+
+    async linkGithubAccount() {
+        try {
+            if (!this.auth.currentUser) {
+                throw new Error('Usuário não autenticado');
+            }
+            const result = await linkWithPopup(this.auth.currentUser, this.githubProvider);
+            this.userCache = result.user;
+            return { data: { user: result.user }, error: null };
+        } catch (error: any) {
+            return { data: { user: null }, error: { message: error.message, code: error.code } };
+        }
+    }
+
+    async linkGoogleAccount() {
+        try {
+            if (!this.auth.currentUser) {
+                throw new Error('Usuário não autenticado');
+            }
+            const result = await linkWithPopup(this.auth.currentUser, this.googleProvider);
+            this.userCache = result.user;
+            return { data: { user: result.user }, error: null };
+        } catch (error: any) {
+            return { data: { user: null }, error: { message: error.message, code: error.code } };
+        }
     }
 
     //Storage

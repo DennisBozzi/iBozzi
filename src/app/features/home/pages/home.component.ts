@@ -18,4 +18,8 @@ export class HomeComponent {
     await this.firebaseService.signOut();
     this.router.navigate(['/auth/login']);
   }
+
+  async link() {
+    await this.firebaseService.linkGithubAccount();
+  }
 }

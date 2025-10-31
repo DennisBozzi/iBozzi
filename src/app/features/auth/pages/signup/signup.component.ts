@@ -1,12 +1,12 @@
 import { FirebaseService } from '@/core/services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
-  imports: [FormsModule, CommonModule, ],
+  imports: [FormsModule, CommonModule,],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
@@ -15,12 +15,13 @@ export class SignupComponent {
   password!: string;
   isLoading: boolean = false;
   isImageLoading: boolean = true;
+  submitted: boolean = false;
 
   private readonly firebaseService = inject(FirebaseService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  async signUp() {
+  async signUp(emailCtrl: NgModel, passwordCtrl: NgModel) {
     if (this.isLoading) return
 
     this.isLoading = true;
@@ -75,10 +76,6 @@ export class SignupComponent {
 
   navigateToLogin() {
     if (this.isLoading) return
-    this.router.navigate(['/login']);
-  }
-
-  onImageLoaded() {
-    this.isImageLoading = false;
+    this.router.navigate(['/auth/login']);
   }
 }

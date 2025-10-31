@@ -1,0 +1,92 @@
+<div class="min-h-screen bg-base-200 flex px-0 md:px-16 justify-center items-center">
+    <div class="card card-md !py-2 !bg-base-100 border-base-100 w-96 lg:p-4 lg:w-104 shadow-sm">
+        <div class="card-body">
+            <div class="mb-4 text-center">
+                <h3 class="font-semibold text-2xl">Welcome back</h3>
+                <p>Login to your <b>iBozzi</b> account</p>
+            </div>
+
+            <div class="space-y-5">
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-sm font-medium tracking-wide">Email</label>
+                        <div *ngIf="submitted && emailCtrl.invalid" class="!text-sm text-error flex items-center gap-1">
+                            <span class="material-symbols-outlined !text-sm">info</span>
+                            Invalid
+                        </div>
+                    </div>
+                    <input [(ngModel)]="email" type="email"
+                        class="w-full text-base px-4 py-2 border rounded-lg focus:outline-none"
+                        placeholder="pedro@mail.com" email required #emailCtrl="ngModel">
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-sm font-medium tracking-wide">
+                            Password
+                        </label>
+                        <div *ngIf="submitted && passwordCtrl.invalid"
+                            class="!text-sm text-error flex items-center gap-1">
+                            <span class="material-symbols-outlined !text-sm">info</span>
+                            Invalid
+                        </div>
+                    </div>
+                    <input [(ngModel)]="password"
+                        class="w-full content-center text-base px-4 py-2 border rounded-lg focus:outline-none"
+                        placeholder="enter your password" type="password" minlength="6" password required
+                        #passwordCtrl="ngModel">
+                </div>
+                <div class="text-sm text-end">
+                    <a class="link link-hover text-primary">
+                        Forgot your password?
+                    </a>
+                </div>
+
+                <button type="submit" (click)="signUp(emailCtrl, passwordCtrl)" class="btn btn-primary w-full">
+                    <span *ngIf="isLoading" class="loading loading-spinner"></span>
+                    Sign in
+                </button>
+
+            </div>
+
+            <div class="divider my-2">Or</div>
+
+            <div class="flex justify-between">
+                <button (click)="signInWithGoogle()" class="btn w-[48%]">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Google logo" viewBox="0 0 24 24" width="20"
+                        height="20">
+                        <path
+                            d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                            fill="currentColor">
+                        </path>
+                    </svg>
+                </button>
+
+                <button (click)="signInWithGithub()" class="btn w-[48%]">
+                    <svg aria-label="GitHub logo" width="26" height="26" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="pt-5 text-center">
+                <span>
+                    Don't have an account?
+                    <a target="_blank" (click)="navigateToLogin()" class="text-green hover:text-primary link">Sign
+                        up</a>
+                </span>
+            </div>
+
+            <div class="pt-5 text-center text-gray-400 text-xs">
+                <span>
+                    Copyright © 2025
+                    <a [href]="'https://github.com/dennisbozzi'" target="_blank"
+                        class="text-green hover:text-primary">Dennis Bozzi</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

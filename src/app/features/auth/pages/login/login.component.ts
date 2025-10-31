@@ -18,7 +18,6 @@ export class LoginComponent {
   email!: string;
   password!: string;
   isLoading: boolean = false;
-  isImageLoading: boolean = true;
 
   private readonly firebaseService = inject(FirebaseService);
   private readonly toastService = inject(ToastService);
@@ -95,10 +94,6 @@ export class LoginComponent {
   navigateToSignup() {
     if (this.isLoading) return
     this.router.navigate(['auth/signup']);
-  }
-
-  onImageLoaded() {
-    this.isImageLoading = false;
   }
 
   invalidInputs(emailCtrl: NgModel, passwordCtrl: NgModel): boolean {
