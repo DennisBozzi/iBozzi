@@ -2,8 +2,8 @@
     <div class="card card-md !py-2 !bg-base-100 border-base-100 w-96 lg:p-4 lg:w-104 shadow-sm">
         <div class="card-body">
             <div class="mb-4 text-center">
-                <h3 class="font-semibold text-2xl">Welcome back</h3>
-                <p>Login to your <b>iBozzi</b> account</p>
+                <h3 class="font-semibold text-2xl">Create your account</h3>
+                <p>Start your journey with <b>iBozzi</b></p>
             </div>
 
             <div class="space-y-5">
@@ -33,20 +33,35 @@
                     </div>
                     <input [(ngModel)]="password"
                         class="w-full content-center text-base px-4 py-2 border rounded-lg focus:outline-none"
-                        placeholder="enter your password" type="password" minlength="6" password required
+                        placeholder="enter your new password" type="password" minlength="6" password required
                         #passwordCtrl="ngModel">
                 </div>
-                <div class="text-sm text-end">
-                    <a class="link link-hover text-primary">
-                        Forgot your password?
-                    </a>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-sm font-medium tracking-wide">
+                            Confirm password
+                        </label>
+                        <div *ngIf="submitted && confirmPasswordCtrl.invalid"
+                            class="!text-sm text-error flex items-center gap-1">
+                            <span class="material-symbols-outlined !text-sm">info</span>
+                            <ng-container *ngIf="confirmPasswordCtrl.errors?.['mismatch']; else genericConfirmError">
+                                Passwords do not match
+                            </ng-container>
+                            <ng-template #genericConfirmError>Invalid</ng-template>
+                        </div>
+                    </div>
+                    <input [(ngModel)]="confirmPassword"
+                        class="w-full content-center text-base px-4 py-2 border rounded-lg focus:outline-none"
+                        placeholder="repeat your password" type="password" minlength="6" password required
+                        #confirmPasswordCtrl="ngModel">
                 </div>
 
-                <button type="submit" (click)="signUp(emailCtrl, passwordCtrl)" class="btn btn-primary w-full">
+                <button type="submit" (click)="signUp(emailCtrl, passwordCtrl, confirmPasswordCtrl)"
+                    class="btn btn-primary w-full">
                     <span *ngIf="isLoading" class="loading loading-spinner"></span>
-                    Sign in
+                    Register
                 </button>
-
             </div>
 
             <div class="divider my-2">Or</div>
@@ -74,9 +89,9 @@
 
             <div class="pt-5 text-center">
                 <span>
-                    Don't have an account?
+                    Already have an account?
                     <a target="_blank" (click)="navigateToLogin()" class="text-green hover:text-primary link">Sign
-                        up</a>
+                        in</a>
                 </span>
             </div>
 

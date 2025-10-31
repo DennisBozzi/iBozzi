@@ -19,6 +19,6 @@ export const AUTH_ROUTES: Routes = [
     path: 'signup',
     component: SignupComponent,
     canActivate: [guestGuard],
-    title: 'Cadastro - iBozzi'
+    title: 'Register - iBozzi'
   }
 ];

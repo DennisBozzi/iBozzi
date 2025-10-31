@@ -96,7 +96,7 @@ export class LoginComponent {
     this.router.navigate(['auth/signup']);
   }
 
-  invalidInputs(emailCtrl: NgModel, passwordCtrl: NgModel): boolean {
+  private invalidInputs(emailCtrl: NgModel, passwordCtrl: NgModel): boolean {
     if (emailCtrl.invalid) return true;
     if (passwordCtrl.invalid) return true;
 

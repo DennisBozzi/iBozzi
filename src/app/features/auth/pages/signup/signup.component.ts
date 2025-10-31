@@ -1,3 +1,4 @@
+import { ToastService } from '@/core/services';
 import { FirebaseService } from '@/core/services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
@@ -11,27 +12,37 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './signup.component.scss',
 })
 export class SignupComponent {
-  email!: string;
-  password!: string;
-  isLoading: boolean = false;
-  isImageLoading: boolean = true;
+
   submitted: boolean = false;
 
+  email!: string;
+  password!: string;
+  confirmPassword!: string;
+  isLoading: boolean = false;
+
   private readonly firebaseService = inject(FirebaseService);
+  private readonly toastService = inject(ToastService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  async signUp(emailCtrl: NgModel, passwordCtrl: NgModel) {
+  async signUp(emailCtrl: NgModel, passwordCtrl: NgModel, confirmPasswordCtrl: NgModel) {
     if (this.isLoading) return
 
+    this.submitted = true;
+    if (this.invalidInputs(emailCtrl, passwordCtrl, confirmPasswordCtrl)) return;
+
     this.isLoading = true;
-    const { error } = await this.firebaseService.signUpWithEmail(this.email, this.password,);
+    const { error } = await this.firebaseService.signUpWithEmail({
+      email: this.email,
+      password: this.password
+    });
 
     this.isLoading = false
+
     if (error) {
-      //TODO: Implementar tratamento de erro
+      this.toastService.error('Oops! Something wrong happened.');
     } else {
-      //TODO: Implementar mensagem de sucesso de cadastro
+      this.toastService.success("Welcome! It's great to see you.");
       this.router.navigate(['/login']);
     }
   }
@@ -44,8 +55,9 @@ export class SignupComponent {
     this.isLoading = false;
 
     if (error) {
-      //TODO: Implementar tratamento de erro
+      this.toastService.error('Failed to connect with Google. Please try again.');
     } else {
+      this.toastService.success("Welcome! It's great to see you.");
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
@@ -63,8 +75,12 @@ export class SignupComponent {
     this.isLoading = false;
 
     if (error) {
-      //TODO: Implementar tratamento de erro
+      if (error.code == 'auth/account-exists-with-different-credential')
+        this.toastService.error('You’ve already used this email with another login method. Please connect using that provider.', 6000);
+      else
+        this.toastService.error('Failed to connect with Github. Please try again.');
     } else {
+      this.toastService.success("Welcome! It's great to see you.");
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
@@ -77,5 +93,13 @@ export class SignupComponent {
   navigateToLogin() {
     if (this.isLoading) return
     this.router.navigate(['/auth/login']);
+  }
+
+  private invalidInputs(emailCtrl: NgModel, passwordCtrl: NgModel, confirmPasswordCtrl: NgModel): boolean {
+    if (emailCtrl.invalid) return true;
+    if (passwordCtrl.invalid) return true;
+    if (confirmPasswordCtrl.invalid || (confirmPasswordCtrl.value != passwordCtrl.value)) return true;
+
+    return false;
   }
 }

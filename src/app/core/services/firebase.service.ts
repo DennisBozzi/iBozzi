@@ -79,12 +79,12 @@ export class FirebaseService {
         }
     }
 
-    async signUpWithEmail(email: string, password: string) {
+    async signUpWithEmail(payload: LoginPayload) {
         try {
             const userCredential = await createUserWithEmailAndPassword(
                 this.auth,
-                email,
-                password
+                payload.email,
+                payload.password
             );
             this.userCache = userCredential.user;
             return { data: { user: userCredential.user }, error: null };
