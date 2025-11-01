@@ -1,4 +1,7 @@
 <div class="min-h-screen bg-base-200 flex px-0 md:px-16 justify-center items-center">
+
+    <app-language-switcher class="absolute top-0 right-0" />
+
     <div class="card card-md !py-2 !bg-base-100 border-base-100 w-96 lg:p-4 lg:w-104 shadow-sm">
         <div class="card-body">
             <div class="mb-4 text-center">
@@ -17,7 +20,8 @@
                     </div>
                     <input [(ngModel)]="email" type="email"
                         class="w-full text-base px-4 py-2 border rounded-lg focus:outline-none"
-                        [placeholder]="'auth.login.emailPlaceholder' | t" email required #emailCtrl="ngModel">
+                        [placeholder]="'auth.login.emailPlaceholder' | t" email required #emailCtrl="ngModel"
+                        (keydown.enter)="signInWithEmail(emailCtrl, passwordCtrl)">
                 </div>
 
                 <div class="space-y-2">
@@ -32,7 +36,7 @@
                     <input [(ngModel)]="password"
                         class="w-full content-center text-base px-4 py-2 border rounded-lg focus:outline-none"
                         [placeholder]="'auth.login.passwordPlaceholder' | t" type="password" minlength="6" password
-                        required #passwordCtrl="ngModel">
+                        required #passwordCtrl="ngModel" (keydown.enter)="signInWithEmail(emailCtrl, passwordCtrl)">
                 </div>
                 <div class="text-sm text-end">
                     <a class="link link-hover text-primary">

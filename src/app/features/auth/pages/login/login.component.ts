@@ -6,10 +6,11 @@ import { ToastService } from '@/core/services/toast.service';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe, SafeHtmlPipe } from '@/shared/pipes';
 import { GlobalMessages } from '@/shared/i18n/global-messages';
+import { LanguageSwitcherComponent } from '@/shared/components/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule, TranslatePipe, SafeHtmlPipe],
+  imports: [FormsModule, CommonModule, TranslatePipe, SafeHtmlPipe, LanguageSwitcherComponent],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
@@ -32,6 +33,7 @@ export class LoginComponent {
     if (this.invalidInputs(emailCtrl, passwordCtrl)) return;
 
     this.isLoading = true;
+    console.log(this.email, this.password)
 
     const { error } = await this.firebaseService.signInWithEmail({
       email: this.email,

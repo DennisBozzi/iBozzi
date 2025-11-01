@@ -6,10 +6,11 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatePipe, SafeHtmlPipe } from '@/shared/pipes';
 import { GlobalMessages } from '@/shared/i18n/global-messages';
+import { LanguageSwitcherComponent } from "@/shared/components/language-switcher/language-switcher.component";
 
 @Component({
   selector: 'app-signup',
-  imports: [FormsModule, CommonModule, TranslatePipe, SafeHtmlPipe],
+  imports: [FormsModule, CommonModule, TranslatePipe, SafeHtmlPipe, LanguageSwitcherComponent],
   templateUrl: './signup.component.html'
 })
 export class SignupComponent {
