@@ -33,7 +33,6 @@ export class LoginComponent {
     if (this.invalidInputs(emailCtrl, passwordCtrl)) return;
 
     this.isLoading = true;
-    console.log(this.email, this.password)
 
     const { error } = await this.firebaseService.signInWithEmail({
       email: this.email,
