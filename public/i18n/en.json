@@ -1,0 +1,46 @@
+{
+    "auth": {
+        "signup": {
+            "title": "Create your account",
+            "subtitle": "Start your journey with <b>iBozzi</b>",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm password",
+            "emailPlaceholder": "pedro@email.com",
+            "passwordPlaceholder": "enter your new password",
+            "confirmPasswordPlaceholder": "repeat your password",
+            "invalid": "Invalid",
+            "mismatch": "Passwords do not match",
+            "register": "Register",
+            "or": "Or",
+            "already": "Already have an account?",
+            "signin": "Sign in"
+        },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Login to your <b>iBozzi</b> account",
+            "emailPlaceholder": "pedro@mail.com",
+            "passwordPlaceholder": "enter your password",
+            "forgot": "Forgot your password?",
+            "signin": "Sign in",
+            "dontHave": "Don't have an account?",
+            "signup": "Sign up"
+        }
+    },
+    "home": {
+        "logout": "Logout"
+    },
+    "toasts": {
+        "welcome": "Welcome! It's great to see you.",
+        "welcomeBack": "Welcome back! Great to see you again.",
+        "genericError": "Oops! Something wrong happened.",
+        "loginInvalid": "Oops! That login information doesn’t look right.",
+        "googleError": "Failed to connect with Google. Please try again.",
+        "githubError": "Failed to connect with Github. Please try again.",
+        "accountExistsDifferent": "You’ve already used this email with another login method. Please connect using that provider."
+    },
+    "common": {
+        "copyright": "Copyright © 2025 ",
+        "author": "Dennis Bozzi"
+    }
+}

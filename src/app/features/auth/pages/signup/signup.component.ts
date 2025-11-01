@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe, SafeHtmlPipe } from '@/shared/pipes';
+import { GlobalMessages } from '@/shared/i18n/global-messages';
 
 @Component({
   selector: 'app-signup',
-  imports: [FormsModule, CommonModule,],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss',
+  imports: [FormsModule, CommonModule, TranslatePipe, SafeHtmlPipe],
+  templateUrl: './signup.component.html'
 })
 export class SignupComponent {
 
@@ -19,6 +20,8 @@ export class SignupComponent {
   password!: string;
   confirmPassword!: string;
   isLoading: boolean = false;
+  readonly year: number = new Date().getFullYear();
+  readonly copyrightParams = { year: this.year };
 
   private readonly firebaseService = inject(FirebaseService);
   private readonly toastService = inject(ToastService);
@@ -40,9 +43,9 @@ export class SignupComponent {
     this.isLoading = false
 
     if (error) {
-      this.toastService.error('Oops! Something wrong happened.');
+      this.toastService.error(GlobalMessages.t('toasts.genericError'));
     } else {
-      this.toastService.success("Welcome! It's great to see you.");
+      this.toastService.success(GlobalMessages.t('toasts.welcome'));
       this.router.navigate(['/login']);
     }
   }
@@ -55,9 +58,9 @@ export class SignupComponent {
     this.isLoading = false;
 
     if (error) {
-      this.toastService.error('Failed to connect with Google. Please try again.');
+      this.toastService.error(GlobalMessages.t('toasts.googleError'));
     } else {
-      this.toastService.success("Welcome! It's great to see you.");
+      this.toastService.success(GlobalMessages.t('toasts.welcome'));
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
@@ -76,11 +79,11 @@ export class SignupComponent {
 
     if (error) {
       if (error.code == 'auth/account-exists-with-different-credential')
-        this.toastService.error('You’ve already used this email with another login method. Please connect using that provider.', 6000);
+        this.toastService.error(GlobalMessages.t('toasts.accountExistsDifferent'), 6000);
       else
-        this.toastService.error('Failed to connect with Github. Please try again.');
+        this.toastService.error(GlobalMessages.t('toasts.githubError'));
     } else {
-      this.toastService.success("Welcome! It's great to see you.");
+      this.toastService.success(GlobalMessages.t('toasts.welcome'));
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);

@@ -1,0 +1,46 @@
+{
+    "auth": {
+        "signup": {
+            "title": "Crie sua conta",
+            "subtitle": "Comece sua jornada com <b>iBozzi</b>",
+            "email": "E-mail",
+            "password": "Senha",
+            "confirmPassword": "Confirmar senha",
+            "emailPlaceholder": "pedro@email.com",
+            "passwordPlaceholder": "insira sua nova senha",
+            "confirmPasswordPlaceholder": "repita sua senha",
+            "invalid": "Inválido",
+            "mismatch": "As senhas não coincidem",
+            "register": "Registrar",
+            "or": "Ou",
+            "already": "Já tem uma conta?",
+            "signin": "Entrar"
+        },
+        "login": {
+            "title": "Bem-vindo de volta",
+            "subtitle": "Entre na sua conta <b>iBozzi</b>",
+            "emailPlaceholder": "pedro@mail.com",
+            "passwordPlaceholder": "insira sua senha",
+            "forgot": "Esqueceu sua senha?",
+            "signin": "Entrar",
+            "dontHave": "Não tem uma conta?",
+            "signup": "Registrar"
+        }
+    },
+    "home": {
+        "logout": "Sair"
+    },
+    "toasts": {
+        "welcome": "Bem-vindo! É ótimo ter você aqui.",
+        "welcomeBack": "Bem-vindo de volta! Que bom ver você novamente.",
+        "genericError": "Ops! Algo deu errado.",
+        "loginInvalid": "Ops! Essas informações de login não parecem corretas.",
+        "googleError": "Falha ao conectar com o Google. Por favor, tente novamente.",
+        "githubError": "Falha ao conectar com o Github. Por favor, tente novamente.",
+        "accountExistsDifferent": "Você já usou este e-mail com outro método de login. Por favor, conecte-se usando esse provedor."
+    },
+    "common": {
+        "copyright": "Direitos autorais © 2025 ",
+        "author": "Dennis Bozzi"
+    }
+}

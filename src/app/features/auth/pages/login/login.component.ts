@@ -4,12 +4,13 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { FirebaseService } from '@/core/services/firebase.service';
 import { ToastService } from '@/core/services/toast.service';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe, SafeHtmlPipe } from '@/shared/pipes';
+import { GlobalMessages } from '@/shared/i18n/global-messages';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  imports: [FormsModule, CommonModule, TranslatePipe, SafeHtmlPipe],
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
 
@@ -39,9 +40,9 @@ export class LoginComponent {
 
     this.isLoading = false
     if (error) {
-      this.toastService.error('Oops! That login information doesn’t look right.');
+      this.toastService.error(GlobalMessages.t('toasts.loginInvalid'));
     } else {
-      this.toastService.success('Welcome back! Great to see you again.');
+      this.toastService.success(GlobalMessages.t('toasts.welcomeBack'));
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
@@ -59,9 +60,9 @@ export class LoginComponent {
     this.isLoading = false;
 
     if (error) {
-      this.toastService.error('Failed to connect with Google. Please try again.');
+      this.toastService.error(GlobalMessages.t('toasts.googleError'));
     } else {
-      this.toastService.success('Welcome back! Great to see you again.');
+      this.toastService.success(GlobalMessages.t('toasts.welcomeBack'));
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
@@ -79,9 +80,9 @@ export class LoginComponent {
     this.isLoading = false;
 
     if (error) {
-      this.toastService.error('Failed to connect with Github. Please try again.');
+      this.toastService.error(GlobalMessages.t('toasts.githubError'));
     } else {
-      this.toastService.success('Welcome back! Great to see you again.');
+      this.toastService.success(GlobalMessages.t('toasts.welcomeBack'));
       const returnUrl = this.route.snapshot.queryParams['returnUrl'];
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);

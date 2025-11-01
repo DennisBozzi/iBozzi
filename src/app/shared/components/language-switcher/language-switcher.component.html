@@ -1,0 +1,14 @@
+<div class="dropdown">
+    <div tabindex="0" role="button" class="btn btn-ghost btn-sm gap-1">
+        <img *ngIf="(currentLang$ | async) as lang" [src]="getCountryFlag(lang)" [alt]="getCountryCode(lang)" width="20" height="15" class="inline-block">
+        <span class="text-sm font-semibold hidden" *ngIf="(currentLang$ | async) as lang">{{ getCountryCode(lang) }}</span>
+    </div>
+    <ul tabindex="0" class="menu menu-sm dropdown-content rounded-box z-[1] p-1 shadow">
+        <li *ngFor="let l of languages">
+            <a (click)="setLanguage(l.code, $event)" class="flex items-center gap-2">
+                <img [src]="l.countryFlag" [alt]="l.countryCode" width="20"  class="inline-block">
+                <span class="font-semibold hidden">{{ l.countryCode }}</span>
+            </a>
+        </li>
+    </ul>
+</div>

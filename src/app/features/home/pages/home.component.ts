@@ -2,11 +2,13 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FirebaseService } from '@/core/services';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@/shared/pipes';
+import { LanguageSwitcherComponent } from '@/shared/components/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LanguageSwitcherComponent, TranslatePipe],
   templateUrl: 'home.component.html',
 })
 

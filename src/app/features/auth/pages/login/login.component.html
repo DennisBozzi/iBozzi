@@ -2,54 +2,52 @@
     <div class="card card-md !py-2 !bg-base-100 border-base-100 w-96 lg:p-4 lg:w-104 shadow-sm">
         <div class="card-body">
             <div class="mb-4 text-center">
-                <h3 class="font-semibold text-2xl">Welcome back</h3>
-                <p>Login to your <b>iBozzi</b> account</p>
+                <h3 class="font-semibold text-2xl">{{ 'auth.login.title' | t }}</h3>
+                <p [innerHTML]="('auth.login.subtitle' | t | safeHtml)"></p>
             </div>
 
             <div class="space-y-5">
                 <div class="space-y-2">
                     <div class="flex justify-between">
-                        <label class="text-sm font-medium tracking-wide">Email</label>
+                        <label class="text-sm font-medium tracking-wide">{{ 'auth.signup.email' | t }}</label>
                         <div *ngIf="submitted && emailCtrl.invalid" class="!text-sm text-error flex items-center gap-1">
                             <span class="material-symbols-outlined !text-sm">info</span>
-                            Invalid
+                            {{ 'auth.signup.invalid' | t }}
                         </div>
                     </div>
                     <input [(ngModel)]="email" type="email"
                         class="w-full text-base px-4 py-2 border rounded-lg focus:outline-none"
-                        placeholder="pedro@mail.com" email required #emailCtrl="ngModel">
+                        [placeholder]="'auth.login.emailPlaceholder' | t" email required #emailCtrl="ngModel">
                 </div>
 
                 <div class="space-y-2">
                     <div class="flex justify-between">
-                        <label class="text-sm font-medium tracking-wide">
-                            Password
-                        </label>
+                        <label class="text-sm font-medium tracking-wide">{{ 'auth.signup.password' | t }}</label>
                         <div *ngIf="submitted && passwordCtrl.invalid"
                             class="!text-sm text-error flex items-center gap-1">
                             <span class="material-symbols-outlined !text-sm">info</span>
-                            Invalid
+                            {{ 'auth.signup.invalid' | t }}
                         </div>
                     </div>
                     <input [(ngModel)]="password"
                         class="w-full content-center text-base px-4 py-2 border rounded-lg focus:outline-none"
-                        placeholder="enter your password" type="password" minlength="6" password required
-                        #passwordCtrl="ngModel">
+                        [placeholder]="'auth.login.passwordPlaceholder' | t" type="password" minlength="6" password
+                        required #passwordCtrl="ngModel">
                 </div>
                 <div class="text-sm text-end">
                     <a class="link link-hover text-primary">
-                        Forgot your password?
+                        {{ 'auth.login.forgot' | t }}
                     </a>
                 </div>
 
                 <button type="submit" (click)="signInWithEmail(emailCtrl, passwordCtrl)" class="btn btn-primary w-full">
                     <span *ngIf="isLoading" class="loading loading-spinner"></span>
-                    Sign in
+                    {{ 'auth.login.signin' | t }}
                 </button>
 
             </div>
 
-            <div class="divider my-2">Or</div>
+            <div class="divider my-2">{{ 'auth.signup.or' | t }}</div>
 
             <div class="flex justify-between">
                 <button (click)="loginWithGoogle()" class="btn w-[48%]">
@@ -74,17 +72,17 @@
 
             <div class="pt-5 text-center">
                 <span>
-                    Don't have an account?
-                    <a target="_blank" (click)="navigateToSignup()" class="text-green hover:text-primary link">Sign
-                        up</a>
+                    {{ 'auth.login.dontHave' | t }}
+                    <a target="_blank" (click)="navigateToSignup()" class="text-green hover:text-primary link">{{
+                        'auth.login.signup' | t }}</a>
                 </span>
             </div>
 
             <div class="pt-5 text-center text-gray-400 text-xs">
                 <span>
-                    Copyright © 2025
+                    <span>{{'common.copyright' | t}}</span>
                     <a [href]="'https://github.com/dennisbozzi'" target="_blank"
-                        class="text-green hover:text-primary">Dennis Bozzi</a>
+                        class="text-green hover:text-primary">{{ 'common.author' | t }}</a>
                 </span>
             </div>
         </div>
