@@ -15,6 +15,10 @@ export const LAYOUT_ROUTES: Routes = [
       {
         path: 'tenants',
         loadChildren: () => import('../../features/tenants/tenants.routes').then(m => m.TENANTS_ROUTES)
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('../../features/profile/profile.routes').then(m => m.PROFILE_ROUTES)
       }
     ]
   }

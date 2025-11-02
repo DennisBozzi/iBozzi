@@ -9,7 +9,7 @@
 
     <!-- Sidebar Header -->
     <div class="mt-4 p-4 px-3 flex items-center">
-      <button aria-label="Home" class="flex items-center btn btn-neutral cursor-pointer w-full text-start gap-1"
+      <button (click)="navTo('/home')" aria-label="Home" class="flex items-center btn btn-neutral cursor-pointer w-full text-start gap-1"
         [ngClass]="sidebarCollapsed ? 'p-1 ' : 'p-2'">
         <span class="material-symbols-outlined">
           cardiology
@@ -20,7 +20,7 @@
 
     <!-- Sidebar Content -->
     <ul class="flex-1 py-4 menu w-full" [class.px-3]="!sidebarCollapsed" [class.px-auto]="sidebarCollapsed">
-      <li>
+      <li (click)="navTo('/dashboard')">
         <a [class.justify-center]="sidebarCollapsed">
           <span class="material-symbols-outlined">
             dashboard
@@ -29,7 +29,7 @@
         </a>
       </li>
 
-      <li>
+      <li (click)="navTo('/apartments')">
         <a [class.justify-center]="sidebarCollapsed">
           <span class="material-symbols-outlined">
             apartment
@@ -38,7 +38,7 @@
         </a>
       </li>
 
-      <li>
+      <li (click)="navTo('/tenants')">
         <a [class.justify-center]="sidebarCollapsed">
           <span class="material-symbols-outlined">
             group
@@ -47,7 +47,7 @@
         </a>
       </li>
 
-      <li>
+      <li (click)="navTo('/payments')">
         <a [class.justify-center]="sidebarCollapsed">
           <span class="material-symbols-outlined">
             payments
@@ -60,7 +60,7 @@
 
     <!-- Sidebar Footer -->
     <div class="p-4 pb-6">
-      <button tabindex="0" class="btn btn-ghost" [class.btn-circle]="sidebarCollapsed"
+      <button tabindex="0" class="btn btn-ghost" (click)="navTo('/profile')" [class.btn-circle]="sidebarCollapsed"
         [class.w-full]="!sidebarCollapsed">
         <div *ngIf="!sidebarCollapsed" class="flex gap-3 w-full items-center">
           <div class="avatar avatar-placeholder">
@@ -92,7 +92,7 @@
   <div class="flex-1 flex flex-col w-full lg:w-auto">
     <!-- Header -->
     <div class="bg-base-300 mt-4 mr-4 mb-4 lg:ml-0 ml-4 rounded-xl h-screen">
-      <header class="px-4 lg:px-6 pt-4 pb-2">
+      <header *ngIf="showHeader" class="px-4 lg:px-6 pt-4 pb-2">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             <button aria-label="Abrir menu" (click)="openMobileMenu()"
@@ -113,7 +113,7 @@
               </span>
             </button>
             <div class="divider divider-horizontal py-2 m-0"></div>
-            <h1 class="font-semibold">{{'home.title' | t}}</h1>
+            <h1 class="font-semibold">{{ headerTitle ? (headerTitle | t) : ('home.title' | t) }}</h1>
           </div>
 
           <div class="flex items-center gap-2">
@@ -121,7 +121,7 @@
           </div>
         </div>
       </header>
-      <div class="divider m-0 px-4"></div>
+      <div *ngIf="showHeader" class="divider m-0 px-4"></div>
 
       <!-- Main Content -->
       <main class="flex-1">

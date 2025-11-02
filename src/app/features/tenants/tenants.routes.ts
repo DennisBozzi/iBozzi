@@ -4,6 +4,10 @@ export const TENANTS_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/tenants-list/tenants-list.component').then(m => m.TenantsListComponent),
-    title: 'Inquilinos - iBozzi'
+    title: 'Inquilinos - iBozzi',
+    data: {
+      showHeader: true,
+      headerTitle: 'layout.tenants'
+    },
   }
 ];

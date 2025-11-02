@@ -4,6 +4,10 @@ export const HOME_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home.component').then(m => m.HomeComponent),
-    title: 'Home - iBozzi'
+    title: 'Home - iBozzi',
+    data: {
+      showHeader: true,
+      headerTitle: 'layout.home'
+    },
   }
 ];

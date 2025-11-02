@@ -32,7 +32,8 @@
         "apartments": "Apartments",
         "tenants": "Tenants",
         "payments": "Payments",
-        "noName": "No name"
+        "noName": "No name",
+        "home": "Home"
     },
     "home": {
         "title": "Home",
