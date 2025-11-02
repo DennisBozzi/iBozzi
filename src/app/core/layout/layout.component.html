@@ -1,10 +1,132 @@
-<div class="min-h-dvh">
-  <!-- Header/Navbar -->
-  <header>
-  </header>
+<div class="flex h-screen ">
+  <!-- Mobile Overlay -->
+  <div *ngIf="mobileMenuOpen" (click)="closeMobileMenu()" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
 
-  <!-- Main Content -->
-  <main class="flex h-dvh">
-      <router-outlet />
-  </main>
+  <!-- Sidebar -->
+  <aside [class]="sidebarCollapsed ? 'w-16' : 'w-64'"
+    class="bg-base-100 border-base-100 transition-all duration-300 flex flex-col fixed lg:static h-full z-50 lg:z-auto"
+    [class.-translate-x-full]="!mobileMenuOpen" [class.translate-x-0]="mobileMenuOpen" [class.lg:translate-x-0]="true">
+
+    <!-- Sidebar Header -->
+    <div class="mt-4 p-4 px-3 flex items-center">
+      <button aria-label="Home" class="flex items-center btn btn-neutral cursor-pointer w-full text-start gap-1"
+        [ngClass]="sidebarCollapsed ? 'p-1 ' : 'p-2'">
+        <span class="material-symbols-outlined">
+          cardiology
+        </span>
+        <span *ngIf="!sidebarCollapsed" class="font-semibold text-base">iBozzi</span>
+      </button>
+    </div>
+
+    <!-- Sidebar Content -->
+    <ul class="flex-1 py-4 menu w-full" [class.px-3]="!sidebarCollapsed" [class.px-auto]="sidebarCollapsed">
+      <li>
+        <a [class.justify-center]="sidebarCollapsed">
+          <span class="material-symbols-outlined">
+            dashboard
+          </span>
+          <span *ngIf="!sidebarCollapsed">{{'layout.dashboard' | t}}</span>
+        </a>
+      </li>
+
+      <li>
+        <a [class.justify-center]="sidebarCollapsed">
+          <span class="material-symbols-outlined">
+            apartment
+          </span>
+          <span *ngIf="!sidebarCollapsed">{{'layout.apartments' | t}}</span>
+        </a>
+      </li>
+
+      <li>
+        <a [class.justify-center]="sidebarCollapsed">
+          <span class="material-symbols-outlined">
+            group
+          </span>
+          <span *ngIf="!sidebarCollapsed">{{'layout.tenants' | t}}</span>
+        </a>
+      </li>
+
+      <li>
+        <a [class.justify-center]="sidebarCollapsed">
+          <span class="material-symbols-outlined">
+            payments
+          </span>
+          <span *ngIf="!sidebarCollapsed">{{'layout.payments' | t}}</span>
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- Sidebar Footer -->
+    <div class="p-4 pb-6">
+      <button tabindex="0" class="btn btn-ghost" [class.btn-circle]="sidebarCollapsed"
+        [class.w-full]="!sidebarCollapsed">
+        <div *ngIf="!sidebarCollapsed" class="flex gap-3 w-full items-center">
+          <div class="avatar avatar-placeholder">
+            <div class="bg-neutral text-neutral-content size-8 rounded-full">
+              <span class="material-symbols-outlined">
+                person
+              </span>
+            </div>
+          </div>
+          <div class="flex flex-col items-start flex-1 min-w-0">
+            <span class="text-sm font-medium truncate w-full">{{user?.displayName ? user?.displayName :
+              'layout.noName' | t}}</span>
+            <span class="text-xs text-base-content/60 truncate w-full">{{user?.email}}</span>
+          </div>
+        </div>
+
+        <div *ngIf="sidebarCollapsed" class="avatar avatar-placeholder">
+          <div class="bg-neutral text-neutral-content size-8 rounded-full">
+            <span class="material-symbols-outlined">
+              person
+            </span>
+          </div>
+        </div>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col w-full lg:w-auto">
+    <!-- Header -->
+    <div class="bg-base-300 mt-4 mr-4 mb-4 lg:ml-0 ml-4 rounded-xl h-screen">
+      <header class="px-4 lg:px-6 pt-4 pb-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <button aria-label="Abrir menu" (click)="openMobileMenu()"
+              class="btn btn-ghost btn-circle rounded-xl lg:hidden">
+              <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined">
+                  dock_to_right
+                </span>
+              </span>
+            </button>
+
+            <button aria-label="Abrir menu" (click)="toggleSidebar()"
+              class="btn btn-sm btn-ghost btn-circle rounded-xl hidden lg:flex">
+              <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined">
+                  dock_to_right
+                </span>
+              </span>
+            </button>
+            <div class="divider divider-horizontal py-2 m-0"></div>
+            <h1 class="font-semibold">{{'home.title' | t}}</h1>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <app-language-switcher />
+          </div>
+        </div>
+      </header>
+      <div class="divider m-0 px-4"></div>
+
+      <!-- Main Content -->
+      <main class="flex-1">
+        <router-outlet />
+      </main>
+    </div>
+  </div>
 </div>

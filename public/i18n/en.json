@@ -27,7 +27,15 @@
             "signup": "Sign up"
         }
     },
+    "layout": {
+        "dashboard": "Dashboard",
+        "apartments": "Apartments",
+        "tenants": "Tenants",
+        "payments": "Payments",
+        "noName": "No name"
+    },
     "home": {
+        "title": "Home",
         "logout": "Logout"
     },
     "toasts": {

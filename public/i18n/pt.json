@@ -27,7 +27,15 @@
             "signup": "Registrar"
         }
     },
+    "layout": {
+        "dashboard": "Dashboard",
+        "apartments": "Apartamentos",
+        "tenants": "Inquilinos",
+        "payments": "Pagamentos",
+        "noName": "Sem nome"
+    },
     "home": {
+        "title": "Início",
         "logout": "Sair"
     },
     "toasts": {
