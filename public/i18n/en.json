@@ -39,6 +39,9 @@
         "title": "Home",
         "logout": "Logout"
     },
+    "profile": {
+        "admin": "Admin"
+    },
     "toasts": {
         "welcome": "Welcome! It's great to see you.",
         "welcomeBack": "Welcome back! Great to see you again.",

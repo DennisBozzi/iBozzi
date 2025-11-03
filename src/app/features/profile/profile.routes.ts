@@ -4,7 +4,7 @@ export const PROFILE_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/profile.component').then(m => m.ProfileComponent),
-    title: 'Inquilinos - iBozzi',
+    title: 'Profile - iBozzi',
     data: {
       showHeader: false
     },

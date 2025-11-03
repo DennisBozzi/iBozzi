@@ -9,14 +9,17 @@
 
     <!-- Sidebar Header -->
     <div class="mt-4 p-4 px-3 flex items-center">
-      <button (click)="navTo('/home')" aria-label="Home" class="flex items-center btn btn-soft  btn-sm cursor-pointer w-full text-start gap-1"
-        [ngClass]="sidebarCollapsed ? 'p-1 ' : 'p-2'">
+      <button (click)="navTo('/home')" aria-label="Home"
+        class="flex items-center btn btn-sm cursor-pointer w-full text-start gap-1"
+        [ngClass]="sidebarCollapsed ? 'p-1 btn-soft' : 'p-2 btn-ghost '">
         <span class="material-symbols-outlined">
           cardiology
         </span>
         <span *ngIf="!sidebarCollapsed" class="font-semibold text-base">iBozzi</span>
       </button>
+
     </div>
+    <div class="divider m-0 px-4"></div>
 
     <!-- Sidebar Content -->
     <ul class="flex-1 py-4 menu w-full" [class.px-3]="!sidebarCollapsed" [class.px-auto]="sidebarCollapsed">
@@ -91,37 +94,28 @@
   <!-- Main Content Area -->
   <div class="flex-1 flex flex-col w-full lg:w-auto">
     <!-- Header -->
-    <div class="bg-base-300 mt-4 mr-4 mb-4 lg:ml-0 ml-4 rounded-xl h-screen">
+    <div class="bg-base-300 mt-4 mr-4 mb-4 lg:ml-0 ml-4 card h-screen">
       <header *ngIf="showHeader" class="px-4 lg:px-6 pt-4 pb-2">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             <button aria-label="Abrir menu" (click)="openMobileMenu()"
               class="btn btn-ghost btn-circle rounded-xl lg:hidden">
               <span class="material-symbols-outlined">
-                <span class="material-symbols-outlined">
-                  menu
-                </span>
+                menu
               </span>
             </button>
 
             <button aria-label="Abrir menu" (click)="toggleSidebar()"
               class="btn btn-sm btn-ghost btn-circle rounded-xl hidden lg:flex">
               <span class="material-symbols-outlined">
-                <span class="material-symbols-outlined">
-                  menu
-                </span>
+                menu
               </span>
             </button>
             <div class="divider divider-horizontal py-2 m-0"></div>
             <h1 class="font-semibold">{{ headerTitle ? (headerTitle | t) : ('home.title' | t) }}</h1>
           </div>
-
-          <div class="flex items-center gap-2">
-            <app-language-switcher />
-          </div>
         </div>
       </header>
-      <div *ngIf="showHeader" class="divider m-0 px-4"></div>
 
       <!-- Main Content -->
       <main class="flex-1">

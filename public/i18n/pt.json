@@ -39,6 +39,9 @@
         "title": "Início",
         "logout": "Sair"
     },
+    "profile": {
+        "admin": "Administrador"
+    },
     "toasts": {
         "welcome": "Bem-vindo! É ótimo ter você aqui.",
         "welcomeBack": "Bem-vindo de volta! Que bom ver você novamente.",

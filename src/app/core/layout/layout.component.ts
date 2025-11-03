@@ -3,20 +3,18 @@ import { Router, RouterOutlet, ActivatedRoute, NavigationEnd } from '@angular/ro
 import { FirebaseService } from '@/core/services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@/shared/pipes';
-import { LanguageSwitcherComponent } from "@/shared/components/language-switcher/language-switcher.component";
 import { User } from 'firebase/auth';
 import { filter } from 'rxjs';
 
 @Component({
     selector: 'layout',
-    imports: [RouterOutlet, CommonModule, TranslatePipe, LanguageSwitcherComponent],
+    imports: [RouterOutlet, CommonModule, TranslatePipe],
     templateUrl: './layout.component.html',
     styleUrl: './layout.component.scss'
 })
 
 export class LayoutComponent implements OnInit {
 
-    title = 'iBozzi';
     sidebarCollapsed = false;
     mobileMenuOpen = false;
     user: User | null = null;
@@ -69,10 +67,5 @@ export class LayoutComponent implements OnInit {
             }
             route = route.firstChild as ActivatedRoute;
         }
-    }
-
-    async signOut() {
-        await this.firebaseService.signOut();
-        this.router.navigate(['/auth/login']);
     }
 }
