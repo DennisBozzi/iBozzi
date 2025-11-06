@@ -6,3 +6,4 @@ export * from './tenants.service';
 export * from './theme.service';
 export * from './toast.service';
 export * from './translation.service';
+export * from './user-preferences.service';

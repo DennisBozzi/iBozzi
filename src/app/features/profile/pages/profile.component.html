@@ -1,19 +1,27 @@
-<div class="p-4 bg-neutral card rounded-b-[0px] h-56 relative">
+<div class="h-full relative">
+    <div class="p-4 bg-neutral card rounded-b-[0px] h-56 relative">
 
-    <div
-        class="flex items-center justify-center text-primary-content absolute size-28 rounded-full bg-primary -bottom-14 inset-x-0 mx-auto">
-        <span class="material-symbols-outlined !text-7xl">
-            person
-        </span>
+        <div
+            class="flex items-center justify-center text-primary-content absolute size-28 rounded-full bg-primary -bottom-14 inset-x-0 mx-auto">
+            <span class="material-symbols-outlined !text-7xl">
+                person
+            </span>
+        </div>
     </div>
-</div>
 
-<div class="mt-16">
-    <h1 class="text-xl font-semibold text-center truncate">{{user?.displayName ? user?.displayName : 'layout.noName' | t}}</h1>
-    <p class="text-center text-base-content/60 truncate">{{'profile.admin' | t}}</p>
-    <button class="btn btn-ghost" (click)="signOut()">Logout</button>
+    <div class="mt-16 max-w-[456px] flex flex-col mx-auto px-2">
+        <h1 class="text-xl font-semibold text-center truncate">{{user?.displayName ? user?.displayName : 'layout.noName' | t}}</h1>
+        <p class="text-center text-base-content/60 truncate">{{'profile.admin' | t}}</p>
 
-    <app-language-switcher />
+        <div class="flex gap-4 justify-between items-baseline text-sm mt-6">
+            <label class="w-24 font-semibold" for="lang">{{'profile.language' | t}}</label>
+            <app-language-switcher class="w-full" id="lang" [select]="true" />
+        </div>
 
-    <app-theme-switcher />
+        <div class="flex gap-4 justify-between items-baseline text-sm mt-4">
+            <label class="w-24 font-semibold" for="theme">{{'profile.theme' | t}}</label>
+            <app-theme-switcher class="w-full" id="theme" [select]="true" />
+        </div>
+    </div>
+    <button class="btn absolute bottom-4 right-4" (click)="signOut()">Logout</button>
 </div>

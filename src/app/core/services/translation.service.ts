@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { GlobalMessages } from '@/shared/i18n/global-messages';
+import { StorageService } from './storage.service';
 
 type LangCode = 'en' | 'pt';
 type Dictionary = Record<string, any>;
@@ -9,6 +10,7 @@ type Dictionary = Record<string, any>;
 @Injectable({ providedIn: 'root' })
 export class TranslationService {
   private readonly http = inject(HttpClient);
+  private readonly storageService = inject(StorageService);
 
   private currentLang$ = new BehaviorSubject<LangCode>(this.getInitialLang());
   private dictionaries = new Map<LangCode, Dictionary>();
@@ -29,7 +31,7 @@ export class TranslationService {
   setLanguage(lang: LangCode) {
     if (this.currentLang$.value === lang) return;
     this.ensureDictionaryLoaded(lang).then(() => {
-      localStorage.setItem('lang', lang);
+      this.storageService.set('lang', lang);
       this.currentLang$.next(lang);
     });
   }
@@ -70,7 +72,7 @@ export class TranslationService {
   }
 
   private getInitialLang(): LangCode {
-    const saved = (localStorage.getItem('lang') as LangCode | null);
+    const saved = (this.storageService.get('lang') as LangCode | null);
     if (saved === 'pt' || saved === 'en') return saved;
     const browser = navigator.language?.toLowerCase() ?? '';
     return browser.startsWith('pt') ? 'pt' : 'en';

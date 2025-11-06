@@ -33,14 +33,18 @@
         "tenants": "Tenants",
         "payments": "Payments",
         "noName": "No name",
-        "home": "Home"
+        "home": "Home",
+        "selectLanguage": "Select a language",
+        "selectTheme": "Select a theme"
     },
     "home": {
         "title": "Home",
         "logout": "Logout"
     },
     "profile": {
-        "admin": "Admin"
+        "admin": "Admin",
+        "language": "Language",
+        "theme": "Theme"
     },
     "toasts": {
         "welcome": "Welcome! It's great to see you.",

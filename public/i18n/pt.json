@@ -33,14 +33,18 @@
         "tenants": "Inquilinos",
         "payments": "Pagamentos",
         "noName": "Sem nome",
-        "home": "Início"
+        "home": "Início",
+        "selectLanguage": "Selecione um idioma",
+        "selectTheme": "Selecione um tema"
     },
     "home": {
         "title": "Início",
         "logout": "Sair"
     },
     "profile": {
-        "admin": "Administrador"
+        "admin": "Administrador",
+        "language": "Idioma",
+        "theme": "Tema"
     },
     "toasts": {
         "welcome": "Bem-vindo! É ótimo ter você aqui.",

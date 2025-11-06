@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser, Auth, updateProfile, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, linkWithPopup } from 'firebase/auth';
 import { getDatabase, ref, get, set, onValue, off, Database } from 'firebase/database';
 import { FirebaseStorage, getDownloadURL, getStorage, uploadBytes, ref as stRef } from 'firebase/storage';
@@ -17,6 +17,7 @@ export class FirebaseService {
     private readonly githubProvider: GithubAuthProvider;
     private userCache: FirebaseUser | null | undefined = undefined;
     private authInitialized = false;
+    private themeService: any;
 
     constructor() {
         this.auth = auth;
@@ -28,10 +29,18 @@ export class FirebaseService {
         this.initAuthStateListener();
     }
 
+    setThemeService(themeService: any): void {
+        this.themeService = themeService;
+    }
+
     private initAuthStateListener(): void {
-        onAuthStateChanged(this.auth, (user: FirebaseUser | null) => {
+        onAuthStateChanged(this.auth, async (user: FirebaseUser | null) => {
             this.userCache = user;
             this.authInitialized = true;
+
+            if (user && this.themeService) {
+                await this.themeService.loadAndApplyTheme();
+            }
         });
     }
 

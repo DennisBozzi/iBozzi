@@ -1,25 +1,36 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ThemeService } from '@/core/services';
-
-type ThemeValue = 'default' | 'retro' | 'cyberpunk' | 'valentine' | 'aqua' | 'forest';
+import { Theme } from '@/shared/types/theme.type';
+import { StorageService } from '@/core/services/storage.service';
+import { TranslatePipe } from "../../pipes/t.pipe";
 
 @Component({
     selector: 'app-theme-switcher',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule, TranslatePipe],
     templateUrl: './theme-switcher.component.html'
 })
 export class ThemeSwitcherComponent {
+    @Input() select: boolean = false;
+
     private readonly themeService = inject(ThemeService);
+    private readonly storageService = inject(StorageService);
 
     currentTheme$ = this.themeService.theme$;
 
-    setTheme(theme: ThemeValue, event: Event): void {
-        this.themeService.setTheme(theme);
-        (event.target as HTMLElement)?.blur();
-        if (document.activeElement instanceof HTMLElement) {
-            document.activeElement.blur();
-        }
+    selectedTheme: Theme = (this.storageService.get('theme') as Theme) || 'Default';
+
+    themes: Theme[] = ['Default', 'Retro', 'Cyberpunk', 'Valentine', 'Aqua', 'Forest'];
+
+    async setTheme(theme: Theme) {
+        this.selectedTheme = theme;
+        await this.themeService.setTheme(theme);
+    }
+
+    onSelectChange(event: Event): void {
+        const value = (event.target as HTMLSelectElement).value as Theme;
+        this.setTheme(value);
     }
 }
