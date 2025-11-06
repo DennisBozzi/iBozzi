@@ -1,4 +1,4 @@
-<select *ngIf="select; else dropdown" class="select border-0 select-sm w-full max-w-xs" [(ngModel)]="selectedLang"
+<select *ngIf="select; else dropdown" class="select border-0 select-sm w-full" [(ngModel)]="selectedLang"
     (change)="onSelectChange($event)">
     <option disabled value="">{{'layout.selectLanguage' | t}}</option>
     <option *ngFor="let l of languages" [value]="l.code">{{ l.label }}</option>

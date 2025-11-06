@@ -13,20 +13,21 @@
         </div>
     </div>
 
-    <div class="mt-16 max-w-[456px] flex flex-col mx-auto px-2">
-        <h1 class="text-xl font-semibold text-center truncate">{{user?.displayName ? user?.displayName : 'layout.noName'
-            | t}}</h1>
+    <div class="mt-16 max-w-[456px] flex flex-col mx-auto px-4">
+        <h1 class="text-xl font-semibold text-center truncate">
+            {{user?.displayName ? user?.displayName : 'layout.noName' | t}}
+        </h1>
         <p class="text-center text-base-content/60 truncate">{{'profile.admin' | t}}</p>
 
-        <div class="flex gap-4 justify-between items-baseline text-sm mt-6">
-            <label class="w-24 font-semibold" for="lang">{{'profile.language' | t}}</label>
+        <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
+            <label class="w-24 font-semibold pl-2 md:px-0" for="lang">{{'profile.language' | t}}</label>
             <app-language-switcher class="w-full" id="lang" [select]="true" />
         </div>
 
-        <div class="flex gap-4 justify-between items-baseline text-sm mt-4">
-            <label class="w-24 font-semibold" for="theme">{{'profile.theme' | t}}</label>
+        <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
+            <label class="w-24 font-semibold pl-2 md:px-0" for="theme">{{'profile.theme' | t}}</label>
             <app-theme-switcher class="w-full" id="theme" [select]="true" />
         </div>
     </div>
-    <button class="btn absolute bottom-4 right-4" (click)="signOut()">Logout</button>
+    <button class="btn absolute bottom-4 right-4" (click)="signOut()">{{'home.logout' | t}}</button>
 </div>

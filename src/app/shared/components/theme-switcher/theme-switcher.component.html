@@ -1,4 +1,4 @@
-<select *ngIf="select; else dropdown" class="select select-sm border-0 w-full max-w-xs" [(ngModel)]="selectedTheme"
+<select *ngIf="select; else dropdown" class="select select-sm border-0 w-full" [(ngModel)]="selectedTheme"
     (change)="onSelectChange($event)">
     <option disabled value="">{{'layout.selectTheme' | t}}</option>
     <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
