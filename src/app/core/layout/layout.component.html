@@ -1,61 +1,61 @@
 <div class="flex h-screen ">
   <!-- Mobile Overlay -->
-  <div *ngIf="mobileMenuOpen" (click)="closeMobileMenu()" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+  <div *ngIf="mobileMenuOpen$ | async" (click)="closeMobileMenu()" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
 
   <!-- Sidebar -->
-  <aside [class]="sidebarCollapsed ? 'w-16' : 'w-64'"
+  <aside [class]="(sidebarCollapsed$ | async) ? 'w-16' : 'w-64'"
     class="bg-base-100 border-base-100 transition-all duration-300 flex flex-col fixed lg:static h-full z-50 lg:z-auto"
-    [class.-translate-x-full]="!mobileMenuOpen" [class.translate-x-0]="mobileMenuOpen" [class.lg:translate-x-0]="true">
+    [class.-translate-x-full]="!(mobileMenuOpen$ | async)" [class.translate-x-0]="mobileMenuOpen$ | async" [class.lg:translate-x-0]="true">
 
     <!-- Sidebar Header -->
     <div class="mt-4 p-4 px-3 flex items-center">
       <button (click)="navTo('/home')" aria-label="Home"
         class="flex items-center btn btn-sm cursor-pointer w-full text-start gap-1"
-        [ngClass]="sidebarCollapsed ? 'p-1 btn-soft' : 'p-2 btn-ghost '">
+        [ngClass]="(sidebarCollapsed$ | async) ? 'p-1 btn-soft' : 'p-2 btn-ghost '">
         <span class="material-symbols-outlined">
           cardiology
         </span>
-        <span *ngIf="!sidebarCollapsed" class="font-semibold text-base">iBozzi</span>
+        <span *ngIf="!(sidebarCollapsed$ | async)" class="font-semibold text-base">iBozzi</span>
       </button>
 
     </div>
     <div class="divider m-0 px-4"></div>
 
     <!-- Sidebar Content -->
-    <ul class="flex-1 py-4 menu w-full" [class.px-3]="!sidebarCollapsed" [class.px-auto]="sidebarCollapsed">
+    <ul class="flex-1 py-4 menu w-full" [class.px-3]="!(sidebarCollapsed$ | async)" [class.px-auto]="sidebarCollapsed$ | async">
       <li (click)="navTo('/dashboard')">
-        <a [class.justify-center]="sidebarCollapsed">
+        <a [class.justify-center]="sidebarCollapsed$ | async">
           <span class="material-symbols-outlined">
             dashboard
           </span>
-          <span *ngIf="!sidebarCollapsed">{{'layout.dashboard' | t}}</span>
+          <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.dashboard' | t}}</span>
         </a>
       </li>
 
       <li (click)="navTo('/apartments')">
-        <a [class.justify-center]="sidebarCollapsed">
+        <a [class.justify-center]="sidebarCollapsed$ | async">
           <span class="material-symbols-outlined">
             apartment
           </span>
-          <span *ngIf="!sidebarCollapsed">{{'layout.apartments' | t}}</span>
+          <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.apartments' | t}}</span>
         </a>
       </li>
 
       <li (click)="navTo('/tenants')">
-        <a [class.justify-center]="sidebarCollapsed">
+        <a [class.justify-center]="sidebarCollapsed$ | async">
           <span class="material-symbols-outlined">
             group
           </span>
-          <span *ngIf="!sidebarCollapsed">{{'layout.tenants' | t}}</span>
+          <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.tenants' | t}}</span>
         </a>
       </li>
 
       <li (click)="navTo('/payments')">
-        <a [class.justify-center]="sidebarCollapsed">
+        <a [class.justify-center]="sidebarCollapsed$ | async">
           <span class="material-symbols-outlined">
             payments
           </span>
-          <span *ngIf="!sidebarCollapsed">{{'layout.payments' | t}}</span>
+          <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.payments' | t}}</span>
         </a>
       </li>
 
@@ -63,9 +63,9 @@
 
     <!-- Sidebar Footer -->
     <div class="p-4 pb-6">
-      <button tabindex="0" class="btn btn-ghost" (click)="navTo('/profile')" [class.btn-circle]="sidebarCollapsed"
-        [class.w-full]="!sidebarCollapsed">
-        <div *ngIf="!sidebarCollapsed" class="flex gap-3 w-full items-center">
+      <button tabindex="0" class="btn btn-ghost" (click)="navTo('/profile')" [class.btn-circle]="sidebarCollapsed$ | async"
+        [class.w-full]="!(sidebarCollapsed$ | async)">
+        <div *ngIf="!(sidebarCollapsed$ | async)" class="flex gap-3 w-full items-center">
           <div class="avatar avatar-placeholder">
             <div class="bg-neutral text-neutral-content size-8 rounded-full">
               <span class="material-symbols-outlined">
@@ -80,7 +80,7 @@
           </div>
         </div>
 
-        <div *ngIf="sidebarCollapsed" class="avatar avatar-placeholder">
+        <div *ngIf="sidebarCollapsed$ | async" class="avatar avatar-placeholder">
           <div class="bg-neutral text-neutral-content size-8 rounded-full">
             <span class="material-symbols-outlined">
               person

@@ -6,17 +6,21 @@ import { LanguageSwitcherComponent } from "@/shared/components/language-switcher
 import { ThemeSwitcherComponent } from "@/shared/components/theme-switcher/theme-switcher.component";
 import { User } from 'firebase/auth';
 import { TranslatePipe } from "../../../shared/pipes/t.pipe";
+import { MenuToggleButtonComponent } from "@/shared/components/menu-toggle-button/menu-toggle-button.component";
+import { MenuService } from '@/core/services/menu.service';
 
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [CommonModule, LanguageSwitcherComponent, ThemeSwitcherComponent, TranslatePipe],
+    imports: [CommonModule, LanguageSwitcherComponent, ThemeSwitcherComponent, TranslatePipe, MenuToggleButtonComponent],
     templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
 
     private readonly router = inject(Router);
     private readonly firebaseService = inject(FirebaseService);
+    readonly menuService = inject(MenuService);
+
     user: User | null = null;
 
     ngOnInit(): void {

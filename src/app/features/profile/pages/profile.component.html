@@ -1,4 +1,8 @@
 <div class="h-full relative">
+
+    <menu-toggle-button (mobileToggle)="menuService.openMobileMenu()" (desktopToggle)="menuService.toggleSidebar()">
+    </menu-toggle-button>
+
     <div class="p-4 bg-neutral card rounded-b-[0px] h-56 relative">
 
         <div
@@ -10,7 +14,8 @@
     </div>
 
     <div class="mt-16 max-w-[456px] flex flex-col mx-auto px-2">
-        <h1 class="text-xl font-semibold text-center truncate">{{user?.displayName ? user?.displayName : 'layout.noName' | t}}</h1>
+        <h1 class="text-xl font-semibold text-center truncate">{{user?.displayName ? user?.displayName : 'layout.noName'
+            | t}}</h1>
         <p class="text-center text-base-content/60 truncate">{{'profile.admin' | t}}</p>
 
         <div class="flex gap-4 justify-between items-baseline text-sm mt-6">

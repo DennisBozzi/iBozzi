@@ -1,10 +1,11 @@
-import { Component, Input, inject, OnInit } from '@angular/core';
+import { Component, Input, inject, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterOutlet, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { FirebaseService } from '@/core/services/firebase.service';
+import { MenuService } from '@/core/services/menu.service';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@/shared/pipes';
 import { User } from 'firebase/auth';
-import { filter } from 'rxjs';
+import { filter, Subject, takeUntil, Observable } from 'rxjs';
 
 @Component({
     selector: 'layout',
@@ -13,10 +14,10 @@ import { filter } from 'rxjs';
     styleUrl: './layout.component.scss'
 })
 
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
 
-    sidebarCollapsed = false;
-    mobileMenuOpen = false;
+    sidebarCollapsed$: Observable<boolean> | undefined;
+    mobileMenuOpen$: Observable<boolean> | undefined;
     user: User | null = null;
 
     @Input() showHeader = true;
@@ -25,27 +26,38 @@ export class LayoutComponent implements OnInit {
     private readonly router = inject(Router);
     private readonly firebaseService = inject(FirebaseService);
     private readonly activatedRoute = inject(ActivatedRoute);
+    private readonly menuService = inject(MenuService);
+    private readonly destroy$ = new Subject<void>();
 
     ngOnInit(): void {
+        this.sidebarCollapsed$ = this.menuService.sidebarCollapsed$;
+        this.mobileMenuOpen$ = this.menuService.mobileMenuOpen$;
         this.user = this.firebaseService.getCurrentUser();
         this.checkHeaderVisibility();
 
         this.router.events
-            .pipe(filter(event => event instanceof NavigationEnd))
+            .pipe(
+                filter(event => event instanceof NavigationEnd),
+                takeUntil(this.destroy$)
+            )
             .subscribe(() => this.checkHeaderVisibility());
     }
 
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
     toggleSidebar() {
-        this.sidebarCollapsed = !this.sidebarCollapsed;
+        this.menuService.toggleSidebar();
     }
 
     openMobileMenu() {
-        this.sidebarCollapsed = false;
-        this.mobileMenuOpen = true;
+        this.menuService.openMobileMenu();
     }
 
     closeMobileMenu() {
-        this.mobileMenuOpen = false;
+        this.menuService.closeMobileMenu();
     }
 
     navTo(route: string) {
