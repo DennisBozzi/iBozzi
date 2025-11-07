@@ -18,7 +18,7 @@
         </label>
     </div>
 
-    <div class="mt-16 max-w-[456px] w-full flex flex-col mx-auto px-4 flex-1 min-h-0">
+    <div class="mt-16 max-w-xl w-full flex flex-col mx-auto px-4 flex-1 min-h-0 ">
         <div class="flex items-center justify-center gap-2 flex-shrink-0">
             <div *ngIf="!isEditingName" class="flex-1 cursor-pointer hover:opacity-70 transition-opacity"
                 (click)="startEditingName()">
@@ -41,15 +41,20 @@
 
         <p class="text-center text-base-content/60 truncate flex-shrink-0">{{'profile.admin' | t}}</p>
 
+        <!-- Preferences -->
         <div class="overflow-y-auto flex-1 min-h-0 pr-2">
-            <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
-                <label class="w-24 font-semibold pl-2 md:px-0" for="lang">{{'profile.language' | t}}</label>
-                <app-language-switcher class="w-full" id="lang" [select]="true" />
-            </div>
+            <div class="bg-base-200 p-6 rounded-[1rem]">
+                <h1 class="text-lg font-semibold">Preferences</h1>
+                <h3 class="text-base-content/60">Personalize sua experiência na aplicação</h3>
+                <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-4">
+                    <label class="w-24 font-semibold" for="lang">{{'profile.language' | t}}</label>
+                    <app-language-switcher class="w-full" id="lang" [select]="true" />
+                </div>
 
-            <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
-                <label class="w-24 font-semibold pl-2 md:px-0" for="theme">{{'profile.theme' | t}}</label>
-                <app-theme-switcher class="w-full" id="theme" [select]="true" />
+                <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-4">
+                    <label class="w-24 font-semibold" for="theme">{{'profile.theme' | t}}</label>
+                    <app-theme-switcher class="w-full" id="theme" [select]="true" />
+                </div>
             </div>
         </div>
     </div>
