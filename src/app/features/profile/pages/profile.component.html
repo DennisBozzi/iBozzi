@@ -1,32 +1,56 @@
-<div class="h-full relative">
+<div class="h-full relative flex flex-col overflow-hidden">
 
     <menu-toggle-button (mobileToggle)="menuService.openMobileMenu()" (desktopToggle)="menuService.toggleSidebar()">
     </menu-toggle-button>
 
-    <div class="p-4 bg-neutral card rounded-b-[0px] h-56 relative">
+    <div class="p-4 bg-neutral card rounded-b-[0px] h-32 sm:h-56 relative flex-shrink-0 min-h-0">
 
-        <div
-            class="flex items-center justify-center text-primary-content absolute size-28 rounded-full bg-primary -bottom-14 inset-x-0 mx-auto">
-            <span class="material-symbols-outlined !text-7xl">
+        <label
+            class="flex items-center justify-center text-primary-content absolute size-28 rounded-full bg-primary -bottom-14 inset-x-0 mx-auto cursor-pointer hover:opacity-80 transition-opacity">
+            <span *ngIf="!user?.photoURL" class="material-symbols-outlined !text-7xl">
                 person
             </span>
-        </div>
+
+            <img *ngIf="user?.photoURL" class="rounded-full size-28 object-cover border-2 border-white"
+                [src]="user?.photoURL" alt="">
+
+            <input #photoInput type="file" accept="image/*" class="hidden" (change)="onPhotoSelected($event)">
+        </label>
     </div>
 
-    <div class="mt-16 max-w-[456px] flex flex-col mx-auto px-4">
-        <h1 class="text-xl font-semibold text-center truncate">
-            {{user?.displayName ? user?.displayName : 'layout.noName' | t}}
-        </h1>
-        <p class="text-center text-base-content/60 truncate">{{'profile.admin' | t}}</p>
+    <div class="mt-16 max-w-[456px] w-full flex flex-col mx-auto px-4 flex-1 min-h-0">
+        <div class="flex items-center justify-center gap-2 flex-shrink-0">
+            <div *ngIf="!isEditingName" class="flex-1 cursor-pointer hover:opacity-70 transition-opacity"
+                (click)="startEditingName()">
+                <h1 class="text-xl font-semibold text-center truncate">
+                    {{user?.displayName ? user?.displayName : 'layout.noName' | t}}
+                </h1>
+            </div>
 
-        <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
-            <label class="w-24 font-semibold pl-2 md:px-0" for="lang">{{'profile.language' | t}}</label>
-            <app-language-switcher class="w-full" id="lang" [select]="true" />
+            <div *ngIf="isEditingName" class="flex-1 flex items-center gap-2">
+                <input [(ngModel)]="editingNameValue" type="text" class="input border-0 input-sm w-full text-center"
+                    (keyup.enter)="saveName()" (keyup.escape)="cancelEditName()" autofocus>
+                <button class="btn btn-sm btn-primary px-1" (click)="saveName()">
+                    <span class="material-symbols-outlined text-sm">check</span>
+                </button>
+                <button class="btn btn-sm btn-ghost px-1" (click)="cancelEditName()">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            </div>
         </div>
 
-        <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
-            <label class="w-24 font-semibold pl-2 md:px-0" for="theme">{{'profile.theme' | t}}</label>
-            <app-theme-switcher class="w-full" id="theme" [select]="true" />
+        <p class="text-center text-base-content/60 truncate flex-shrink-0">{{'profile.admin' | t}}</p>
+
+        <div class="overflow-y-auto flex-1 min-h-0 pr-2">
+            <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
+                <label class="w-24 font-semibold pl-2 md:px-0" for="lang">{{'profile.language' | t}}</label>
+                <app-language-switcher class="w-full" id="lang" [select]="true" />
+            </div>
+
+            <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-6">
+                <label class="w-24 font-semibold pl-2 md:px-0" for="theme">{{'profile.theme' | t}}</label>
+                <app-theme-switcher class="w-full" id="theme" [select]="true" />
+            </div>
         </div>
     </div>
     <button class="btn absolute bottom-4 right-4" (click)="signOut()">{{'home.logout' | t}}</button>

@@ -1,11 +1,13 @@
 <div class="flex h-screen ">
   <!-- Mobile Overlay -->
-  <div *ngIf="mobileMenuOpen$ | async" (click)="closeMobileMenu()" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+  <div *ngIf="mobileMenuOpen$ | async" (click)="closeMobileMenu()" class="fixed inset-0 bg-black/50 z-40 lg:hidden">
+  </div>
 
   <!-- Sidebar -->
   <aside [class]="(sidebarCollapsed$ | async) ? 'w-16' : 'w-64'"
     class="bg-base-100 border-base-100 transition-all duration-300 flex flex-col fixed lg:static h-full z-50 lg:z-auto"
-    [class.-translate-x-full]="!(mobileMenuOpen$ | async)" [class.translate-x-0]="mobileMenuOpen$ | async" [class.lg:translate-x-0]="true">
+    [class.-translate-x-full]="!(mobileMenuOpen$ | async)" [class.translate-x-0]="mobileMenuOpen$ | async"
+    [class.lg:translate-x-0]="true">
 
     <!-- Sidebar Header -->
     <div class="mt-4 p-4 px-3 flex items-center">
@@ -22,7 +24,8 @@
     <div class="divider m-0 px-4"></div>
 
     <!-- Sidebar Content -->
-    <ul class="flex-1 py-4 menu w-full" [class.px-3]="!(sidebarCollapsed$ | async)" [class.px-auto]="sidebarCollapsed$ | async">
+    <ul class="flex-1 py-4 menu w-full" [class.px-3]="!(sidebarCollapsed$ | async)"
+      [class.px-auto]="sidebarCollapsed$ | async">
       <li (click)="navTo('/dashboard')">
         <a [class.justify-center]="sidebarCollapsed$ | async">
           <span class="material-symbols-outlined">
@@ -63,14 +66,16 @@
 
     <!-- Sidebar Footer -->
     <div class="p-4 pb-6">
-      <button tabindex="0" class="btn btn-ghost" (click)="navTo('/profile')" [class.btn-circle]="sidebarCollapsed$ | async"
-        [class.w-full]="!(sidebarCollapsed$ | async)">
+      <button tabindex="0" class="btn btn-ghost" (click)="navTo('/profile')"
+        [class.btn-circle]="sidebarCollapsed$ | async" [class.w-full]="!(sidebarCollapsed$ | async)">
         <div *ngIf="!(sidebarCollapsed$ | async)" class="flex gap-3 w-full items-center">
           <div class="avatar avatar-placeholder">
             <div class="bg-neutral text-neutral-content size-8 rounded-full">
-              <span class="material-symbols-outlined">
+              <span *ngIf="!user?.photoURL" class="material-symbols-outlined">
                 person
               </span>
+
+              <img *ngIf="user?.photoURL" class="rounded-full" [src]="user?.photoURL" alt="">
             </div>
           </div>
           <div class="flex flex-col items-start flex-1 min-w-0">
@@ -82,9 +87,11 @@
 
         <div *ngIf="sidebarCollapsed$ | async" class="avatar avatar-placeholder">
           <div class="bg-neutral text-neutral-content size-8 rounded-full">
-            <span class="material-symbols-outlined">
+            <span *ngIf="!user?.photoURL" class="material-symbols-outlined">
               person
             </span>
+
+            <img *ngIf="user?.photoURL" class="rounded-full" [src]="user?.photoURL" alt="">
           </div>
         </div>
       </button>
@@ -92,10 +99,10 @@
   </aside>
 
   <!-- Main Content Area -->
-  <div class="flex-1 flex flex-col w-full lg:w-auto">
+  <div class="flex-1 flex flex-col w-full lg:w-auto h-full overflow-hidden">
     <!-- Header -->
-    <div class="bg-base-300 mt-4 mr-4 mb-4 lg:ml-0 ml-4 card h-screen">
-      <header *ngIf="showHeader" class="px-4 lg:px-6 pt-4 pb-2">
+    <div class="bg-base-300 mt-4 mr-4 mb-4 lg:ml-0 ml-4 card flex flex-col flex-1 overflow-hidden">
+      <header *ngIf="showHeader" class="px-4 lg:px-6 pt-4 pb-2 flex-shrink-0">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             <button aria-label="Abrir menu" (click)="openMobileMenu()"
@@ -118,7 +125,7 @@
       </header>
 
       <!-- Main Content -->
-      <main class="flex-1">
+      <main class="flex-1 overflow-hidden min-h-0">
         <router-outlet />
       </main>
     </div>

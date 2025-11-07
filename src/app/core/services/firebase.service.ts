@@ -178,7 +178,7 @@ export class FirebaseService {
 
         const options = {
             maxSizeMB: 0.2,
-            maxWidthOrHeight: 240,
+            maxWidthOrHeight: 480,
             useWebWorker: true
         };
 
