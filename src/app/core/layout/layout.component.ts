@@ -4,8 +4,8 @@ import { FirebaseService } from '@/core/services/firebase.service';
 import { MenuService } from '@/core/services/menu.service';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@/shared/pipes';
-import { User } from 'firebase/auth';
 import { filter, Subject, takeUntil, Observable } from 'rxjs';
+import { User } from '@/shared/types/user.type';
 
 @Component({
     selector: 'layout',

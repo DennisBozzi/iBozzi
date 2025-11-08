@@ -39,7 +39,9 @@
             </div>
         </div>
 
-        <p class="text-center text-base-content/60 truncate flex-shrink-0">{{'profile.admin' | t}}</p>
+        <p class="text-center text-base-content/60 truncate flex-shrink-0">
+            {{user?.admin ? ('profile.admin' | t ): ('layout.demonstrative' | t) }}
+        </p>
 
         <!-- Cards -->
         <div class="overflow-y-auto flex-1 min-h-0 pr-2 flex flex-col gap-4">

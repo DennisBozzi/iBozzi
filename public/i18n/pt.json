@@ -35,7 +35,8 @@
         "noName": "Sem nome",
         "home": "Início",
         "selectLanguage": "Selecione um idioma",
-        "selectTheme": "Selecione um tema"
+        "selectTheme": "Selecione um tema",
+        "demonstrative": "Demonstrativo"
     },
     "home": {
         "title": "Início",

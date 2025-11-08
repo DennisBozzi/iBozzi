@@ -4,6 +4,8 @@ export interface User {
     displayName: string | null;
     photoURL: string | null;
     emailVerified: boolean;
+    admin: boolean;
+    providerData: any[];
 }
 
 export type SignupPayload = {

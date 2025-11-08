@@ -4,7 +4,7 @@ import { getDatabase, ref, get, set, onValue, off, Database } from 'firebase/dat
 import { FirebaseStorage, getDownloadURL, getStorage, uploadBytes, ref as stRef } from 'firebase/storage';
 import { auth, app } from '../config/firebase.config';
 import imageCompression from 'browser-image-compression';
-import { LoginPayload } from '@/shared/types/user.type';
+import { LoginPayload, User } from '@/shared/types/user.type';
 
 @Injectable({
     providedIn: 'root',
@@ -16,6 +16,7 @@ export class FirebaseService {
     private readonly googleProvider: GoogleAuthProvider;
     private readonly githubProvider: GithubAuthProvider;
     private userCache: FirebaseUser | null | undefined = undefined;
+    private userWithClaims: User | null | undefined = undefined;
     private authInitialized = false;
     private themeService: any;
 
@@ -34,11 +35,18 @@ export class FirebaseService {
     }
 
     private initAuthStateListener(): void {
-        onAuthStateChanged(this.auth, async (user: FirebaseUser | null) => {
-            this.userCache = user;
+        onAuthStateChanged(this.auth, async (firebaseUser: FirebaseUser | null) => {
+            this.userCache = firebaseUser;
+
+            if (firebaseUser) {
+                this.userWithClaims = await this.mapFirebaseUserToUser(firebaseUser);
+            } else {
+                this.userWithClaims = null;
+            }
+
             this.authInitialized = true;
 
-            if (user && this.themeService) {
+            if (firebaseUser && this.themeService) {
                 await this.themeService.loadAndApplyTheme();
             }
         });
@@ -53,6 +61,7 @@ export class FirebaseService {
                 payload.password
             );
             this.userCache = userCredential.user;
+            this.userWithClaims = await this.mapFirebaseUserToUser(userCredential.user);
             return { data: { user: userCredential.user }, error: null };
         } catch (error: any) {
             let errorMessage = error.message;
@@ -65,6 +74,7 @@ export class FirebaseService {
             const result = await signInWithPopup(this.auth, this.googleProvider);
             const user = result.user;
             this.userCache = user;
+            this.userWithClaims = await this.mapFirebaseUserToUser(user);
             return { data: { user: user }, error: null };
         } catch (error: any) {
             const errorCode = error.code;
@@ -79,6 +89,7 @@ export class FirebaseService {
             const result = await signInWithPopup(this.auth, this.githubProvider);
             const user = result.user;
             this.userCache = user;
+            this.userWithClaims = await this.mapFirebaseUserToUser(user);
             return { data: { user: user }, error: null };
         } catch (error: any) {
             const errorCode = error.code;
@@ -96,6 +107,7 @@ export class FirebaseService {
                 payload.password
             );
             this.userCache = userCredential.user;
+            this.userWithClaims = await this.mapFirebaseUserToUser(userCredential.user);
             return { data: { user: userCredential.user }, error: null };
         } catch (error: any) {
             let errorMessage = error.message;
@@ -107,6 +119,7 @@ export class FirebaseService {
         try {
             await signOut(this.auth);
             this.userCache = null;
+            this.userWithClaims = null;
             return { error: null };
         } catch (error: any) {
             return { error: { message: error.message } };
@@ -118,22 +131,29 @@ export class FirebaseService {
     }
 
     //User
-    async getUser(): Promise<{ data: { user: FirebaseUser | null } }> {
-        if (this.authInitialized)
-            return Promise.resolve({ data: { user: this.userCache ?? null } });
+    async getUser(): Promise<{ data: { user: User | null } }> {
+        if (this.authInitialized && this.userWithClaims !== undefined)
+            return Promise.resolve({ data: { user: this.userWithClaims ?? null } });
 
         return new Promise((resolve) => {
-            const unsubscribe = onAuthStateChanged(this.auth, (user: FirebaseUser | null) => {
+            const unsubscribe = onAuthStateChanged(this.auth, async (firebaseUser: FirebaseUser | null) => {
                 unsubscribe();
-                this.userCache = user;
+                this.userCache = firebaseUser;
+
+                if (firebaseUser) {
+                    this.userWithClaims = await this.mapFirebaseUserToUser(firebaseUser);
+                } else {
+                    this.userWithClaims = null;
+                }
+
                 this.authInitialized = true;
-                resolve({ data: { user } });
+                resolve({ data: { user: this.userWithClaims } });
             });
         });
     }
 
-    getCurrentUser(): FirebaseUser | null {
-        return this.auth.currentUser;
+    getCurrentUser(): User | null {
+        return this.userWithClaims ?? null;
     }
 
     async updateProfile(userName: string) {
@@ -152,6 +172,7 @@ export class FirebaseService {
             }
             const result = await linkWithPopup(this.auth.currentUser, this.githubProvider);
             this.userCache = result.user;
+            this.userWithClaims = await this.mapFirebaseUserToUser(result.user);
             return { data: { user: result.user }, error: null };
         } catch (error: any) {
             return { data: { user: null }, error: { message: error.message, code: error.code } };
@@ -165,6 +186,7 @@ export class FirebaseService {
             }
             const result = await linkWithPopup(this.auth.currentUser, this.googleProvider);
             this.userCache = result.user;
+            this.userWithClaims = await this.mapFirebaseUserToUser(result.user);
             return { data: { user: result.user }, error: null };
         } catch (error: any) {
             return { data: { user: null }, error: { message: error.message, code: error.code } };
@@ -304,5 +326,20 @@ export class FirebaseService {
                 };
             };
         });
+    }
+
+    private async mapFirebaseUserToUser(firebaseUser: FirebaseUser): Promise<User> {
+        const idTokenResult = await firebaseUser.getIdTokenResult(true);
+        const adminClaim = (idTokenResult.claims as any)?.['admin'] as boolean | undefined;
+
+        return {
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName,
+            photoURL: firebaseUser.photoURL,
+            emailVerified: firebaseUser.emailVerified,
+            admin: adminClaim ?? false,
+            providerData: firebaseUser.providerData
+        };
     }
 }

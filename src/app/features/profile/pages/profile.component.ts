@@ -5,11 +5,11 @@ import { FirebaseService, ToastService } from '@/core/services';
 import { Router } from '@angular/router';
 import { LanguageSwitcherComponent } from "@/shared/components/language-switcher/language-switcher.component";
 import { ThemeSwitcherComponent } from "@/shared/components/theme-switcher/theme-switcher.component";
-import { User } from 'firebase/auth';
 import { TranslatePipe } from "../../../shared/pipes/t.pipe";
 import { MenuToggleButtonComponent } from "@/shared/components/menu-toggle-button/menu-toggle-button.component";
 import { MenuService } from '@/core/services/menu.service';
 import { GlobalMessages } from '@/shared/i18n/global-messages';
+import { User } from '@/shared/types/user.type';
 
 @Component({
     selector: 'app-profile',
