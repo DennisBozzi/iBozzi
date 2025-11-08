@@ -13,8 +13,20 @@ export const LAYOUT_ROUTES: Routes = [
         loadChildren: () => import('../../features/home/home.routes').then(m => m.HOME_ROUTES)
       },
       {
+        path: 'dashboard',
+        loadChildren: () => import('../../features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+      },
+      {
         path: 'tenants',
         loadChildren: () => import('../../features/tenants/tenants.routes').then(m => m.TENANTS_ROUTES)
+      },
+      {
+        path: 'apartments',
+        loadChildren: () => import('../../features/apartments/apartments.routes').then(m => m.APARTMENTS_ROUTES)
+      },
+      {
+        path: 'payments',
+        loadChildren: () => import('../../features/payments/payments.routes').then(m => m.PAYMENTS_ROUTES)
       },
       {
         path: 'profile',

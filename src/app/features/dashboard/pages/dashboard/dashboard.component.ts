@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-tenants-list',
+  selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './tenants-list.component.html'
+  templateUrl: './dashboard.component.html'
 })
-export class TenantsListComponent { }
+export class DashboardComponent { }
