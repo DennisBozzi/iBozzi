@@ -22,7 +22,7 @@ export class ThemeSwitcherComponent {
 
     selectedTheme: Theme = (this.storageService.get('theme') as Theme) || 'Default';
 
-    themes: Theme[] = ['Default', 'Retro', 'Cyberpunk', 'Valentine', 'Aqua', 'Forest'];
+    themes: Theme[] = ['Default', 'Retro', 'Cyberpunk', 'Valentine', 'Luxury', 'Forest'];
 
     async setTheme(theme: Theme) {
         this.selectedTheme = theme;

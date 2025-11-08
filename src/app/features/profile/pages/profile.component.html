@@ -6,19 +6,19 @@
     <div class="p-4 bg-neutral card rounded-b-[0px] h-32  relative flex-shrink-0 min-h-0">
 
         <label
-            class="flex items-center justify-center text-primary-content absolute size-28 rounded-full bg-primary -bottom-14 inset-x-0 mx-auto cursor-pointer hover:opacity-80 transition-opacity">
+            class="flex items-center justify-center text-primary-content absolute size-28 rounded-full card bg-primary -bottom-14 inset-x-0 mx-auto cursor-pointer hover:opacity-80 transition-opacity">
             <span *ngIf="!user?.photoURL" class="material-symbols-outlined !text-7xl">
                 person
             </span>
 
-            <img *ngIf="user?.photoURL" class="rounded-full size-28 object-cover border-2 border-white"
+            <img *ngIf="user?.photoURL" class="rounded-full size-28 object-cover border-2 border-primary"
                 [src]="user?.photoURL" alt="">
 
             <input #photoInput type="file" accept="image/*" class="hidden" (change)="onPhotoSelected($event)">
         </label>
     </div>
 
-    <div class="mt-16 max-w-xl w-full flex flex-col mx-auto px-4 flex-1 min-h-0 ">
+    <div class="mt-16 max-w-3xl w-full flex flex-col mx-auto px-4 flex-1 min-h-0 ">
         <div class="flex items-center justify-center gap-2 flex-shrink-0">
             <div *ngIf="!isEditingName" class="flex-1 cursor-pointer hover:opacity-70 transition-opacity"
                 (click)="startEditingName()">
@@ -30,7 +30,7 @@
             <div *ngIf="isEditingName" class="flex-1 flex items-center gap-2">
                 <input [(ngModel)]="editingNameValue" type="text" class="input border-0 input-sm w-full text-center"
                     (keyup.enter)="saveName()" (keyup.escape)="cancelEditName()" autofocus>
-                <button class="btn btn-sm btn-primary px-1" (click)="saveName()">
+                <button class="btn btn-sm btn-primary px-1 shadow-none" (click)="saveName()">
                     <span class="material-symbols-outlined text-sm">check</span>
                 </button>
                 <button class="btn btn-sm btn-ghost px-1" (click)="cancelEditName()">
@@ -45,9 +45,9 @@
         <div class="overflow-y-auto flex-1 min-h-0 pr-2 flex flex-col gap-4">
             <!-- Preferences -->
             <div class="bg-base-200 p-4 md:p-6 card rounded-[--radius-box] mt-4">
-                <h1 class="text-lg font-semibold">Preferences</h1>
-                <h3 class="text-sm text-base-content/60">Personalize sua experiência na aplicação</h3>
-                <div class="flex flex-col gap-2 justify-between items-baseline text-sm mt-6">
+                <h1 class="text-lg font-semibold">{{'profile.preferences' | t}}</h1>
+                <h3 class="text-sm text-base-content/60 truncate">{{'profile.personalizeExperience' | t}}</h3>
+                <div class="flex flex-col gap-2 justify-between items-baseline text-sm mt-4">
                     <div class="flex items-center gap-2">
                         <span class="material-symbols-outlined !text-xl">
                             language
@@ -73,12 +73,12 @@
 
             <!-- Integrations -->
             <div class="bg-base-200 p-4 md:p-6 card rounded-[--radius-box]">
-                <h1 class="text-lg font-semibold">Integrações</h1>
-                <h3 class="text-sm text-base-content/60">Conecte suas contas externas para uma melhor experiência</h3>
+                <h1 class="text-lg font-semibold">{{'profile.integrations' | t}}</h1>
+                <h3 class="text-sm text-base-content/60 truncate">{{'profile.connectExternal' | t}}</h3>
 
-                <h3 class="text-sm font-semibold mt-4">Contas conectadas</h3>
-                <div
-                    class="card flex-row items-center justify-between border border-error rounded-[--radius-box] mt-4 px-3 p-2">
+                <h3 class="text-sm font-semibold mt-4">{{'profile.connectedAccounts' | t}}</h3>
+                <div class="card flex-row items-center justify-between border border-error/60 rounded-[--radius-box] mt-4 px-3 p-2"
+                    [ngClass]="linkedGoogle() ? '!border-accent' : ''">
                     <div class="flex items-center md:gap-4 gap-2 text-sm">
                         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="size-8">
                             <title>Google</title>
@@ -87,12 +87,15 @@
                         </svg>
                         <div>
                             <p>Google</p>
-                            <p class="text-sm text-base-content/60">Não conectado</p>
+                            <p class="text-sm text-base-content/60">
+                                {{ linkedGoogle() ? ('profile.connected' | t) : ('profile.notConnected' | t) }}
+                            </p>
                         </div>
                     </div>
 
                     <label class="toggle text-base-content">
-                        <input type="checkbox" />
+                        <input type="checkbox" [checked]="linkedGoogle()" (change)="connectGoogle()"
+                            [disabled]="linkedGoogle()" />
                         <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill="none"
                                 stroke="currentColor">
@@ -107,8 +110,8 @@
                     </label>
                 </div>
 
-                <div
-                    class="card flex-row items-center justify-between border border-error rounded-[--radius-box] mt-4 px-3 p-2">
+                <div class="card flex-row items-center justify-between border border-error/60 rounded-[--radius-box] mt-4 px-3 p-2"
+                    [ngClass]="linkedGithub() ? '!border-accent' : ''">
                     <div class="flex items-center md:gap-4 gap-2 text-sm">
                         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="size-8">
                             <title>GitHub</title>
@@ -117,12 +120,15 @@
                         </svg>
                         <div>
                             <p>GitHub</p>
-                            <p class="text-sm text-base-content/60">Não conectado</p>
+                            <p class="text-sm text-base-content/60">
+                                {{ linkedGithub() ? ('profile.connected' | t) : ('profile.notConnected' | t) }}
+                            </p>
                         </div>
                     </div>
 
                     <label class="toggle text-base-content">
-                        <input type="checkbox" />
+                        <input type="checkbox" [checked]="linkedGithub()" (change)="connectGithub()"
+                            [disabled]="linkedGithub()" />
                         <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill="none"
                                 stroke="currentColor">
@@ -137,6 +143,11 @@
                     </label>
                 </div>
             </div>
+            <button class="btn btn-neutral shadow-none" (click)="signOut()">
+
+                <span class="material-symbols-outlined">
+                    logout
+                </span>
+                {{'home.logout' | t}}</button>
         </div>
-        <button class="btn absolute bottom-4 right-4" (click)="signOut()">{{'home.logout' | t}}</button>
     </div>

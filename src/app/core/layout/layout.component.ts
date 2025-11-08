@@ -25,7 +25,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     private readonly router = inject(Router);
     private readonly firebaseService = inject(FirebaseService);
-    private readonly activatedRoute = inject(ActivatedRoute);
     private readonly menuService = inject(MenuService);
     private readonly destroy$ = new Subject<void>();
 
@@ -62,6 +61,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     navTo(route: string) {
         this.router.navigate([route]);
+        this.closeMobileMenu();
     }
 
     private checkHeaderVisibility(): void {

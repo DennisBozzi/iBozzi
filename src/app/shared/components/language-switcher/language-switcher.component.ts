@@ -21,8 +21,8 @@ export class LanguageSwitcherComponent {
     selectedLang: LangCode = (this.StorageService.get('lang') as LangCode) || 'en';
 
     languages: Array<{ code: LangCode; label: string; countryCode: string, countryFlag: string }> = [
-        { code: 'en', label: 'English', labelShort: 'EN', countryCode: 'US', countryFlag: '/flags/us.svg' } as any,
-        { code: 'pt', label: 'Português', labelShort: 'PT', countryCode: 'BR', countryFlag: '/flags/br.svg' } as any,
+        { code: 'en', label: 'English (US)', labelShort: 'EN', countryCode: 'US', countryFlag: '/flags/us.svg' } as any,
+        { code: 'pt', label: 'Português (Brasil)', labelShort: 'PT', countryCode: 'BR', countryFlag: '/flags/br.svg' } as any,
     ] as any;
 
     currentLang$ = this.i18n.lang$;

@@ -44,7 +44,14 @@
     "profile": {
         "admin": "Administrador",
         "language": "Idioma",
-        "theme": "Tema"
+        "theme": "Tema",
+        "preferences": "Preferências",
+        "personalizeExperience": "Personalize sua experiência na aplicação",
+        "integrations": "Integrações",
+        "connectExternal": "Conecte suas contas externas para uma melhor experiência",
+        "connectedAccounts": "Contas conectadas",
+        "connected": "Conectado",
+        "notConnected": "Não conectado"
     },
     "toasts": {
         "welcome": "Bem-vindo! É ótimo ter você aqui.",
@@ -53,7 +60,10 @@
         "loginInvalid": "Ops! Essas informações de login não parecem corretas.",
         "googleError": "Falha ao conectar com o Google. Por favor, tente novamente.",
         "githubError": "Falha ao conectar com o Github. Por favor, tente novamente.",
-        "accountExistsDifferent": "Você já usou este e-mail com outro método de login. Por favor, conecte-se usando esse provedor."
+        "accountExistsDifferent": "Você já usou este e-mail com outro método de login. Por favor, conecte-se usando esse provedor.",
+        "linkedGithub": "Conta do GitHub integrada com sucesso!",
+        "linkedGoogle": "Conta do Google integrada com sucesso!",
+        "linkedError": "Houve um erro ao integrar sua conta."
     },
     "common": {
         "copyright": "Direitos autorais © 2025 ",

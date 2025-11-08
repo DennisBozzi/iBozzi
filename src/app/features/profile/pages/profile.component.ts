@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FirebaseService } from '@/core/services';
+import { FirebaseService, ToastService } from '@/core/services';
 import { Router } from '@angular/router';
 import { LanguageSwitcherComponent } from "@/shared/components/language-switcher/language-switcher.component";
 import { ThemeSwitcherComponent } from "@/shared/components/theme-switcher/theme-switcher.component";
@@ -9,6 +9,7 @@ import { User } from 'firebase/auth';
 import { TranslatePipe } from "../../../shared/pipes/t.pipe";
 import { MenuToggleButtonComponent } from "@/shared/components/menu-toggle-button/menu-toggle-button.component";
 import { MenuService } from '@/core/services/menu.service';
+import { GlobalMessages } from '@/shared/i18n/global-messages';
 
 @Component({
     selector: 'app-profile',
@@ -20,6 +21,7 @@ export class ProfileComponent implements OnInit {
 
     private readonly router = inject(Router);
     private readonly firebaseService = inject(FirebaseService);
+    private readonly toastService = inject(ToastService);
     readonly menuService = inject(MenuService);
 
     user: User | null = null;
@@ -69,6 +71,40 @@ export class ProfileComponent implements OnInit {
     async signOut() {
         await this.firebaseService.signOut();
         this.router.navigate(['/auth/login']);
+    }
+
+    // Google
+    linkedGoogle(): boolean {
+        return this.user?.providerData
+            .some(provider => provider.providerId === 'google.com') ?? false;
+    }
+
+    async connectGoogle() {
+        const { error } = await this.firebaseService.linkGoogleAccount();
+
+        if (error) {
+            this.toastService.error(GlobalMessages.t('toasts.linkedError'));
+        } else {
+            this.toastService.success(GlobalMessages.t('toasts.linkedGoogle'));
+            this.user = this.firebaseService.getCurrentUser();
+        }
+    }
+
+    // GitHub
+    linkedGithub(): boolean {
+        return this.user?.providerData
+            .some(provider => provider.providerId === 'github.com') ?? false;
+    }
+
+    async connectGithub() {
+        const { error } = await this.firebaseService.linkGithubAccount();
+
+        if (error) {
+            this.toastService.error(GlobalMessages.t('toasts.linkedError'));
+        } else {
+            this.toastService.success(GlobalMessages.t('toasts.linkedGithub'));
+            this.user = this.firebaseService.getCurrentUser();
+        }
     }
 
 }

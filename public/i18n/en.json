@@ -44,16 +44,26 @@
     "profile": {
         "admin": "Admin",
         "language": "Language",
-        "theme": "Theme"
+        "theme": "Theme",
+        "preferences": "Preferences",
+        "personalizeExperience": "Personalize your experience in the application",
+        "integrations": "Integrations",
+        "connectExternal": "Connect your external accounts for a better experience",
+        "connectedAccounts": "Connected accounts",
+        "connected": "Connected",
+        "notConnected": "Not connected"
     },
     "toasts": {
         "welcome": "Welcome! It's great to see you.",
         "welcomeBack": "Welcome back! Great to see you again.",
         "genericError": "Oops! Something wrong happened.",
-        "loginInvalid": "Oops! That login information doesn’t look right.",
+        "loginInvalid": "Oops! That login information doesn't look right.",
         "googleError": "Failed to connect with Google. Please try again.",
         "githubError": "Failed to connect with Github. Please try again.",
-        "accountExistsDifferent": "You’ve already used this email with another login method. Please connect using that provider."
+        "accountExistsDifferent": "You've already used this email with another login method. Please connect using that provider.",
+        "linkedGithub": "GitHub account successfully integrated!",
+        "linkedGoogle": "Google account successfully integrated!",
+        "linkedError": "There was an error integrating your account."
     },
     "common": {
         "copyright": "Copyright © 2025 ",

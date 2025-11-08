@@ -1,1 +1,1 @@
-export type Theme = 'Default' | 'Retro' | 'Cyberpunk' | 'Valentine' | 'Aqua' | 'Forest';
+export type Theme = 'Default' | 'Retro' | 'Cyberpunk' | 'Valentine' | 'Luxury' | 'Forest';

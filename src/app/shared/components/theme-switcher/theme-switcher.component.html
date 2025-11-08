@@ -1,4 +1,4 @@
-<select *ngIf="select; else dropdown" class="select select-sm border-0 w-full" [(ngModel)]="selectedTheme"
+<select *ngIf="select; else dropdown" class="select select-sm border-0 w-full shadow-none" [(ngModel)]="selectedTheme"
     (change)="onSelectChange($event)">
     <option disabled value="">{{'layout.selectTheme' | t}}</option>
     <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
@@ -38,8 +38,8 @@
             </li>
             <li>
                 <input type="radio" name="theme-dropdown"
-                    class="theme-controller w-full btn btn-sm btn-ghost justify-start" aria-label="Aqua" value="aqua"
-                    [checked]="(currentTheme$ | async) === 'Aqua'" (change)="setTheme('Aqua')" />
+                    class="theme-controller w-full btn btn-sm btn-ghost justify-start" aria-label="Luxury" value="luxury"
+                    [checked]="(currentTheme$ | async) === 'Luxury'" (change)="setTheme('Luxury')" />
             </li>
             <li>
                 <input type="radio" name="theme-dropdown"
