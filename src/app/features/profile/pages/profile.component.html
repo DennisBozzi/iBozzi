@@ -3,7 +3,7 @@
     <menu-toggle-button (mobileToggle)="menuService.openMobileMenu()" (desktopToggle)="menuService.toggleSidebar()">
     </menu-toggle-button>
 
-    <div class="p-4 bg-neutral card rounded-b-[0px] h-32 sm:h-56 relative flex-shrink-0 min-h-0">
+    <div class="p-4 bg-neutral card rounded-b-[0px] h-32  relative flex-shrink-0 min-h-0">
 
         <label
             class="flex items-center justify-center text-primary-content absolute size-28 rounded-full bg-primary -bottom-14 inset-x-0 mx-auto cursor-pointer hover:opacity-80 transition-opacity">
@@ -41,22 +41,102 @@
 
         <p class="text-center text-base-content/60 truncate flex-shrink-0">{{'profile.admin' | t}}</p>
 
-        <!-- Preferences -->
-        <div class="overflow-y-auto flex-1 min-h-0 pr-2">
-            <div class="bg-base-200 p-6 rounded-[1rem]">
+        <!-- Cards -->
+        <div class="overflow-y-auto flex-1 min-h-0 pr-2 flex flex-col gap-4">
+            <!-- Preferences -->
+            <div class="bg-base-200 p-4 md:p-6 card rounded-[--radius-box] mt-4">
                 <h1 class="text-lg font-semibold">Preferences</h1>
-                <h3 class="text-base-content/60">Personalize sua experiência na aplicação</h3>
-                <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-4">
-                    <label class="w-24 font-semibold" for="lang">{{'profile.language' | t}}</label>
+                <h3 class="text-sm text-base-content/60">Personalize sua experiência na aplicação</h3>
+                <div class="flex flex-col gap-2 justify-between items-baseline text-sm mt-6">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined !text-xl">
+                            language
+                        </span>
+                        <label class="w-24 font-semibold" for="lang">{{'profile.language' | t}}</label>
+                    </div>
+
                     <app-language-switcher class="w-full" id="lang" [select]="true" />
                 </div>
 
-                <div class="flex md:flex-row flex-col md:gap-4 gap-2 justify-between items-baseline text-sm mt-4">
-                    <label class="w-24 font-semibold" for="theme">{{'profile.theme' | t}}</label>
+                <div class="divider"></div>
+
+                <div class="flex flex-col gap-2 justify-between items-baseline text-sm">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined !text-xl">
+                            palette
+                        </span>
+                        <label class="w-24 font-semibold" for="theme">{{'profile.theme' | t}}</label>
+                    </div>
                     <app-theme-switcher class="w-full" id="theme" [select]="true" />
                 </div>
             </div>
+
+            <!-- Integrations -->
+            <div class="bg-base-200 p-4 md:p-6 card rounded-[--radius-box]">
+                <h1 class="text-lg font-semibold">Integrações</h1>
+                <h3 class="text-sm text-base-content/60">Conecte suas contas externas para uma melhor experiência</h3>
+
+                <h3 class="text-sm font-semibold mt-4">Contas conectadas</h3>
+                <div
+                    class="card flex-row items-center justify-between border border-error rounded-[--radius-box] mt-4 px-3 p-2">
+                    <div class="flex items-center md:gap-4 gap-2 text-sm">
+                        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="size-8">
+                            <title>Google</title>
+                            <path fill="currentColor"
+                                d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+                        </svg>
+                        <div>
+                            <p>Google</p>
+                            <p class="text-sm text-base-content/60">Não conectado</p>
+                        </div>
+                    </div>
+
+                    <label class="toggle text-base-content">
+                        <input type="checkbox" />
+                        <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill="none"
+                                stroke="currentColor">
+                                <path d="M20 6 9 17l-5-5"></path>
+                            </g>
+                        </svg>
+                        <svg aria-label="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                    </label>
+                </div>
+
+                <div
+                    class="card flex-row items-center justify-between border border-error rounded-[--radius-box] mt-4 px-3 p-2">
+                    <div class="flex items-center md:gap-4 gap-2 text-sm">
+                        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="size-8">
+                            <title>GitHub</title>
+                            <path fill="currentColor"
+                                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                        </svg>
+                        <div>
+                            <p>GitHub</p>
+                            <p class="text-sm text-base-content/60">Não conectado</p>
+                        </div>
+                    </div>
+
+                    <label class="toggle text-base-content">
+                        <input type="checkbox" />
+                        <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill="none"
+                                stroke="currentColor">
+                                <path d="M20 6 9 17l-5-5"></path>
+                            </g>
+                        </svg>
+                        <svg aria-label="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                    </label>
+                </div>
+            </div>
         </div>
+        <button class="btn absolute bottom-4 right-4" (click)="signOut()">{{'home.logout' | t}}</button>
     </div>
-    <button class="btn absolute bottom-4 right-4" (click)="signOut()">{{'home.logout' | t}}</button>
-</div>
