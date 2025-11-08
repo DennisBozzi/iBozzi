@@ -71,27 +71,27 @@
         <div *ngIf="!(sidebarCollapsed$ | async)" class="flex gap-3 w-full items-center">
           <div class="avatar avatar-placeholder">
             <div class="bg-neutral text-neutral-content size-8 rounded-full">
-              <span *ngIf="!user?.photoURL" class="material-symbols-outlined">
+              <span *ngIf="!(user$ | async)?.photoURL" class="material-symbols-outlined">
                 person
               </span>
 
-              <img *ngIf="user?.photoURL" class="rounded-full" [src]="user?.photoURL" alt="">
+              <img *ngIf="(user$ | async)?.photoURL" class="rounded-full" [src]="(user$ | async)?.photoURL" alt="">
             </div>
           </div>
           <div class="flex flex-col items-start flex-1 min-w-0">
-            <span class="text-sm font-medium truncate w-full">{{user?.displayName ? user?.displayName :
+            <span class="text-sm font-medium truncate w-full">{{(user$ | async)?.displayName ? (user$ | async)?.displayName :
               'layout.noName' | t}}</span>
-            <span class="text-xs text-base-content/60 truncate w-full">{{user?.email}}</span>
+            <span class="text-xs text-base-content/60 truncate w-full">{{(user$ | async)?.email}}</span>
           </div>
         </div>
 
         <div *ngIf="sidebarCollapsed$ | async" class="avatar avatar-placeholder">
           <div class="bg-neutral text-neutral-content size-8 rounded-full">
-            <span *ngIf="!user?.photoURL" class="material-symbols-outlined">
+            <span *ngIf="!(user$ | async)?.photoURL" class="material-symbols-outlined">
               person
             </span>
 
-            <img *ngIf="user?.photoURL" class="rounded-full" [src]="user?.photoURL" alt="">
+            <img *ngIf="(user$ | async)?.photoURL" class="rounded-full" [src]="(user$ | async)?.photoURL" alt="">
           </div>
         </div>
       </button>

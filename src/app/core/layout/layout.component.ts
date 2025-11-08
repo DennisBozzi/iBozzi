@@ -18,7 +18,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     sidebarCollapsed$: Observable<boolean> | undefined;
     mobileMenuOpen$: Observable<boolean> | undefined;
-    user: User | null = null;
+    user$!: Observable<User | null>;
 
     @Input() showHeader = true;
     @Input() headerTitle: string | null = null;
@@ -31,7 +31,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.sidebarCollapsed$ = this.menuService.sidebarCollapsed$;
         this.mobileMenuOpen$ = this.menuService.mobileMenuOpen$;
-        this.user = this.firebaseService.getCurrentUser();
+        this.user$ = this.firebaseService.user$;
         this.checkHeaderVisibility();
 
         this.router.events

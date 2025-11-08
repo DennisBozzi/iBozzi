@@ -7,12 +7,12 @@
 
         <label
             class="flex items-center justify-center text-primary-content absolute size-28 rounded-full card bg-primary -bottom-14 inset-x-0 mx-auto cursor-pointer hover:opacity-80 transition-opacity">
-            <span *ngIf="!user?.photoURL" class="material-symbols-outlined !text-7xl">
+            <span *ngIf="!(user$ | async)?.photoURL" class="material-symbols-outlined !text-7xl">
                 person
             </span>
 
-            <img *ngIf="user?.photoURL" class="rounded-full size-28 object-cover border-2 border-primary"
-                [src]="user?.photoURL" alt="">
+            <img *ngIf="(user$ | async)?.photoURL" class="rounded-full size-28 object-cover border-2 border-primary"
+                [src]="(user$ | async)?.photoURL" alt="">
 
             <input #photoInput type="file" accept="image/*" class="hidden" (change)="onPhotoSelected($event)">
         </label>
@@ -23,7 +23,7 @@
             <div *ngIf="!isEditingName" class="flex-1 cursor-pointer hover:opacity-70 transition-opacity"
                 (click)="startEditingName()">
                 <h1 class="text-xl font-semibold text-center truncate">
-                    {{user?.displayName ? user?.displayName : 'layout.noName' | t}}
+                    {{(user$ | async)?.displayName ? (user$ | async)?.displayName : 'layout.noName' | t}}
                 </h1>
             </div>
 
@@ -33,14 +33,14 @@
                 <button class="btn btn-sm btn-primary px-1 shadow-none" (click)="saveName()">
                     <span class="material-symbols-outlined text-sm">check</span>
                 </button>
-                <button class="btn btn-sm btn-ghost px-1" (click)="cancelEditName()">
+                <button class="btn btn-sm btn-ghost px-1 shadow-none" (click)="cancelEditName()">
                     <span class="material-symbols-outlined text-sm">close</span>
                 </button>
             </div>
         </div>
 
         <p class="text-center text-base-content/60 truncate flex-shrink-0">
-            {{user?.admin ? ('profile.admin' | t ): ('layout.demonstrative' | t) }}
+            {{(user$ | async)?.admin ? ('profile.admin' | t ): ('layout.demonstrative' | t) }}
         </p>
 
         <!-- Cards -->

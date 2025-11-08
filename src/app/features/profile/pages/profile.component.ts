@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, HostListener } from '@angular/core';
+import { Component, inject, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FirebaseService, ToastService } from '@/core/services';
@@ -10,6 +10,7 @@ import { MenuToggleButtonComponent } from "@/shared/components/menu-toggle-butto
 import { MenuService } from '@/core/services/menu.service';
 import { GlobalMessages } from '@/shared/i18n/global-messages';
 import { User } from '@/shared/types/user.type';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-profile',
@@ -17,19 +18,29 @@ import { User } from '@/shared/types/user.type';
     imports: [CommonModule, FormsModule, LanguageSwitcherComponent, ThemeSwitcherComponent, TranslatePipe, MenuToggleButtonComponent],
     templateUrl: './profile.component.html'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
     private readonly router = inject(Router);
     private readonly firebaseService = inject(FirebaseService);
     private readonly toastService = inject(ToastService);
     readonly menuService = inject(MenuService);
 
-    user: User | null = null;
+    user$!: Observable<User | null>;
     isEditingName = false;
     editingNameValue = '';
+    private currentUser: User | null = null;
+    private readonly destroy$ = new Subject<void>();
 
     ngOnInit(): void {
-        this.user = this.firebaseService.getCurrentUser();
+        this.user$ = this.firebaseService.user$;
+        this.user$.pipe(takeUntil(this.destroy$)).subscribe(user => {
+            this.currentUser = user;
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 
     async onPhotoSelected(event: Event) {
@@ -38,12 +49,11 @@ export class ProfileComponent implements OnInit {
 
         if (!file) return;
 
-        const result = await this.firebaseService.uploadProfilePhoto(file);
-        if (!result.error) this.user = this.firebaseService.getCurrentUser();
+        await this.firebaseService.uploadProfilePhoto(file);
     }
 
     startEditingName() {
-        this.editingNameValue = this.user?.displayName || '';
+        this.editingNameValue = this.currentUser?.displayName || '';
         this.isEditingName = true;
     }
 
@@ -53,14 +63,8 @@ export class ProfileComponent implements OnInit {
             return;
         }
 
-        try {
-            await this.firebaseService.updateProfile(this.editingNameValue);
-            this.user = this.firebaseService.getCurrentUser();
-            this.isEditingName = false;
-        } catch (error) {
-            console.error('Erro ao atualizar nome:', error);
-            this.cancelEditName();
-        }
+        await this.firebaseService.updateProfile(this.editingNameValue);
+        this.cancelEditName();
     }
 
     cancelEditName() {
@@ -75,36 +79,33 @@ export class ProfileComponent implements OnInit {
 
     // Google
     linkedGoogle(): boolean {
-        return this.user?.providerData
-            .some(provider => provider.providerId === 'google.com') ?? false;
+        return this.currentUser?.providerData
+            .some((provider: any) => provider.providerId === 'google.com') ?? false;
     }
 
     async connectGoogle() {
         const { error } = await this.firebaseService.linkGoogleAccount();
 
-        if (error) {
+        if (error)
             this.toastService.error(GlobalMessages.t('toasts.linkedError'));
-        } else {
+        else
             this.toastService.success(GlobalMessages.t('toasts.linkedGoogle'));
-            this.user = this.firebaseService.getCurrentUser();
-        }
+
     }
 
     // GitHub
     linkedGithub(): boolean {
-        return this.user?.providerData
-            .some(provider => provider.providerId === 'github.com') ?? false;
+        return this.currentUser?.providerData
+            .some((provider: any) => provider.providerId === 'github.com') ?? false;
     }
 
     async connectGithub() {
         const { error } = await this.firebaseService.linkGithubAccount();
 
-        if (error) {
+        if (error)
             this.toastService.error(GlobalMessages.t('toasts.linkedError'));
-        } else {
+        else
             this.toastService.success(GlobalMessages.t('toasts.linkedGithub'));
-            this.user = this.firebaseService.getCurrentUser();
-        }
-    }
 
+    }
 }

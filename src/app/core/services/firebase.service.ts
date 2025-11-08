@@ -5,6 +5,7 @@ import { FirebaseStorage, getDownloadURL, getStorage, uploadBytes, ref as stRef 
 import { auth, app } from '../config/firebase.config';
 import imageCompression from 'browser-image-compression';
 import { LoginPayload, User } from '@/shared/types/user.type';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -19,6 +20,8 @@ export class FirebaseService {
     private userWithClaims: User | null | undefined = undefined;
     private authInitialized = false;
     private themeService: any;
+    private userSubject = new BehaviorSubject<User | null>(null);
+    public user$ = this.userSubject.asObservable();
 
     constructor() {
         this.auth = auth;
@@ -45,6 +48,7 @@ export class FirebaseService {
             }
 
             this.authInitialized = true;
+            this.userSubject.next(this.userWithClaims);
 
             if (firebaseUser && this.themeService) {
                 await this.themeService.loadAndApplyTheme();
@@ -163,6 +167,11 @@ export class FirebaseService {
         await updateProfile(this.auth.currentUser, {
             displayName: userName
         });
+
+        await this.auth.currentUser.reload();
+        this.userCache = this.auth.currentUser;
+        this.userWithClaims = await this.mapFirebaseUserToUser(this.auth.currentUser);
+        this.userSubject.next(this.userWithClaims);
     }
 
     async linkGithubAccount() {
@@ -173,6 +182,7 @@ export class FirebaseService {
             const result = await linkWithPopup(this.auth.currentUser, this.githubProvider);
             this.userCache = result.user;
             this.userWithClaims = await this.mapFirebaseUserToUser(result.user);
+            this.userSubject.next(this.userWithClaims);
             return { data: { user: result.user }, error: null };
         } catch (error: any) {
             return { data: { user: null }, error: { message: error.message, code: error.code } };
@@ -187,6 +197,7 @@ export class FirebaseService {
             const result = await linkWithPopup(this.auth.currentUser, this.googleProvider);
             this.userCache = result.user;
             this.userWithClaims = await this.mapFirebaseUserToUser(result.user);
+            this.userSubject.next(this.userWithClaims);
             return { data: { user: result.user }, error: null };
         } catch (error: any) {
             return { data: { user: null }, error: { message: error.message, code: error.code } };
@@ -213,6 +224,11 @@ export class FirebaseService {
         await updateProfile(this.auth.currentUser, {
             photoURL: downloadURL
         });
+
+        await this.auth.currentUser.reload();
+        this.userCache = this.auth.currentUser;
+        this.userWithClaims = await this.mapFirebaseUserToUser(this.auth.currentUser);
+        this.userSubject.next(this.userWithClaims);
 
         return { data: downloadURL, error: null };
     }
