@@ -6,6 +6,7 @@ export interface User {
     emailVerified: boolean;
     admin: boolean;
     providerData: any[];
+    accessToken?: string;
 }
 
 export type SignupPayload = {

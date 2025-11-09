@@ -36,7 +36,8 @@
         "home": "Home",
         "selectLanguage": "Select a language",
         "selectTheme": "Select a theme",
-        "demonstrative": "Demonstrative"
+        "demonstrative": "Demonstrative",
+        "reloadData": "Reload demo data"
     },
     "home": {
         "title": "Home",

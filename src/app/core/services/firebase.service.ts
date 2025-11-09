@@ -339,7 +339,6 @@ export class FirebaseService {
                     const data = getRequest.result;
                     if (data && data.value)
                         resolve(data.value.stsTokenManager.accessToken);
-
                 };
             };
         });
@@ -356,7 +355,8 @@ export class FirebaseService {
             photoURL: firebaseUser.photoURL,
             emailVerified: firebaseUser.emailVerified,
             admin: adminClaim ?? false,
-            providerData: firebaseUser.providerData
+            providerData: firebaseUser.providerData,
+            accessToken: idTokenResult.token
         };
     }
 }

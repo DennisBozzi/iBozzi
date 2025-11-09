@@ -26,6 +26,21 @@
     <!-- Sidebar Content -->
     <ul class="flex-1 py-4 menu w-full" [class.px-3]="!(sidebarCollapsed$ | async)"
       [class.px-auto]="sidebarCollapsed$ | async">
+
+      <li class="mb-2" *ngIf="!(user$ | async)?.admin" (click)="realodData()">
+        <a [class.justify-center]="sidebarCollapsed$ | async" class="btn btn-warning btn-sm">
+          <ng-container *ngIf="!isLoading">
+            <span class="material-symbols-outlined">
+              cached
+            </span>
+            <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.reloadData' | t}}</span>
+          </ng-container>
+
+          <span *ngIf="isLoading" class="loading loading-spinner loading-md"></span>
+
+        </a>
+      </li>
+
       <li (click)="navTo('/dashboard')">
         <a [class.justify-center]="sidebarCollapsed$ | async">
           <span class="material-symbols-outlined">

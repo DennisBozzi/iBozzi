@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@/shared/pipes';
 import { filter, Subject, takeUntil, Observable } from 'rxjs';
 import { User } from '@/shared/types/user.type';
+import { DemoService } from '../services';
 
 @Component({
     selector: 'layout',
@@ -16,6 +17,7 @@ import { User } from '@/shared/types/user.type';
 
 export class LayoutComponent implements OnInit, OnDestroy {
 
+    isLoading: boolean = false;
     sidebarCollapsed$: Observable<boolean> | undefined;
     mobileMenuOpen$: Observable<boolean> | undefined;
     user$!: Observable<User | null>;
@@ -26,6 +28,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private readonly router = inject(Router);
     private readonly firebaseService = inject(FirebaseService);
     private readonly menuService = inject(MenuService);
+    private readonly demoService = inject(DemoService);
     private readonly destroy$ = new Subject<void>();
 
     ngOnInit(): void {
@@ -62,6 +65,15 @@ export class LayoutComponent implements OnInit, OnDestroy {
     navTo(route: string) {
         this.router.navigate([route]);
         this.closeMobileMenu();
+    }
+
+    async realodData() {
+        this.isLoading = true;
+        await this.demoService.realodData().subscribe({
+            next: (res) => {
+                this.isLoading = false;
+            }
+        });
     }
 
     private checkHeaderVisibility(): void {
