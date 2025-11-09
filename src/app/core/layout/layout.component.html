@@ -65,7 +65,16 @@
     </ul>
 
     <!-- Sidebar Footer -->
-    <div class="p-4 pb-6">
+    <div class="p-4 pb-6 flex flex-col items-center gap-2">
+
+      <div *ngIf="!(user$ | async)?.admin" class="badge badge-warning "
+        [ngClass]="(sidebarCollapsed$ | async) ? 'p-1' : 'p-2'">
+        <span class="!text-lg material-symbols-outlined">
+          experiment
+        </span>
+        {{!(sidebarCollapsed$ | async) ? ('layout.demonstrative' | t) : ''}}
+      </div>
+
       <button tabindex="0" class="shadow-none btn btn-ghost" (click)="navTo('/profile')"
         [class.btn-circle]="sidebarCollapsed$ | async" [class.w-full]="!(sidebarCollapsed$ | async)">
         <div *ngIf="!(sidebarCollapsed$ | async)" class="flex gap-3 w-full items-center">
@@ -79,7 +88,8 @@
             </div>
           </div>
           <div class="flex flex-col items-start flex-1 min-w-0">
-            <span class="text-sm font-medium truncate w-full">{{(user$ | async)?.displayName ? (user$ | async)?.displayName :
+            <span class="text-sm font-medium truncate w-full">{{(user$ | async)?.displayName ? (user$ |
+              async)?.displayName :
               'layout.noName' | t}}</span>
             <span class="text-xs text-base-content/60 truncate w-full">{{(user$ | async)?.email}}</span>
           </div>

@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, on
 import { getDatabase, ref, get, set, onValue, off, Database } from 'firebase/database';
 import { FirebaseStorage, getDownloadURL, getStorage, uploadBytes, ref as stRef } from 'firebase/storage';
 import { auth, app } from '../config/firebase.config';
+import { environment } from '@/environments/environments';
 import imageCompression from 'browser-image-compression';
 import { LoginPayload, User } from '@/shared/types/user.type';
 import { BehaviorSubject } from 'rxjs';
@@ -333,7 +334,7 @@ export class FirebaseService {
                 const db = request.result;
                 const transaction = db.transaction(['firebaseLocalStorage'], 'readonly');
                 const store = transaction.objectStore('firebaseLocalStorage');
-                const getRequest = store.get('firebase:authUser:AIzaSyBmfCx1pvjgXxTJDhYvBb_g8bvUIWaoq84:[DEFAULT]');
+                const getRequest = store.get(`firebase:authUser:${environment.firebase.apiKey}:[DEFAULT]`);
                 getRequest.onsuccess = () => {
                     const data = getRequest.result;
                     if (data && data.value)
