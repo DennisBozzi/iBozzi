@@ -1,0 +1,40 @@
+<div class="relative w-full">
+    <input type="text" class="input input-bordered input-secondary w-full focus:outline-none" [placeholder]="placeholder"
+        [(ngModel)]="searchTerm" (input)="onSearch($event)" (focus)="isOpen = true" (blur)="onBlur()"
+        (keydown)="onKeyDown($event)" autocomplete="off" />
+
+    <!-- Dropdown content -->
+    <div *ngIf="isOpen"
+        class="absolute top-full left-0 right-0 mt-1 bg-base-100 border border-base-300 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+
+        <!-- Loading state -->
+        <div *ngIf="isLoading" class="px-4 py-8 flex flex-col items-center justify-center gap-2">
+            <span class="loading loading-spinner loading-lg"></span>
+            <p class="text-sm text-base-content/60">Carregando inquilinos...</p>
+        </div>
+
+        <!-- Results list -->
+        <ng-container *ngIf="!isLoading && filteredTenants.length > 0">
+            <button type="button" *ngFor="let tenant of filteredTenants; let i = index"
+                class="w-full px-4 py-3 hover:bg-base-200 text-left transition-colors flex flex-col gap-1 border-b border-base-200 last:border-b-0"
+                [class.bg-base-200]="i === selectedIndex" (click)="selectTenant(tenant)"
+                (mousedown)="$event.preventDefault()">
+                <div class="font-medium">{{ tenant.firstName }} {{ tenant.lastName }}</div>
+                <div class="text-sm text-base-content/60">{{ tenant.cpf | cpf }}</div>
+            </button>
+        </ng-container>
+
+        <!-- No results -->
+        <div *ngIf="!isLoading && searchTerm && filteredTenants.length === 0" class="px-4 py-8 text-center">
+            <span class="material-symbols-outlined text-base-content/30 text-2xl block mb-2">person_off</span>
+            <p class="text-sm text-base-content/60">Nenhum inquilino encontrado</p>
+        </div>
+
+        <!-- Empty state (sem busca) -->
+        <div *ngIf="!isLoading && !searchTerm && filteredTenants.length === 0" class="px-4 py-8 text-center">
+            <span class="material-symbols-outlined text-base-content/30 text-2xl block mb-2">search</span>
+            <p class="text-sm text-base-content/60">Digite para buscar um inquilino</p>
+        </div>
+
+    </div>
+</div>

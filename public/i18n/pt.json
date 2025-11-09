@@ -37,7 +37,15 @@
         "selectLanguage": "Selecione um idioma",
         "selectTheme": "Selecione um tema",
         "demonstrative": "Demonstrativo",
-        "reloadData": "Recarregar informações"
+        "reloadData": "Recarregar informações",
+        "reloadDataConfirm": "Recarregar informações",
+        "reloadDataWarning": "Todas as informações serão recarregadas do servidor. Tem certeza?",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "kitnet": "Kitnet",
+        "apartment": "Apartmento",
+        "store": "Loja",
+        "empty": "Vazio"
     },
     "home": {
         "title": "Início",
@@ -54,6 +62,19 @@
         "connectedAccounts": "Contas conectadas",
         "connected": "Conectado",
         "notConnected": "Não conectado"
+    },
+    "apartments": {
+        "subtitle": "Gerencie os apartamentos e vincule inquilinos.",
+        "newApartment": "Novo apartamento",
+        "searchTenant": "Pesquisar inquilino",
+        "floors": {
+            "first": "Primeiro",
+            "second": "Segundo",
+            "third": "Terceiro",
+            "fourth": "Quarto",
+            "stores": "Lojas",
+            "kitnets": "Kitinets"
+        }
     },
     "toasts": {
         "welcome": "Bem-vindo! É ótimo ter você aqui.",

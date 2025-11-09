@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -7,9 +7,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class MenuService {
     private sidebarCollapsedSubject = new BehaviorSubject<boolean>(false);
     private mobileMenuOpenSubject = new BehaviorSubject<boolean>(false);
+    private dataReloadedSubject = new Subject<void>();
 
     sidebarCollapsed$ = this.sidebarCollapsedSubject.asObservable();
     mobileMenuOpen$ = this.mobileMenuOpenSubject.asObservable();
+    dataReloaded$ = this.dataReloadedSubject.asObservable();
 
     toggleSidebar() {
         const current = this.sidebarCollapsedSubject.value;
@@ -31,5 +33,9 @@ export class MenuService {
 
     getMobileMenuOpen(): boolean {
         return this.mobileMenuOpenSubject.value;
+    }
+
+    notifyDataReloaded(): void {
+        this.dataReloadedSubject.next();
     }
 }

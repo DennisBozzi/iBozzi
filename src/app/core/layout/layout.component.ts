@@ -72,6 +72,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         await this.demoService.realodData().subscribe({
             next: (res) => {
                 this.isLoading = false;
+                this.menuService.notifyDataReloaded();
             }
         });
     }

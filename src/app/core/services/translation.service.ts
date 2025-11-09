@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { GlobalMessages } from '@/shared/i18n/global-messages';
 import { StorageService } from './storage.service';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import localeEn from '@angular/common/locales/en';
 
 type LangCode = 'en' | 'pt';
 type Dictionary = Record<string, any>;
@@ -14,9 +17,15 @@ export class TranslationService {
 
   private currentLang$ = new BehaviorSubject<LangCode>(this.getInitialLang());
   private dictionaries = new Map<LangCode, Dictionary>();
+  
+  private readonly localeMap: Record<LangCode, any> = {
+    'pt': localePt,
+    'en': localeEn
+  };
 
   constructor() {
     this.ensureDictionaryLoaded(this.currentLang$.value);
+    this.registerLocale(this.currentLang$.value);
     GlobalMessages.i18n = this;
   }
 
@@ -31,9 +40,14 @@ export class TranslationService {
   setLanguage(lang: LangCode) {
     if (this.currentLang$.value === lang) return;
     this.ensureDictionaryLoaded(lang).then(() => {
+      this.registerLocale(lang);
       this.storageService.set('lang', lang);
       this.currentLang$.next(lang);
     });
+  }
+
+  private registerLocale(lang: LangCode): void {
+    registerLocaleData(this.localeMap[lang]);
   }
 
   translate(key: string, params?: Record<string, any>): string {

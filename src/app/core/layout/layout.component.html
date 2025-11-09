@@ -27,8 +27,9 @@
     <ul class="flex-1 py-4 menu w-full" [class.px-3]="!(sidebarCollapsed$ | async)"
       [class.px-auto]="sidebarCollapsed$ | async">
 
-      <li class="mb-2" *ngIf="!(user$ | async)?.admin" (click)="realodData()">
-        <a [class.justify-center]="sidebarCollapsed$ | async" class="btn btn-warning btn-sm">
+      <li class="mb-2" *ngIf="!(user$ | async)?.admin">
+        <a (click)="alertDemoData.showModal()" [class.justify-center]="sidebarCollapsed$ | async"
+          class="btn btn-warning btn-sm shadow-none">
           <ng-container *ngIf="!isLoading">
             <span class="material-symbols-outlined">
               cached
@@ -39,7 +40,10 @@
           <span *ngIf="isLoading" class="loading loading-spinner loading-md"></span>
 
         </a>
+
       </li>
+
+
 
       <li (click)="navTo('/dashboard')">
         <a [class.justify-center]="sidebarCollapsed$ | async">
@@ -156,3 +160,18 @@
     </div>
   </div>
 </div>
+
+<dialog #alertDemoData class="modal">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">{{'layout.reloadDataConfirm' | t}}</h3>
+    <p class="py-4">{{'layout.reloadDataWarning' | t}}</p>
+    <div class="modal-action">
+      <form method="dialog" class="flex gap-2">
+        <button type="button" class="btn btn-ghost" (click)="alertDemoData.close()">{{ 'layout.cancel' | t }}</button>
+        <button type="button" class="btn btn-warning" (click)="realodData(); alertDemoData.close()">
+          {{ 'layout.confirm' | t }}
+        </button>
+      </form>
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+input {
+  &[disabled] {
+    opacity: 0.7;
+  }
+}
+
+.material-symbols-outlined {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
