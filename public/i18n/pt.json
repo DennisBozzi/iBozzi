@@ -30,6 +30,8 @@
     "layout": {
         "dashboard": "Dashboard",
         "apartments": "Apartamentos",
+        "units": "Unidades",
+        "unit": "Unidade",
         "tenants": "Inquilinos",
         "payments": "Pagamentos",
         "noName": "Sem nome",
@@ -63,9 +65,9 @@
         "connected": "Conectado",
         "notConnected": "Não conectado"
     },
-    "apartments": {
-        "subtitle": "Gerencie os apartamentos e vincule inquilinos.",
-        "newApartment": "Novo apartamento",
+    "units": {
+        "subtitle": "Gerencie as unidades e vincule inquilinos.",
+        "newUnit": "Nova unidade",
         "searchTenant": "Pesquisar inquilino",
         "floors": {
             "first": "Primeiro",
@@ -89,6 +91,7 @@
         "linkedError": "Houve um erro ao integrar sua conta."
     },
     "common": {
+        "new": "Novo",
         "copyright": "Direitos autorais © 2025 ",
         "author": "Dennis Bozzi"
     }

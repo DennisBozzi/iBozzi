@@ -1,39 +1,39 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe, CurrencyFormatPipe, FloorNamePipe } from "../../../../shared/pipes";
-import { ApartmentsService } from '@/core/services';
+import { UnitsService } from '@/core/services';
 import { MenuService } from '@/core/services/menu.service';
-import { ApartmentResponse, PagedResult, TenantResponse } from '@/shared/interfaces';
+import { UnitResponse, PagedResult, TenantResponse } from '@/shared/interfaces';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-apartments-list',
+  selector: 'app-units-list',
   standalone: true,
   imports: [CommonModule, TranslatePipe, CurrencyFormatPipe, FloorNamePipe],
-  templateUrl: './apartments-list.component.html'
+  templateUrl: './units-list.component.html'
 })
 
-export class ApartmentsListComponent implements OnInit, OnDestroy {
+export class UnitsListComponent implements OnInit, OnDestroy {
 
-  private readonly apService = inject(ApartmentsService);
+  private readonly apService = inject(UnitsService);
   private readonly menuService = inject(MenuService);
 
   isLoading: boolean = false;
   isLoadingTenants: boolean = false;
 
-  apartments!: PagedResult<ApartmentResponse>;
+  units!: PagedResult<UnitResponse>;
   availableTenants: TenantResponse[] = [];
 
   private destroy$ = new Subject<void>();
 
   ngOnInit() {
-    this.loadApartments();
+    this.loadUnits();
 
     this.menuService.dataReloaded$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.loadApartments();
+        this.loadUnits();
       });
   }
 
@@ -42,12 +42,12 @@ export class ApartmentsListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  loadApartments() {
+  loadUnits() {
     this.isLoading = true;
 
-    this.apService.getApartments().subscribe({
+    this.apService.getUnits().subscribe({
       next: (res) => {
-        this.apartments = res;
+        this.units = res;
         this.isLoading = false;
       }
     })

@@ -12,12 +12,12 @@ export class FloorNamePipe implements PipeTransform {
 
   transform(floorValue: FloorEnum | number): string {
     const floorTranslationKeys: Record<number, string> = {
-      [FloorEnum.First]: 'apartments.floors.first',
-      [FloorEnum.Second]: 'apartments.floors.second',
-      [FloorEnum.Third]: 'apartments.floors.third',
-      [FloorEnum.Fourth]: 'apartments.floors.fourth',
-      [FloorEnum.Stores]: 'apartments.floors.stores',
-      [FloorEnum.Kitnets]: 'apartments.floors.kitnets',
+      [FloorEnum.First]: 'units.floors.first',
+      [FloorEnum.Second]: 'units.floors.second',
+      [FloorEnum.Third]: 'units.floors.third',
+      [FloorEnum.Fourth]: 'units.floors.fourth',
+      [FloorEnum.Stores]: 'units.floors.stores',
+      [FloorEnum.Kitnets]: 'units.floors.kitnets',
     };
 
     const key = floorTranslationKeys[floorValue];

@@ -54,12 +54,12 @@
         </a>
       </li>
 
-      <li (click)="navTo('/apartments')">
+      <li (click)="navTo('/units')">
         <a [class.justify-center]="sidebarCollapsed$ | async">
           <span class="material-symbols-outlined">
             apartment
           </span>
-          <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.apartments' | t}}</span>
+          <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.units' | t}}</span>
         </a>
       </li>
 

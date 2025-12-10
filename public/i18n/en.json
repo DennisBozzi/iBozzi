@@ -30,6 +30,8 @@
     "layout": {
         "dashboard": "Dashboard",
         "apartments": "Apartments",
+        "units": "Units",
+        "unit": "Unit",
         "tenants": "Tenants",
         "payments": "Payments",
         "noName": "No name",
@@ -63,9 +65,9 @@
         "connected": "Connected",
         "notConnected": "Not connected"
     },
-    "apartments": {
-        "subtitle": "Manage apartments and assign tenants.",
-        "newApartment": "New apartment",
+    "units": {
+        "subtitle": "Manage units and assign tenants.",
+        "newUnit": "New unit",
         "searchTenant": "Search tenant",
         "floors": {
             "first": "First",
@@ -89,6 +91,7 @@
         "linkedError": "There was an error integrating your account."
     },
     "common": {
+        "new": "New",
         "copyright": "Copyright © 2025 ",
         "author": "Dennis Bozzi"
     }

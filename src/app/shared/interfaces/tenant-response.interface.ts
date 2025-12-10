@@ -1,4 +1,4 @@
-import { ApartmentResponse } from "./apartment-response.interface";
+import { UnitResponse } from "./unit-response.interface";
 
 export interface TenantResponse {
     id: number;
@@ -10,6 +10,6 @@ export interface TenantResponse {
     phone?: string;
     born?: Date;
     responsible?: TenantResponse | null;
-    apartment: ApartmentResponse;
+    unit: UnitResponse;
     dependents: TenantResponse[];
 }

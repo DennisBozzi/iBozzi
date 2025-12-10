@@ -21,8 +21,8 @@ export const LAYOUT_ROUTES: Routes = [
         loadChildren: () => import('../../features/tenants/tenants.routes').then(m => m.TENANTS_ROUTES)
       },
       {
-        path: 'apartments',
-        loadChildren: () => import('../../features/apartments/apartments.routes').then(m => m.APARTMENTS_ROUTES)
+        path: 'units',
+        loadChildren: () => import('../../features/units/units.routes').then(m => m.UNITS_ROUTES)
       },
       {
         path: 'payments',

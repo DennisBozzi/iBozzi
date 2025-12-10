@@ -1,16 +1,15 @@
 
 import { TenantResponse } from './tenant-response.interface';
 import { FloorEnum } from './enums/floor.enum';
-import { ApartmentTypeEnum } from './enums/apartment-type.enum';
+import { UnitType } from './enums/unit-type.enum';
 
-export interface ApartmentResponse {
+export interface UnitResponse {
     id: number;
     createdAt: Date;
     number: string;
     rent: number;
     floor: FloorEnum;
-    type: ApartmentTypeEnum;
+    type: UnitType;
     responsible?: TenantResponse | null;
-    residents: TenantResponse[];
 }
 

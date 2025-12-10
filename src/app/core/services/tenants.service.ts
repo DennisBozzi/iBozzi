@@ -12,7 +12,7 @@ export interface CreateTenantRequest {
   born: string,
   phone: string,
   responsibleTenantId: number,
-  apartmentId: number
+  unitId: number
 }
 
 @Injectable({
