@@ -134,17 +134,31 @@
       <header *ngIf="showHeader" class="px-4 lg:px-6 pt-4 pb-2 flex-shrink-0">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <button aria-label="Abrir menu" (click)="openMobileMenu()"
+            <button aria-label="Abrir menu" (click)="openMobileMenu()" *ngIf="!showArrow"
               class="shadow-none btn btn-ghost btn-circle rounded-xl lg:hidden">
               <span class="material-symbols-outlined">
                 menu
               </span>
             </button>
 
-            <button aria-label="Abrir menu" (click)="toggleSidebar()"
+            <button aria-label="Voltar" (click)="goBack()" *ngIf="showArrow"
+              class="shadow-none btn btn-ghost btn-circle rounded-xl lg:hidden">
+              <span class="material-symbols-outlined">
+                arrow_back
+              </span>
+            </button>
+
+            <button aria-label="Abrir menu" (click)="toggleSidebar()" *ngIf="!showArrow"
               class="shadow-none btn btn-sm btn-ghost btn-circle rounded-xl hidden lg:flex">
               <span class="material-symbols-outlined">
                 menu
+              </span>
+            </button>
+
+            <button aria-label="Voltar" (click)="goBack()" *ngIf="showArrow"
+              class="shadow-none btn btn-sm btn-ghost btn-circle rounded-xl hidden lg:flex">
+              <span class="material-symbols-outlined">
+                arrow_back
               </span>
             </button>
             <div class="divider divider-horizontal py-2 m-0"></div>

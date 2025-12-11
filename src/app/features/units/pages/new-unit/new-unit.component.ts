@@ -9,13 +9,13 @@ import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-units-list',
+  selector: 'app-new-unit',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, CurrencyFormatPipe, FloorNamePipe],
-  templateUrl: './units-list.component.html'
+  imports: [CommonModule],
+  templateUrl: './new-unit.component.html'
 })
 
-export class UnitsListComponent implements OnInit, OnDestroy {
+export class NewUnitComponent implements OnInit, OnDestroy {
 
   private readonly apService = inject(UnitsService);
   private readonly menuService = inject(MenuService);

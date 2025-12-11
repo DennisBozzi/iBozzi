@@ -9,5 +9,15 @@ export const UNITS_ROUTES: Routes = [
       showHeader: true,
       headerTitle: 'layout.units'
     },
+  },
+  {
+    path: 'new',
+    loadComponent: () => import('./pages/new-unit/new-unit.component').then(m => m.NewUnitComponent),
+    title: 'New Unit - iBozzi',
+    data: {
+      showHeader: true,
+      headerTitle: 'units.newUnit',
+      showArrow: true
+    },
   }
 ];

@@ -5,17 +5,19 @@
       <p class="text-base-content/60">{{'units.subtitle' | t}}</p>
     </div>
 
-    <button class="btn btn-neutral btn-sm shadow-none hidden sm:flex gap-0 px-4 pl-3">
+    <a (click)='navTo("/units/new")' class="btn btn-neutral btn-sm shadow-none hidden sm:flex gap-0 px-4 pl-3">
       <span class="material-symbols-outlined">
         add
       </span>
       {{'common.new' | t}}
-    </button>
+    </a>
 
-    <button class="btn btn-circle btn-neutral btn-xl shadow-none sm:hidden flex absolute bottom-3 right-3 z-10"><span
+    <a (click)='navTo("/units/new")'
+      class="btn btn-circle btn-neutral btn-xl shadow-none sm:hidden flex absolute bottom-3 right-3 z-10"><span
         class="material-symbols-outlined">
         add
-      </span></button>
+      </span>
+    </a>
   </div>
 
   <div *ngIf="isLoading" class="flex items-center justify-center flex-1">

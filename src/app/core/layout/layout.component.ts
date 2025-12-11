@@ -21,6 +21,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     sidebarCollapsed$: Observable<boolean> | undefined;
     mobileMenuOpen$: Observable<boolean> | undefined;
     user$!: Observable<User | null>;
+    showArrow: boolean = false;
 
     @Input() showHeader = true;
     @Input() headerTitle: string | null = null;
@@ -67,6 +68,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.closeMobileMenu();
     }
 
+    goBack() {
+        window.history.back();
+        this.closeMobileMenu();
+    }
+
     async realodData() {
         this.isLoading = true;
         await this.demoService.realodData().subscribe({
@@ -88,6 +94,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 }
                 if ('headerTitle' in data) {
                     this.headerTitle = data['headerTitle'];
+                }
+                if ('showArrow' in data) {
+                    this.showArrow = data['showArrow'];
+                } else {
+                    this.showArrow = false;
                 }
             }
             route = route.firstChild as ActivatedRoute;
