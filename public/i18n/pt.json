@@ -47,7 +47,8 @@
         "kitnet": "Kitnet",
         "apartment": "Apartmento",
         "store": "Loja",
-        "empty": "Vazio"
+        "empty": "Vazio",
+        "register": "Cadastro"
     },
     "home": {
         "title": "Início",

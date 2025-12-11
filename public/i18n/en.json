@@ -47,7 +47,8 @@
         "kitnet": "Kitnet",
         "apartment": "Apartment",
         "store": "Store",
-        "empty": "Empty"
+        "empty": "Empty",
+        "register": "Register"
     },
     "home": {
         "title": "Home",

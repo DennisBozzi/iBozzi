@@ -1,5 +1,5 @@
 import { Component, Input, inject, OnInit, OnDestroy } from '@angular/core';
-import { Router, RouterOutlet, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, RouterOutlet, ActivatedRoute, NavigationEnd, Data } from '@angular/router';
 import { FirebaseService } from '@/core/services/firebase.service';
 import { MenuService } from '@/core/services/menu.service';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { TranslatePipe } from '@/shared/pipes';
 import { filter, Subject, takeUntil, Observable } from 'rxjs';
 import { User } from '@/shared/types/user.type';
 import { DemoService } from '../services';
+import { BreadcrumbItem } from '@/shared/interfaces';
 
 @Component({
     selector: 'layout',
@@ -95,13 +96,45 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 if ('headerTitle' in data) {
                     this.headerTitle = data['headerTitle'];
                 }
-                if ('showArrow' in data) {
-                    this.showArrow = data['showArrow'];
-                } else {
-                    this.showArrow = false;
-                }
+                this.checkRegister(data);
+                this.checkArrow(data);
+                this.checkBreadCrumb(data);
             }
+
             route = route.firstChild as ActivatedRoute;
+        }
+    }
+
+    // Check is Register
+    isRegister: boolean = false;
+    private checkRegister(data: Data) {
+        if ('isRegister' in data) {
+            this.isRegister = data['isRegister'];
+        } else {
+            this.isRegister = false;
+        }
+    }
+
+    // Check back arrow
+    private checkArrow(data: Data) {
+        if ('showArrow' in data) {
+            this.showArrow = data['showArrow'];
+        } else {
+            this.showArrow = false;
+        }
+    }
+
+    // BreadCrumb
+    isBreadCrumb: boolean = false;
+    breadCrumbItems: BreadcrumbItem[] = [];
+
+    private checkBreadCrumb(data: Data) {
+        if ('breadCrumb' in data && Array.isArray(data['breadCrumb'])) {
+            this.breadCrumbItems = data['breadCrumb'];
+            this.isBreadCrumb = true;
+        } else {
+            this.isBreadCrumb = false;
+            this.breadCrumbItems = [];
         }
     }
 }
