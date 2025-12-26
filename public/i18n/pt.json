@@ -68,8 +68,24 @@
     },
     "units": {
         "subtitle": "Gerencie as unidades e vincule inquilinos.",
-        "newUnit": "Nova unidade",
+        "newUnit": "Nova Unidade",
         "searchTenant": "Pesquisar inquilino",
+        "createUnit": {
+            "unitInfo": "Informações da Unidade",
+            "fillBasicData": "Preencha os dados básicos da nova unidade.",
+            "number": "Número",
+            "floor": "Andar",
+            "classification": "Classificação",
+            "selectType": "Selecione o tipo de utilização do imóvel.",
+            "apartment": "Apartamento",
+            "apartmentDescription": "Unidade residencial",
+            "compact": "Estúdio Compacto",
+            "commercialRoom": "Sala Comercial",
+            "commercialDescription": "Ponto de venda",
+            "cancel": "Cancelar",
+            "saveUnit": "Salvar unidade",
+            "success": "Unidade criada com sucesso."
+        },
         "floors": {
             "first": "Primeiro",
             "second": "Segundo",
@@ -93,7 +109,17 @@
     },
     "common": {
         "new": "Novo",
+        "number": "Número",
+        "floor": "Andar",
         "copyright": "Direitos autorais © 2025 ",
         "author": "Dennis Bozzi"
+    },
+    "enum": {
+        "first": "Primeiro",
+        "second": "Segundo",
+        "third": "Terceiro",
+        "fourth": "Quarto",
+        "stores": "Lojas",
+        "kitnets": "Kitinets"
     }
 }

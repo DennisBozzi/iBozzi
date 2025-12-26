@@ -68,8 +68,24 @@
     },
     "units": {
         "subtitle": "Manage units and assign tenants.",
-        "newUnit": "New unit",
+        "newUnit": "New Unit",
         "searchTenant": "Search tenant",
+        "createUnit": {
+            "unitInfo": "Unit Information",
+            "fillBasicData": "Fill in the basic data of the new unit.",
+            "number": "Number",
+            "floor": "Floor",
+            "classification": "Classification",
+            "selectType": "Select the type of property use.",
+            "apartment": "Apartment",
+            "apartmentDescription": "Residential unit",
+            "compact": "Compact Studio",
+            "commercialRoom": "Commercial Room",
+            "commercialDescription": "Point of sale",
+            "cancel": "Cancel",
+            "saveUnit": "Save unit",
+            "success": "Unit created successfully."
+        },
         "floors": {
             "first": "First",
             "second": "Second",
@@ -93,7 +109,17 @@
     },
     "common": {
         "new": "New",
+        "number": "Number",
+        "floor": "Floor",
         "copyright": "Copyright © 2025 ",
         "author": "Dennis Bozzi"
+    },
+    "enum": {
+        "first": "First",
+        "second": "Second",
+        "third": "Third",
+        "fourth": "Fourth",
+        "stores": "Stores",
+        "kitnets": "Kitnets"
     }
 }

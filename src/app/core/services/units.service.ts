@@ -8,7 +8,6 @@ export interface CreateUnitRequest {
   number: string;
   floor: FloorEnum;
   type: UnitType;
-  rentValue: number;
 }
 
 @Injectable({
@@ -22,22 +21,22 @@ export class UnitsService extends ApiService {
   }
 
   getAvailableUnits(page: number, pageSize: number, number: string): Observable<PagedResult<UnitResponse>> {
-    return this.http.get<PagedResult<UnitResponse>>(`${environment.apiBozzi}/units/available?Page=${page}&PageSize=${pageSize}&Number=${number}`)
+    return this.http.get<PagedResult<UnitResponse>>(`${environment.apiBozzi}/unit/available?Page=${page}&PageSize=${pageSize}&Number=${number}`)
   }
 
   getUnitByNumber(number: string): Observable<UnitResponse> {
-    return this.http.get<UnitResponse>(`${environment.apiBozzi}/units/number/${number}`)
+    return this.http.get<UnitResponse>(`${environment.apiBozzi}/unit/number/${number}`)
   }
 
   newUnit(unit: CreateUnitRequest): Observable<UnitResponse> {
-    return this.http.post<UnitResponse>(`${environment.apiBozzi}/units`, unit)
+    return this.http.post<UnitResponse>(`${environment.apiBozzi}/unit`, unit)
   }
 
   makeResponsible(apId: number, tenId: number): Observable<UnitResponse> {
-    return this.http.put<UnitResponse>(`${environment.apiBozzi}/units/makeResponsible`, { apId, tenId })
+    return this.http.put<UnitResponse>(`${environment.apiBozzi}/unit/makeResponsible`, { apId, tenId })
   }
 
   removeResponsible(apId: number): Observable<UnitResponse> {
-    return this.http.put<UnitResponse>(`${environment.apiBozzi}/units/removeResponsible`, apId)
+    return this.http.put<UnitResponse>(`${environment.apiBozzi}/unit/removeResponsible`, apId)
   }
 }

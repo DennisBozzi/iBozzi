@@ -1,0 +1,20 @@
+export interface SelectOption {
+    value: number | string;
+    label: string;
+}
+
+export function enumToSelectOptions(enumObj: Record<string, any>): SelectOption[] {
+    return Object.entries(enumObj)
+        .filter(([key]) => isNaN(Number(key)))
+        .map(([key, value]) => ({
+            value,
+            label: `${key.toLowerCase()}`
+        }));
+}
+
+export function floorEnumToSelectOptions(enumObj: Record<string, any>, prefix: string = 'enum'): SelectOption[] {
+    return enumToSelectOptions(enumObj).map(option => ({
+        ...option,
+        label: `${prefix}.${option.label}`
+    }));
+}

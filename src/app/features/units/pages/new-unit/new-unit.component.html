@@ -1,3 +1,137 @@
-<div class="p-4 h-full relative flex flex-col">
-    <div class="size-full bg-red-700">dasdasd</div>
-</div>
+<form (ngSubmit)="onSubmit()" [formGroup]="form" class="h-full flex flex-col overflow-hidden">
+    <div class="relative bg-neutral h-18 z-10">
+        <div
+            class="border-2 border-base-content absolute top-6 inset-x-0 mx-auto size-24 rounded-full bg-neutral flex justify-center items-center">
+            <span class="material-symbols-outlined text-base-content font-bold !text-5xl">
+                cottage
+            </span>
+        </div>
+    </div>
+
+    <div class="p-4 sm:px-4 px-2 flex-1 overflow-y-auto">
+        <div class="mx-auto max-w-3xl w-full flex flex-col gap-6 h-full">
+            <div class="flex mt-12 gap-3 items-center">
+                <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                    <span class="material-icons-round text-base-content !text-3xl">
+                        home_work
+                    </span>
+                </div>
+                <div class="flex flex-col w-full">
+                    <h1 class="text-xl text-primary">{{'units.createUnit.unitInfo' | t}}</h1>
+                    <h3 class="truncate text-sm text-base-content/40 w-[80%]">{{'units.createUnit.fillBasicData' |
+                        t}}
+                    </h3>
+                </div>
+            </div>
+
+            <div class="flex w-full gap-6 sm:flex-row flex-col">
+
+
+                <div class="w-full flex flex-col gap-2">
+                    <label for="" class="ml-1">{{'units.createUnit.number' | t}}</label>
+                    <label class="input w-full validator focus:border-0">
+                        <span class="material-symbols-outlined">
+                            tag
+                        </span>
+
+                        <input type="text" class="validator" required [placeholder]="'common.number' | t" maxlength="30"
+                            formControlName="number" />
+                    </label>
+
+                </div>
+
+
+                <div class="w-full flex flex-col gap-2">
+                    <label for="" class="ml-1">{{'units.createUnit.floor' | t}}</label>
+                    <label class="select w-full validator">
+                        <span class="material-symbols-outlined">
+                            layers
+                        </span>
+
+                        <select required class="grow" formControlName="floor">
+                            <option [value]="''" disabled selected>{{'common.floor' | t}}</option>
+                            <option *ngFor="let floor of floorOptions" [value]="floor.value">
+                                {{ floor.label | t }}
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <span class="divider"></span>
+
+            <div class="flex gap-6 flex-col relative">
+                <div class="flex gap-6">
+                    <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                        <span class="material-icons-round text-base-content !text-3xl">
+                            category
+                        </span>
+                    </div>
+                    <div class="flex flex-col w-full">
+                        <h1 class="text-xl text-primary">{{'units.createUnit.classification' | t}}</h1>
+                        <h3 class="truncate text-sm text-base-content/40 w-[80%]">{{'units.createUnit.selectType' |
+                            t}}
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 flex-col sm:flex-row">
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedType === 1 ? '' : 'border-base-300'" (click)="selectType(1)">
+                        <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                single_bed
+                            </span>
+                        </div>
+
+                        <h1>{{'units.createUnit.apartment' | t}}</h1>
+                        <h2>{{'units.createUnit.apartmentDescription' | t}}</h2>
+                    </div>
+
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedType === 2 ? '' : 'border-base-300'" (click)="selectType(2)">
+                        <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                meeting_room
+                            </span>
+                        </div>
+
+                        <h1>{{'layout.kitnet' | t}}</h1>
+                        <h2>{{'units.createUnit.compact' | t}}</h2>
+                    </div>
+
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedType === 3 ? '' : 'border-base-300'" (click)="selectType(3)">
+                        <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                storefront
+                            </span>
+                        </div>
+
+                        <h1>{{'units.createUnit.commercialRoom' | t}}</h1>
+                        <h2>{{'units.createUnit.commercialDescription' | t}}</h2>
+                    </div>
+
+                </div>
+
+                <div class="absolute left-1 -bottom-8">
+                    <p *ngIf="form.get('type')?.invalid && submitted" class="text-error text-sm">
+                        Selecione uma classificação
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto w-full p-4">
+        <div class="ml-auto w-fit flex gap-6">
+
+            <button type="button" [disabled]="isLoading" class="ml-auto mt-auto mb-2 btn btn-ghost w-fit"
+                (click)="goBack()">{{'units.createUnit.cancel' | t}}</button>
+            <button type="submit" [disabled]="isLoading"
+                class="ml-auto mt-auto mb-2 btn btn-base bg-base-content text-primary-content w-fit">
+                <span *ngIf="isLoading" class="loading loading-spinner"></span>
+                {{'layout.confirm' | t}}</button>
+        </div>
+    </div>
+</form>
