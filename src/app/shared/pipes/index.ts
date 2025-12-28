@@ -5,3 +5,5 @@ export * from './t.pipe';
 export * from './safe-html.pipe';
 export * from './currency-format.pipe';
 export * from './floor-name.pipe';
+export * from './enum-label.pipe';
+

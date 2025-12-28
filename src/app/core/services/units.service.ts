@@ -20,12 +20,12 @@ export class UnitsService extends ApiService {
     return this.http.get<PagedResult<UnitResponse>>(`${environment.apiBozzi}/unit?Page=1&PageSize=100`)
   }
 
-  getAvailableUnits(page: number, pageSize: number, number: string): Observable<PagedResult<UnitResponse>> {
-    return this.http.get<PagedResult<UnitResponse>>(`${environment.apiBozzi}/unit/available?Page=${page}&PageSize=${pageSize}&Number=${number}`)
+  getUnitById(id: number): Observable<UnitResponse> {
+    return this.http.get<UnitResponse>(`${environment.apiBozzi}/unit/${id}`)
   }
 
-  getUnitByNumber(number: string): Observable<UnitResponse> {
-    return this.http.get<UnitResponse>(`${environment.apiBozzi}/unit/number/${number}`)
+  getAvailableUnits(page: number, pageSize: number, number: string): Observable<PagedResult<UnitResponse>> {
+    return this.http.get<PagedResult<UnitResponse>>(`${environment.apiBozzi}/unit/available?Page=${page}&PageSize=${pageSize}&Number=${number}`)
   }
 
   newUnit(unit: CreateUnitRequest): Observable<UnitResponse> {

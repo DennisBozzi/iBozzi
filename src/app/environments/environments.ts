@@ -9,5 +9,5 @@ export const environment = {
     messagingSenderId: "245711763154",
     appId: "1:245711763154:web:ca8c1d0220f63a5fcd5f0b"
   },
-  apiBozzi: 'https://apibozzi.onrender.com'
+  apiBozzi: 'http://localhost:8080'
 }

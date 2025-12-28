@@ -93,6 +93,16 @@
             "fourth": "Quarto",
             "stores": "Lojas",
             "kitnets": "Kitinets"
+        },
+        "detail": {
+            "floor": "ANDAR",
+            "monthlyValue": "VALOR MENSAL",
+            "financialSummary": "Resumo Financeiro",
+            "totalRevenue": "Receita Total (YTD)",
+            "pendingPayments": "Pagamentos Pendentes",
+            "viewHistory": "Ver Histórico",
+            "vacant": "Vago",
+            "rented": "Alugado"
         }
     },
     "toasts": {
@@ -120,6 +130,9 @@
         "third": "Terceiro",
         "fourth": "Quarto",
         "stores": "Lojas",
-        "kitnets": "Kitinets"
+        "kitnets": "Kitinets",
+        "apartment": "Apartamento",
+        "kitnet": "Kitnet",
+        "store": "Loja"
     }
 }

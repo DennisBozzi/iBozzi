@@ -18,3 +18,12 @@ export function floorEnumToSelectOptions(enumObj: Record<string, any>, prefix: s
         label: `${prefix}.${option.label}`
     }));
 }
+
+export function getEnumLabel(enumObj: Record<string, any>, value: number | string): string {
+    for (const [key, enumValue] of Object.entries(enumObj)) {
+        if (enumValue === value) {
+            return key;
+        }
+    }
+    return String(value);
+}

@@ -8,6 +8,7 @@ import { filter, Subject, takeUntil, Observable } from 'rxjs';
 import { User } from '@/shared/types/user.type';
 import { DemoService } from '../services';
 import { BreadcrumbItem } from '@/shared/interfaces';
+import { BreadcrumbService } from '@/core/services/breadcrumb.service';
 
 @Component({
     selector: 'layout',
@@ -22,7 +23,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
     sidebarCollapsed$: Observable<boolean> | undefined;
     mobileMenuOpen$: Observable<boolean> | undefined;
     user$!: Observable<User | null>;
-    showArrow: boolean = false;
 
     @Input() showHeader = true;
     @Input() headerTitle: string | null = null;
@@ -31,6 +31,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private readonly firebaseService = inject(FirebaseService);
     private readonly menuService = inject(MenuService);
     private readonly demoService = inject(DemoService);
+    private readonly breadcrumbService = inject(BreadcrumbService);
     private readonly destroy$ = new Subject<void>();
 
     ngOnInit(): void {
@@ -45,6 +46,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(() => this.checkHeaderVisibility());
+
+        this.checkBreadCrumbData();
     }
 
     ngOnDestroy(): void {
@@ -97,12 +100,25 @@ export class LayoutComponent implements OnInit, OnDestroy {
                     this.headerTitle = data['headerTitle'];
                 }
                 this.checkRegister(data);
-                this.checkArrow(data);
                 this.checkBreadCrumb(data);
             }
 
             route = route.firstChild as ActivatedRoute;
         }
+    }
+
+    private checkBreadCrumbData() {
+        this.breadcrumbService.breadcrumb$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(items => {
+                if (items.length > 0) {
+                    setTimeout(() => {
+                        this.breadCrumbItems = items;
+                        this.isBreadCrumb = true;
+                        this.showHeader = true;
+                    })
+                }
+            });
     }
 
     // Check is Register
@@ -112,15 +128,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
             this.isRegister = data['isRegister'];
         } else {
             this.isRegister = false;
-        }
-    }
-
-    // Check back arrow
-    private checkArrow(data: Data) {
-        if ('showArrow' in data) {
-            this.showArrow = data['showArrow'];
-        } else {
-            this.showArrow = false;
         }
     }
 

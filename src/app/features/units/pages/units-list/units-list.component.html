@@ -28,7 +28,7 @@
     class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-y-auto">
     <ng-container *ngFor="let ap of units.items">
 
-      <div class="card card-md bg-base-200 w-full h-fit">
+      <div class="card card-md bg-base-100 w-full h-fit">
         <div class="card-body">
           <div class="flex justify-between">
             <div class="flex items-center gap-2">
@@ -37,7 +37,7 @@
               </span>
               <h1>{{ap.number}}</h1>
             </div>
-            <button class="btn btn-sm btn-ghost shadow-none">
+            <button (click)='navTo("/units/" + ap.id)' class="btn btn-sm btn-ghost shadow-none">
               <span class="material-symbols-outlined">
                 arrow_outward
               </span>
@@ -50,7 +50,7 @@
 
           <div class="mt-6 flex gap-2 items-center">
             <span class="material-symbols-outlined">
-              stairs_2
+              layers
             </span>
             <h1>{{ ap.floor | floorName }}</h1>
           </div>

@@ -93,6 +93,16 @@
             "fourth": "Fourth",
             "stores": "Stores",
             "kitnets": "Kitnets"
+        },
+        "detail": {
+            "floor": "FLOOR",
+            "monthlyValue": "MONTHLY VALUE",
+            "financialSummary": "Financial Summary",
+            "totalRevenue": "Total Revenue (YTD)",
+            "pendingPayments": "Pending Payments",
+            "viewHistory": "View History",
+            "vacant": "Vacant",
+            "rented": "Rented"
         }
     },
     "toasts": {
@@ -120,6 +130,9 @@
         "third": "Third",
         "fourth": "Fourth",
         "stores": "Stores",
-        "kitnets": "Kitnets"
+        "kitnets": "Kitnets",
+        "apartment": "Apartment",
+        "kitnet": "Kitnet",
+        "store": "Store"
     }
 }

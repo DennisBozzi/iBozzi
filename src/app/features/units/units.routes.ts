@@ -17,12 +17,16 @@ export const UNITS_ROUTES: Routes = [
     title: 'New Unit - iBozzi',
     data: {
       showHeader: true,
-      showArrow: true,
       isRegister: true,
       breadCrumb: [
         { label: 'layout.units', url: '/units' },
         { label: 'layout.register', url: '/units/new' }
       ] as BreadcrumbItem[],
     },
-  }
+  },
+  {
+    path: ':id',
+    loadComponent: () => import('./pages/unit/unit.component').then(m => m.UnitComponent),
+    title: 'Unit - iBozzi',
+  },
 ];
