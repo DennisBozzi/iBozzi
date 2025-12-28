@@ -21,19 +21,19 @@ export interface CreateTenantRequest {
 
 export class TenantService extends ApiService {
 
-  getTenants(page: number, pageSize: number, name: string, onlyRented: boolean): Observable<PagedResult<TenantResponse>> {
-    return this.http.get<PagedResult<TenantResponse>>(`${environment.apiBozzi}/tenants?Page=${page}&PageSize=${pageSize}&NameCpf=${name}&OnlyRented=${onlyRented}`)
+  getTenants(page: number, pageSize: number, nameCpf: string, active: boolean): Observable<PagedResult<TenantResponse>> {
+    return this.http.get<PagedResult<TenantResponse>>(`${environment.apiBozzi}/tenant?Page=${page}&PageSize=${pageSize}&NameCpf=${nameCpf}&active=${active}`)
   }
 
   getResponsibleTenants(page: number, pageSize: number, name: string): Observable<PagedResult<TenantResponse>> {
-    return this.http.get<PagedResult<TenantResponse>>(`${environment.apiBozzi}/tenants/responsibles?Page=${page}&PageSize=${pageSize}&NameCpf=${name}`)
+    return this.http.get<PagedResult<TenantResponse>>(`${environment.apiBozzi}/tenant/responsibles?Page=${page}&PageSize=${pageSize}&NameCpf=${name}`)
   }
 
   getTenant(id: number): Observable<TenantResponse> {
-    return this.http.get<TenantResponse>(`${environment.apiBozzi}/tenants/${id}`)
+    return this.http.get<TenantResponse>(`${environment.apiBozzi}/tenant/${id}`)
   }
 
   addTenant(request: CreateTenantRequest): Observable<TenantResponse> {
-    return this.http.post<TenantResponse>(`${environment.apiBozzi}/tenants`, request)
+    return this.http.post<TenantResponse>(`${environment.apiBozzi}/tenant`, request)
   }
 }

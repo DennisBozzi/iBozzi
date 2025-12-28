@@ -105,6 +105,10 @@
             "rented": "Alugado"
         }
     },
+    "tenants": {
+        "active": "Ativos",
+        "all": "Todos"
+    },
     "toasts": {
         "welcome": "Bem-vindo! É ótimo ter você aqui.",
         "welcomeBack": "Bem-vindo de volta! Que bom ver você novamente.",

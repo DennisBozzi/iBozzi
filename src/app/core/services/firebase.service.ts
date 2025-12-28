@@ -6,7 +6,7 @@ import { auth, app } from '../config/firebase.config';
 import { environment } from '@/environments/environments';
 import imageCompression from 'browser-image-compression';
 import { LoginPayload, User } from '@/shared/types/user.type';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -128,6 +128,30 @@ export class FirebaseService {
             return { error: null };
         } catch (error: any) {
             return { error: { message: error.message } };
+        }
+    }
+
+    refreshToken(): Observable<User | null> {
+        return from(this.performTokenRefresh());
+    }
+
+    private async performTokenRefresh(): Promise<User | null> {
+        try {
+            if (!this.auth.currentUser) {
+                throw new Error('Nenhum usuário autenticado');
+            }
+
+            const idTokenResult = await this.auth.currentUser.getIdTokenResult(true);
+
+            this.userWithClaims = await this.mapFirebaseUserToUser(this.auth.currentUser);
+            this.userSubject.next(this.userWithClaims);
+
+            return this.userWithClaims;
+        } catch (error: any) {
+            console.error('Erro ao renovar token:', error);
+
+            await this.signOut();
+            throw error;
         }
     }
 
