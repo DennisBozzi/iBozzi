@@ -2,23 +2,24 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslatePipe, EnumLabelPipe } from "../../../../shared/pipes";
-import { CreateUnitRequest, ToastService, UnitsService, TranslationService } from '@/core/services';
-import { BreadcrumbItem, FloorEnum, UnitResponse, UnitType } from '@/shared/interfaces';
+import { CreateUnitRequest, ToastService, UnitsService, TranslationService, TenantService } from '@/core/services';
+import { BreadcrumbItem, FloorEnum, TenantResponse, UnitResponse, UnitType } from '@/shared/interfaces';
 import { floorEnumToSelectOptions } from '@/shared/utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { BreadcrumbService } from '@/core/services/breadcrumb.service';
 
 @Component({
-  selector: 'app-unit',
+  selector: 'app-tenant',
   standalone: true,
   imports: [CommonModule, TranslatePipe, ReactiveFormsModule, EnumLabelPipe],
-  templateUrl: './unit.component.html'
+  templateUrl: './tenant.component.html'
 })
 
-export class UnitComponent implements OnInit {
+export class TenantComponent implements OnInit {
 
   private readonly uniService = inject(UnitsService);
+  private readonly tenService = inject(TenantService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
   private readonly toastService = inject(ToastService);
@@ -27,10 +28,14 @@ export class UnitComponent implements OnInit {
   private readonly breadcrumbService = inject(BreadcrumbService);
 
 
+
+
   id!: number;
-  unit!: UnitResponse;
+  tenant!: TenantResponse;
   isLoading: boolean = true;
 
+
+  unit!: UnitResponse;
   form: FormGroup;
 
   selectedType: number = 0;
@@ -52,24 +57,24 @@ export class UnitComponent implements OnInit {
 
   //TODO: Mudar bara getContractById
   getUnitById() {
-    this.uniService.getUnitById(this.id)
+    this.tenService.getTenantById(this.id)
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe({
         next: (res) => {
-          this.unit = res;
-          this.setBreadcrumb(this.unit.number);
+          this.tenant = res;
+          this.setBreadcrumb(this.tenant.firstName + ' ' + this.tenant.lastName);
         },
         error: (err) => {
           this.toastService.error(err.message);
-          this.router.navigate(['/units']);
+          this.router.navigate(['/tenants']);
         }
       });
   }
 
   setBreadcrumb(label: string) {
     this.breadcrumbService.setBreadcrumb([
-      { label: 'layout.units', url: '/units' },
-      { label: label, url: '/units/' + this.id }
+      { label: 'layout.tenants', url: '/tenants' },
+      { label: label, url: '/tenants/' + this.id }
     ] as BreadcrumbItem[]);
   }
 

@@ -20,14 +20,14 @@
       </label>
     </div>
 
-    <a (click)='navTo("/units/new")' class="btn btn-neutral btn-sm shadow-none hidden sm:flex gap-0 px-4 pl-3">
+    <a (click)='navTo("/tenants/new")' class="btn btn-neutral btn-sm shadow-none hidden sm:flex gap-0 px-4 pl-3">
       <span class="material-symbols-outlined">
         add
       </span>
       {{'common.new' | t}}
     </a>
 
-    <a (click)='navTo("/units/new")'
+    <a (click)='navTo("/tenants/new")'
       class="btn btn-circle btn-neutral btn-xl shadow-none sm:hidden flex absolute bottom-3 right-3 z-10"><span
         class="material-symbols-outlined">
         add
@@ -56,7 +56,7 @@
               <div class="flex items-center gap-3">
                 <div class="avatar">
                   <div class="badge-ghost !flex items-center justify-center mask mask-squircle h-12 w-12">
-                    <span class="material-symbols-outlined">
+                    <span class="material-icons-round">
                       {{ten.gender == 1 ? 'face': 'face_3'}}
                     </span>
                   </div>
@@ -73,8 +73,8 @@
               {{ten.email}}
             </td>
             <th class="text-end">
-              <button class="btn btn-ghost btn-xs">
-                <span class="material-symbols-outlined">
+              <button (click)='navTo("/tenants/" + ten.id)' class="btn btn-ghost btn-xs">
+                <span class="material-icons-round">
                   chevron_right
                 </span>
               </button>

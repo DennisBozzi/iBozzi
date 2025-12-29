@@ -107,7 +107,24 @@
     },
     "tenants": {
         "active": "Ativos",
-        "all": "Todos"
+        "all": "Todos",
+        "createTenant": {
+            "tenantInfo": "Informações do Inquilino",
+            "fillPersonalData": "Preencha com dados pessoais do morador.",
+            "firstName": "Nome",
+            "lastName": "Sobrenome",
+            "cpf": "CPF",
+            "birthDate": "Nascimento",
+            "gender": "Gênero",
+            "masculine": "Masculino",
+            "feminine": "Feminino",
+            "selectGender": "Selecione um gênero",
+            "contacts": "Contatos",
+            "contactInfo": "Informações de contatos do inquilino.",
+            "email": "E-mail",
+            "phone": "Telefone",
+            "success": "Inquilino criado com sucesso."
+        }
     },
     "toasts": {
         "welcome": "Bem-vindo! É ótimo ter você aqui.",

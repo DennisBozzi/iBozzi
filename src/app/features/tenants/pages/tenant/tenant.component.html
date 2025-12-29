@@ -1,0 +1,95 @@
+<form *ngIf="!isLoading" (ngSubmit)="onSubmit()" [formGroup]="form" class="h-full flex flex-col overflow-hidden">
+
+    <div class="p-4 sm:px-4 px-2 flex-1 overflow-y-auto">
+        <div class="flex gap-4 md:flex-row flex-col">
+            <div class="card bg-base-100 w-full">
+                <div class="card-body justify-between">
+                    <div class="flex justify-between mb-4">
+                        <div>
+                            <h1 class="text-2xl mb-1 font-semibold">{{ 'layout.unit' | t }} {{unit.number}}</h1>
+                            <span class="badge-accent badge">{{unit.type | enumLabel: UnitTypeEnum}}</span>
+                        </div>
+
+                        <span class="badge badge-soft badge-error font-semibold">
+                            <span class="material-icons-outlined !text-sm">person_off</span>
+                            {{ 'units.detail.vacant' | t }}
+                        </span>
+                    </div>
+
+                    <div class="flex gap-4 sm:flex-row flex-col">
+
+                        <div class="bg-base-200 p-4 card w-full">
+                            <h1 class="text-base-content/70 mb-2">{{ 'units.detail.floor' | t }}</h1>
+                            <div class="flex gap-2">
+                                <span class="material-symbols-outlined text-success">layers</span>
+                                <span class="text-base font-semibold">{{unit.floor | enumLabel: FloorEnum}}</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-base-200 p-4 card w-full">
+                            <h1 class="text-base-content/70 mb-2">{{ 'units.detail.monthlyValue' | t }}</h1>
+                            <div class="flex gap-2">
+                                <span class="material-symbols-outlined text-success">attach_money</span>
+                                <span class="text-base font-semibold">700,00</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-base-100 md:w-[60%] w-full">
+                <div class="card-body">
+                    <div class="flex gap-2">
+                        <div class="card bg-success p-0.5"></div>
+                        <h1 class="font-semibold">{{ 'units.detail.financialSummary' | t }}</h1>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <h3 class="text-base-content/70">{{ 'units.detail.totalRevenue' | t }}</h3>
+                        <h3 class="font-semibold">$ 6,800.00</h3>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <h3 class="text-base-content/70">{{ 'units.detail.pendingPayments' | t }}</h3>
+                        <h3 class="font-semibold">--</h3>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <button type="button" class="btn btn-outline btn-success">{{ 'units.detail.viewHistory' | t
+                        }}</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider mt-10 mb-8"></div>
+
+        <div class="tabs tabs-lift">
+            <label class="tab flex items-center gap-1">
+                <input type="radio" name="details" checked="checked" />
+                <span class="material-icons-outlined !text-base">info</span>
+                Details
+            </label>
+            <div class="tab-content bg-base-100 border-base-300 p-6">Tab content 1</div>
+
+            <label class="tab flex items-center gap-1">
+                <input type="radio" name="details" />
+                <span class="material-icons-outlined !text-base">history</span>
+                History
+            </label>
+            <div class="tab-content bg-base-100 border-base-300 p-6">Tab content 2</div>
+
+            <label class="tab flex items-center gap-1">
+                <input type="radio" name="details" />
+                <span class="material-icons-outlined !text-base">build</span>
+                Maintence
+            </label>
+            <div class="tab-content bg-base-100 border-base-300 p-6">Tab content 3</div>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="isLoading" class="h-full flex items-center justify-center flex-1">
+    <span class="loading loading-dots loading-xl text-primary"></span>
+</div>

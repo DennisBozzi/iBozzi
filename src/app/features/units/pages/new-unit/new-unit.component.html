@@ -1,16 +1,16 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form" class="h-full flex flex-col overflow-hidden">
-    <div class="relative bg-neutral h-18 z-10">
+    <div class="relative bg-neutral/60 h-16 z-10 hidden sm:flex">
         <div
             class="border-2 border-base-content absolute top-6 inset-x-0 mx-auto size-24 rounded-full bg-neutral flex justify-center items-center">
-            <span class="material-symbols-outlined text-base-content font-bold !text-5xl">
-                cottage
+            <span class="material-icons-round text-base-content font-bold !text-5xl">
+                add_home_work
             </span>
         </div>
     </div>
 
     <div class="p-4 sm:px-4 px-2 flex-1 overflow-y-auto">
         <div class="mx-auto max-w-3xl w-full flex flex-col gap-6 h-full">
-            <div class="flex mt-12 gap-3 items-center">
+            <div class="flex mt-0 sm:mt-12 gap-3 items-center">
                 <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
                     <span class="material-icons-round text-base-content !text-3xl">
                         home_work

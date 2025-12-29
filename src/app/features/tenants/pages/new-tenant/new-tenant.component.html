@@ -1,0 +1,188 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form" class="h-full flex flex-col overflow-hidden">
+    <div class="relative bg-neutral/60 h-16 z-10 hidden sm:flex">
+        <div
+            class="border-2 border-base-content absolute top-6 inset-x-0 mx-auto size-24 rounded-full bg-neutral flex justify-center items-center">
+            <span class="material-icons-round text-base-content font-bold !text-5xl">
+                person_add
+            </span>
+        </div>
+    </div>
+
+    <div class="p-4 sm:px-4 px-2 flex-1 overflow-y-auto">
+        <div class="mx-auto max-w-3xl w-full flex flex-col gap-6 h-full">
+
+            <div class="flex mt-0 sm:mt-12 gap-3 items-center">
+                <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                    <span class="material-icons-round text-base-content !text-3xl">
+                        badge
+                    </span>
+                </div>
+                <div class="flex flex-col w-full">
+                    <h1 class="text-xl text-primary w-fit">{{ 'tenants.createTenant.tenantInfo' | t }}</h1>
+                    <h3 class="truncate text-sm text-base-content/40 w-[90%]">
+                        {{ 'tenants.createTenant.fillPersonalData' | t }}
+                    </h3>
+                </div>
+            </div>
+
+            <div class="flex w-full gap-6 sm:flex-row flex-col">
+
+                <div class="w-full flex flex-col gap-2">
+                    <label for="" class="ml-1">{{ 'tenants.createTenant.firstName' | t }}</label>
+                    <label class="input w-full validator">
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+
+                        <input type="text" class="validator" required [placeholder]="'Ezra' | t" maxlength="30"
+                            formControlName="firstName" />
+                    </label>
+                </div>
+
+                <div class="w-full flex flex-col gap-2">
+                    <label for="" class="ml-1">{{ 'tenants.createTenant.lastName' | t }}</label>
+                    <label class="input w-full validator">
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+
+                        <input type="text" class="validator" required [placeholder]="'Bozzi' | t" maxlength="30"
+                            formControlName="lastName" />
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="flex w-full gap-6 sm:flex-row flex-col">
+
+                <div class="w-full flex flex-col gap-2">
+                    <label for="" class="ml-1">{{ 'tenants.createTenant.cpf' | t }}</label>
+                    <label class="input w-full validator">
+                        <span class="material-symbols-outlined">
+                            id_card
+                        </span>
+
+                        <input type="text" class="validator" required [placeholder]="'000.000.000-00' | t"
+                            maxlength="14" formControlName="cpf" appMaskCpf />
+                    </label>
+                </div>
+
+                <div class="w-full flex flex-col gap-2">
+                    <label for="" class="ml-1">{{ 'tenants.createTenant.birthDate' | t }}</label>
+                    <label class="input w-full validator">
+                        <span class="material-symbols-outlined">
+                            cake
+                        </span>
+
+                        <input type="date" class="validator" required [placeholder]="'common.number' | t"
+                            formControlName="born" />
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="relative">
+
+                <label for="" class="ml-1">{{ 'tenants.createTenant.gender' | t }}</label>
+
+                <div class="flex gap-6 flex-col sm:flex-row mt-2">
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedGender === 1 ? 'border-primary' : 'border-base-300'"
+                        (click)="selectGender(1)">
+                        <div class="pl-2.5 !pt-1.5 !pb-0 size-12 card"
+                            [ngClass]="selectedGender === 1 ? 'bg-neutral' : 'bg-neutral/40'">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                male
+                            </span>
+                        </div>
+
+                        <h2 class="font-semibold" [ngClass]="selectedGender === 1 ? 'text-primary' : ''">
+                            {{ 'tenants.createTenant.masculine' | t }}
+                        </h2>
+                    </div>
+
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedGender === 2 ? 'border-primary' : 'border-base-300'"
+                        (click)="selectGender(2)">
+                        <div class="pl-2.5 !pt-1.5 !pb-0 size-12 card"
+                            [ngClass]="selectedGender === 2 ? 'bg-neutral' : 'bg-neutral/40'">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                female
+                            </span>
+                        </div>
+
+                        <h2 class="font-semibold" [ngClass]="selectedGender === 2 ? 'text-primary' : ''">
+                            {{ 'tenants.createTenant.feminine' | t }}
+                        </h2>
+                    </div>
+
+                    <div class="absolute left-1 -bottom-8">
+                        <p *ngIf="form.get('gender')?.invalid && submitted" class="text-error text-sm">
+                            {{ 'tenants.createTenant.selectGender' | t }}
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <span class="divider"></span>
+
+            <div class="flex gap-6 flex-col relative">
+                <div class="flex gap-3">
+                    <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                        <span class="material-icons-round text-base-content !text-3xl">
+                            alternate_email
+                        </span>
+                    </div>
+                    <div class="flex flex-col w-full">
+                        <h1 class="text-xl text-primary">{{ 'tenants.createTenant.contacts' | t }}</h1>
+                        <h3 class="truncate text-sm text-base-content/40 w-[80%]">
+                            {{ 'tenants.createTenant.contactInfo' | t }}
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="flex w-full gap-6 sm:flex-row flex-col">
+
+                    <div class="w-full flex flex-col gap-2">
+                        <label for="" class="ml-1">{{ 'tenants.createTenant.email' | t }}</label>
+                        <label class="input w-full validator">
+                            <span class="material-symbols-outlined">
+                                email
+                            </span>
+
+                            <input type="email" class="validator" required [placeholder]="'ezra@email.com' | t"
+                                formControlName="email" />
+                        </label>
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2">
+                        <label for="" class="ml-1">{{ 'tenants.createTenant.phone' | t }}</label>
+                        <label class="input w-full validator">
+                            <span class="material-symbols-outlined">
+                                call
+                            </span>
+
+                            <input type="tel" class="validator" required [placeholder]="'(00) 00000-0000' | t"
+                                formControlName="phone" appMaskPhone />
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto w-full p-4">
+        <div class="ml-auto w-fit flex gap-6">
+
+            <button type="button" [disabled]="isLoading" class="ml-auto mt-auto mb-2 btn btn-ghost w-fit"
+                (click)="goBack()">{{'units.createUnit.cancel' | t}}</button>
+            <button type="submit" [disabled]="isLoading"
+                class="ml-auto mt-auto mb-2 btn btn-base bg-base-content text-primary-content w-fit">
+                <span *ngIf="isLoading" class="loading loading-spinner"></span>
+                {{'layout.confirm' | t}}</button>
+        </div>
+    </div>
+</form>

@@ -107,7 +107,24 @@
     },
     "tenants": {
         "active": "Active",
-        "all": "All"
+        "all": "All",
+        "createTenant": {
+            "tenantInfo": "Tenant Information",
+            "fillPersonalData": "Fill in with personal data of the resident.",
+            "firstName": "Name",
+            "lastName": "Last Name",
+            "cpf": "CPF",
+            "birthDate": "Birth Date",
+            "gender": "Gender",
+            "masculine": "Male",
+            "feminine": "Female",
+            "selectGender": "Select a gender",
+            "contacts": "Contacts",
+            "contactInfo": "Contact information of the tenant.",
+            "email": "Email",
+            "phone": "Phone",
+            "success": "Tenant created successfully."
+        }
     },
     "toasts": {
         "welcome": "Welcome! It's great to see you.",

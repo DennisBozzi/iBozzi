@@ -5,7 +5,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class MenuService {
-    private sidebarCollapsedSubject = new BehaviorSubject<boolean>(false);
+    private readonly SIDEBAR_STORAGE_KEY = 'ibozzi_sidebar_collapsed';
+    private sidebarCollapsedSubject = new BehaviorSubject<boolean>(this.loadSidebarState());
     private mobileMenuOpenSubject = new BehaviorSubject<boolean>(false);
     private dataReloadedSubject = new Subject<void>();
 
@@ -16,6 +17,7 @@ export class MenuService {
     toggleSidebar() {
         const current = this.sidebarCollapsedSubject.value;
         this.sidebarCollapsedSubject.next(!current);
+        this.saveSidebarState(!current);
     }
 
     openMobileMenu() {
@@ -37,5 +39,14 @@ export class MenuService {
 
     notifyDataReloaded(): void {
         this.dataReloadedSubject.next();
+    }
+
+    private loadSidebarState(): boolean {
+        const stored = localStorage.getItem(this.SIDEBAR_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : false;
+    }
+
+    private saveSidebarState(isCollapsed: boolean): void {
+        localStorage.setItem(this.SIDEBAR_STORAGE_KEY, JSON.stringify(isCollapsed));
     }
 }
