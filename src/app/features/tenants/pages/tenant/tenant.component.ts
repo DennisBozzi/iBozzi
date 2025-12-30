@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslatePipe, EnumLabelPipe } from "../../../../shared/pipes";
+import { PhonePipe } from "../../../../shared/pipes";
 import { CreateUnitRequest, ToastService, UnitsService, TranslationService, TenantService } from '@/core/services';
 import { BreadcrumbItem, FloorEnum, TenantResponse, UnitResponse, UnitType } from '@/shared/interfaces';
 import { floorEnumToSelectOptions } from '@/shared/utils';
@@ -12,7 +12,7 @@ import { BreadcrumbService } from '@/core/services/breadcrumb.service';
 @Component({
   selector: 'app-tenant',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, ReactiveFormsModule, EnumLabelPipe],
+  imports: [CommonModule, ReactiveFormsModule, PhonePipe],
   templateUrl: './tenant.component.html'
 })
 
