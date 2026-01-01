@@ -29,6 +29,10 @@ export const LAYOUT_ROUTES: Routes = [
         loadChildren: () => import('../../features/payments/payments.routes').then(m => m.PAYMENTS_ROUTES)
       },
       {
+        path: 'contracts',
+        loadChildren: () => import('../../features/contracts/contracts.routes').then(m => m.CONTRACTS_ROUTES)
+      },
+      {
         path: 'profile',
         loadChildren: () => import('../../features/profile/profile.routes').then(m => m.PROFILE_ROUTES)
       }

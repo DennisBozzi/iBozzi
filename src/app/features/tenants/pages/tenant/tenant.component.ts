@@ -27,13 +27,9 @@ export class TenantComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly breadcrumbService = inject(BreadcrumbService);
 
-
-
-
   id!: number;
   tenant!: TenantResponse;
   isLoading: boolean = true;
-
 
   unit!: UnitResponse;
   form: FormGroup;

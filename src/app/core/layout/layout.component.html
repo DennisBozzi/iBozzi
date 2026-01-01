@@ -79,6 +79,15 @@
         </a>
       </li>
 
+      <li (click)="navTo('/contracts')">
+        <a [class.justify-center]="sidebarCollapsed$ | async">
+          <span class="material-symbols-outlined">
+            files
+          </span>
+          <span *ngIf="!(sidebarCollapsed$ | async)">{{'layout.contracts' | t}}</span>
+        </a>
+      </li>
+
     </ul>
 
     <!-- Sidebar Footer -->

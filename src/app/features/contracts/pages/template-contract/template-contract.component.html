@@ -1,0 +1,62 @@
+<div class="h-full flex flex-col overflow-hidden">
+    <div class="p-4 sm:px-4 px-2 flex-1 flex items-center justify-center">
+        <div *ngIf="!isLoading" class="flex w-full">
+
+            <div class="w-full flex flex-col md:flex-row gap-6 h-full max-w-4xl mx-auto justify-center">
+                <div
+                    class="h-fit flex flex-col gap-1 items-center w-full bg-base-100 card py-6 md:max-w-xs max-w-full relative">
+                    <div class="bg-neutral/40 px-2 !pt-1.5 !pb-0 size-12 card">
+                        <span class="material-icons-round text-base-content !text-3xl">
+                            description
+                        </span>
+                    </div>
+
+                    <h1 class="font-semibold mt-3">{{contract.file?.fileName}}</h1>
+                    <h2>{{contract.file?.createdAt| date: 'dd/MM/yyyy' }}</h2>
+
+                    <label for="fileInput" class="btn btn-ghost btn-circle absolute top-1 right-1">
+                        <span class="material-icons-round !text-base">
+                            edit
+                        </span>
+                    </label>
+
+                    <input #fileInput id="fileInput" type="file" class="hidden" accept=".docx"
+                        (change)="changeContractTemplate()" />
+                </div>
+
+                <span class="divider md:divider-horizontal"></span>
+
+                <div class="w-full gap-4 flex flex-col">
+
+                    <div class="flex gap-4">
+                        <label class="label w-[30%] font-semibold" for="">{{'contracts.template.params'| t }}</label>
+                        <label class="label w-full font-semibold" for="">{{'contracts.template.values'| t }}</label>
+                    </div>
+                    <ng-container *ngFor="let param of contract.params">
+                        <div class="flex gap-4">
+                            <label class="label w-[30%] truncate" for="">{{param.replace('{','').replace('}',
+                                '')}}</label>
+                            <input type="text" class="input w-full contract-param-input" [attr.data-param]="param">
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <span *ngIf="isLoading" class="loading loading-dots loading-xl text-primary"></span>
+
+    </div>
+
+    <div class="max-w-3xl mx-auto w-full p-4">
+        <div class="ml-auto w-fit flex gap-6">
+
+            <button type="button" [disabled]="isLoading" class="ml-auto mt-auto mb-2 btn btn-ghost w-fit"
+                (click)="goBack()">{{'units.createUnit.cancel' | t}}</button>
+            <button type="submit" [disabled]="isLoading || isLoadingFill"
+                class="ml-auto mt-auto mb-2 btn btn-base bg-base-content text-primary-content w-fit"
+                (click)="fillContract()">
+                <span *ngIf="isLoading || isLoadingFill" class="loading loading-spinner"></span>
+                {{'layout.confirm' | t}}</button>
+        </div>
+    </div>
+</div>

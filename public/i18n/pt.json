@@ -34,6 +34,8 @@
         "unit": "Unidade",
         "tenants": "Inquilinos",
         "payments": "Pagamentos",
+        "contracts": "Contratos",
+        "template": "Modelo",
         "noName": "Sem nome",
         "home": "Início",
         "selectLanguage": "Selecione um idioma",
@@ -124,6 +126,16 @@
             "email": "E-mail",
             "phone": "Telefone",
             "success": "Inquilino criado com sucesso."
+        }
+    },
+    "contracts": {
+        "title": "Contratos",
+        "template": {
+            "title": "Modelo de Contrato",
+            "subtitle": "Gerencie o modelo de contrato e parâmetros.",
+            "params": "Parâmetros",
+            "values": "Valores",
+            "uploadTemplate": "Enviar modelo"
         }
     },
     "toasts": {

@@ -34,6 +34,8 @@
         "unit": "Unit",
         "tenants": "Tenants",
         "payments": "Payments",
+        "contracts": "Contracts",
+        "template": "Template",
         "noName": "No name",
         "home": "Home",
         "selectLanguage": "Select a language",
@@ -124,6 +126,16 @@
             "email": "Email",
             "phone": "Phone",
             "success": "Tenant created successfully."
+        }
+    },
+    "contracts": {
+        "title": "Contracts",
+        "template": {
+            "title": "Contract Template",
+            "subtitle": "Manage contract template and parameters.",
+            "params": "Params",
+            "values": "Values",
+            "uploadTemplate": "Upload template"
         }
     },
     "toasts": {
