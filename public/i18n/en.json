@@ -50,7 +50,8 @@
         "apartment": "Apartment",
         "store": "Store",
         "empty": "Empty",
-        "register": "Register"
+        "register": "Register",
+        "autoPlaceholderTenant": "Search by Name or CPF"
     },
     "home": {
         "title": "Home",
@@ -110,6 +111,9 @@
     "tenants": {
         "active": "Active",
         "all": "All",
+        "loading": "Loading tenants",
+        "notFound": "No tenants found",
+        "searchPlaceholder": "Type to search for a tenant",
         "createTenant": {
             "tenantInfo": "Tenant Information",
             "fillPersonalData": "Fill in with personal data of the resident.",
@@ -121,6 +125,11 @@
             "masculine": "Male",
             "feminine": "Female",
             "selectGender": "Select a gender",
+            "maritalStatus": "Marital Status",
+            "single": "Single",
+            "married": "Married",
+            "widowed": "Widowed",
+            "selectMaritalStatus": "Select a marital status",
             "contacts": "Contacts",
             "contactInfo": "Contact information of the tenant.",
             "email": "Email",

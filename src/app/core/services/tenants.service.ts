@@ -25,6 +25,10 @@ export class TenantService extends ApiService {
     return this.http.get<PagedResult<TenantResponse>>(`${environment.apiBozzi}/tenant?Page=${page}&PageSize=${pageSize}&NameCpf=${nameCpf}&active=${active}`)
   }
 
+  getAvailable(page: number, pageSize: number, nameCpf: string): Observable<PagedResult<TenantResponse>> {
+    return this.http.get<PagedResult<TenantResponse>>(`${environment.apiBozzi}/tenant?Page=${page}&PageSize=${pageSize}&NameCpf=${nameCpf}`)
+  }
+
   getTenantById(id: number): Observable<TenantResponse> {
     return this.http.get<TenantResponse>(`${environment.apiBozzi}/tenant/${id}`)
   }

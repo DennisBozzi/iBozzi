@@ -1,7 +1,15 @@
 <div class="relative w-full">
-    <input type="text" class="input input-bordered input-secondary w-full focus:outline-none" [placeholder]="placeholder"
-        [(ngModel)]="searchTerm" (input)="onSearch($event)" (focus)="isOpen = true" (blur)="onBlur()"
-        (keydown)="onKeyDown($event)" autocomplete="off" />
+
+    <label class="input w-full">
+
+        <span class="material-symbols-outlined">person_search</span>
+
+        <input type="text" class="input w-full focus:outline-none px-0" [placeholder]="placeholder | t"
+            [(ngModel)]="searchTerm" (input)="onSearch($event)" (focus)="isOpen = true" (blur)="onBlur()"
+            (keydown)="onKeyDown($event)" autocomplete="off" />
+
+        <span class="material-symbols-outlined ">keyboard_arrow_down</span>
+    </label>
 
     <!-- Dropdown content -->
     <div *ngIf="isOpen"
@@ -10,7 +18,7 @@
         <!-- Loading state -->
         <div *ngIf="isLoading" class="px-4 py-8 flex flex-col items-center justify-center gap-2">
             <span class="loading loading-spinner loading-lg"></span>
-            <p class="text-sm text-base-content/60">Carregando inquilinos...</p>
+            <p class="text-sm text-base-content/60">{{'tenants.loading' | t}}</p>
         </div>
 
         <!-- Results list -->
@@ -27,13 +35,13 @@
         <!-- No results -->
         <div *ngIf="!isLoading && searchTerm && filteredTenants.length === 0" class="px-4 py-8 text-center">
             <span class="material-symbols-outlined text-base-content/30 text-2xl block mb-2">person_off</span>
-            <p class="text-sm text-base-content/60">Nenhum inquilino encontrado</p>
+            <p class="text-sm text-base-content/60">{{'tenants.notFound' | t}}</p>
         </div>
 
         <!-- Empty state (sem busca) -->
         <div *ngIf="!isLoading && !searchTerm && filteredTenants.length === 0" class="px-4 py-8 text-center">
             <span class="material-symbols-outlined text-base-content/30 text-2xl block mb-2">search</span>
-            <p class="text-sm text-base-content/60">Digite para buscar um inquilino</p>
+            <p class="text-sm text-base-content/60">{{'tenants.searchPlaceholder' | t}}</p>
         </div>
 
     </div>

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TenantResponse } from '@/shared/interfaces';
-import { CpfPipe } from '@/shared/pipes';
+import { CpfPipe, TranslatePipe } from '@/shared/pipes';
 
 @Component({
     selector: 'app-tenant-autocomplete',
     standalone: true,
-    imports: [CommonModule, FormsModule, CpfPipe],
+    imports: [CommonModule, FormsModule, CpfPipe, TranslatePipe],
     templateUrl: './tenant-autocomplete.component.html',
     styleUrl: './tenant-autocomplete.component.scss'
 })
 export class TenantAutocompleteComponent implements OnInit, OnDestroy {
-    @Input() placeholder = 'Pesquisar inquilino';
+    @Input() placeholder = 'layout.autoPlaceholderTenant';
     @Input() set tenants(value: TenantResponse[]) {
         this.filteredTenants = value;
     }

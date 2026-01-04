@@ -1,46 +1,43 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { TranslatePipe, EnumLabelPipe } from "../../../../shared/pipes";
-import { CreateUnitRequest, ToastService, UnitsService, TranslationService } from '@/core/services';
-import { BreadcrumbItem, FloorEnum, UnitResponse, UnitType } from '@/shared/interfaces';
-import { floorEnumToSelectOptions } from '@/shared/utils';
+import { ToastService, UnitsService, TenantService, ContractsService, NewContract } from '@/core/services';
+import { BreadcrumbItem, FloorEnum, TenantResponse, UnitResponse, UnitType } from '@/shared/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { BreadcrumbService } from '@/core/services/breadcrumb.service';
+import { TenantAutocompleteComponent } from '@/shared/components/tenant-autocomplete/tenant-autocomplete.component';
 
 @Component({
   selector: 'app-unit',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, ReactiveFormsModule, EnumLabelPipe],
-  templateUrl: './unit.component.html'
+  imports: [CommonModule, TranslatePipe, ReactiveFormsModule, EnumLabelPipe, TenantAutocompleteComponent, FormsModule],
+  templateUrl: './unit.component.html',
+  styleUrl: './unit.component.scss'
 })
 
 export class UnitComponent implements OnInit {
 
   private readonly uniService = inject(UnitsService);
   private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
   private readonly toastService = inject(ToastService);
-  private readonly translationService = inject(TranslationService);
   private readonly route = inject(ActivatedRoute);
   private readonly breadcrumbService = inject(BreadcrumbService);
-
+  private readonly tenService = inject(TenantService);
+  private readonly conService = inject(ContractsService);
 
   id!: number;
   unit!: UnitResponse;
   isLoading: boolean = true;
+  tab: number = 1;
 
-  form: FormGroup;
+  isAddingTenant: boolean = true;
 
-  selectedType: number = 0;
-  submitted: boolean = false;
-  floorOptions = floorEnumToSelectOptions(FloorEnum);
   FloorEnum = FloorEnum;
   UnitTypeEnum = UnitType;
 
   constructor() {
-    this.form = this.initializeForm();
   }
 
   ngOnInit(): void {
@@ -50,7 +47,7 @@ export class UnitComponent implements OnInit {
     });
   }
 
-  //TODO: Mudar bara getContractById
+  //TODO: Mudar para getContractById
   getUnitById() {
     this.uniService.getUnitById(this.id)
       .pipe(finalize(() => { this.isLoading = false; }))
@@ -73,11 +70,6 @@ export class UnitComponent implements OnInit {
     ] as BreadcrumbItem[]);
   }
 
-  selectType(type: number) {
-    this.form.patchValue({ type: type });
-    this.selectedType = type;
-  }
-
   navTo(route: string) {
     this.router.navigate([route]);
   }
@@ -86,43 +78,114 @@ export class UnitComponent implements OnInit {
     window.history.back();
   }
 
-  onSubmit() {
-    this.submitted = true;
-
-    if (this.form.valid) {
-      this.isLoading = true;
-
-      const newUnit = {
-        number: this.form.get('number')?.value,
-        floor: this.form.get('floor')?.value,
-        type: this.form.get('type')?.value
-      } as CreateUnitRequest;
-
-      this.uniService.newUnit(newUnit)
-        .pipe(
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
-        .subscribe({
-          next: (res) => {
-            const successMessage = this.translationService.translate('units.createUnit.success');
-            this.toastService.success(successMessage);
-            this.router.navigate(['/units']);
-          },
-          error: (err) => {
-            this.toastService.error(err.error);
-          }
-        });
-
-    }
+  setTab(value: number) {
+    this.tab = value;
   }
 
-  private initializeForm(): FormGroup {
-    return this.fb.group({
-      number: ['', [Validators.required, Validators.maxLength(30)]],
-      floor: ['', Validators.required],
-      type: ['', Validators.required]
-    });
+  tenantId!: number;
+  dateStart!: string;
+  dateEnd!: string;
+  rent!: number;
+  paymentDay!: number;
+
+  // Tenants Autocomplete
+  filteredTenants: TenantResponse[] = [];
+  isLoadingTenants = false;
+
+  onSearchTenant(searchTerm: string) {
+    if (!searchTerm || searchTerm.trim().length === 0) {
+      this.filteredTenants = [];
+      return;
+    }
+
+    this.isLoadingTenants = true;
+    this.tenService.getAvailable(1, 10, searchTerm)
+      .pipe(finalize(() => { this.isLoadingTenants = false; }))
+      .subscribe({
+        next: (res) => {
+          this.filteredTenants = res.items;
+        },
+        error: (err) => {
+          this.toastService.error(err.message);
+          this.filteredTenants = [];
+        }
+      });
+  }
+
+  onSelectTenant(tenant: TenantResponse) {
+    this.tenantId = tenant.id;
+  }
+
+
+  isLoadingNewContract: boolean = false;
+  isSubmitted: boolean = false;
+
+  isFieldInvalid(field: any): boolean {
+    return this.isSubmitted && !field;
+  }
+
+  submitNewContract() {
+    this.isSubmitted = true;
+
+    // Validar campos obrigatórios
+    if (!this.tenantId || !this.dateStart || !this.dateEnd || !this.rent || !this.paymentDay) {
+      this.toastService.error('Todos os campos são obrigatórios');
+      return;
+    }
+
+    const startDate = new Date(this.dateStart);
+    const endDate = new Date(this.dateEnd);
+
+    if (startDate >= endDate) {
+      this.toastService.error('A data de início deve ser anterior à data de término');
+      return;
+    }
+
+    // Validar rent e paymentDay
+    if (this.rent <= 0) {
+      this.toastService.error('O aluguel deve ser maior que zero');
+      return;
+    }
+
+    if (this.paymentDay < 1 || this.paymentDay > 31) {
+      this.toastService.error('O dia de pagamento deve estar entre 1 e 31');
+      return;
+    }
+
+    this.isLoadingNewContract = true;
+
+    const newContractDto: NewContract = {
+      validSince: startDate,
+      validUntil: endDate,
+      rent: this.rent,
+      paymentDay: this.paymentDay,
+      tenantId: this.tenantId,
+      unitId: this.id
+    };
+
+    this.conService.newContract(newContractDto)
+      .pipe(finalize(() => { this.isLoadingNewContract = false; }))
+      .subscribe({
+        next: (res) => {
+          this.toastService.success('Contrato criado com sucesso');
+          this.closeModal();
+          this.getUnitById();
+        },
+        error: (err) => {
+          this.toastService.error(err.message || 'Erro ao criar contrato');
+        }
+      });
+  }
+
+  closeModal() {
+    const dialog = document.getElementById('new_contract') as HTMLDialogElement;
+    dialog?.close();
+    this.tenantId = 0;
+    this.dateStart = '';
+    this.dateEnd = '';
+    this.rent = 0;
+    this.paymentDay = 0;
+    this.isSubmitted = false;
+    this.onSearchTenant('');
   }
 }

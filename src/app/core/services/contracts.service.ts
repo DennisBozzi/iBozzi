@@ -2,7 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { environment } from '@/environments/environments';
-import { ContractModelFillRequest, ContractModelResponse } from '@/shared/interfaces';
+import { ContractModelFillRequest, ContractModelResponse, ContractResponse } from '@/shared/interfaces';
+
+export interface NewContract {
+    validSince: Date;
+    validUntil: Date;
+    paymentDay: number;
+    tenantId: number;
+    unitId: number;
+    rent: number;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -24,5 +33,9 @@ export class ContractsService extends ApiService {
         return this.http.post(`${environment.apiBozzi}/contract/model/example`, request, {
             responseType: 'blob'
         });
+    }
+
+    newContract(dto: NewContract): Observable<ContractResponse> {
+        return this.http.post<ContractResponse>(`${environment.apiBozzi}/contract`, dto);
     }
 }

@@ -27,6 +27,7 @@ export class NewTenantComponent {
 
   isLoading: boolean = false;
   selectedGender: number = 0;
+  selectedMarital: number = 0;
   submitted: boolean = false;
 
   constructor() {
@@ -36,6 +37,11 @@ export class NewTenantComponent {
   selectGender(gender: number) {
     this.form.patchValue({ gender: gender });
     this.selectedGender = gender;
+  }
+
+  selectMarital(marital: number) {
+    this.form.patchValue({ maritalStatus: marital });
+    this.selectedMarital = marital;
   }
 
   onSubmit() {
@@ -51,7 +57,8 @@ export class NewTenantComponent {
         email: this.form.get('email')?.value,
         phone: removeMask(this.form.get('phone')?.value),
         born: this.form.get('born')?.value,
-        gender: this.form.get('gender')?.value
+        gender: this.form.get('gender')?.value,
+        maritalStatus: this.form.get('maritalStatus')?.value
       };
 
       this.tenService.newTenant(newTenant)
@@ -90,7 +97,8 @@ export class NewTenantComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       born: ['', Validators.required],
-      gender: ['', Validators.required]
+      gender: ['', Validators.required],
+      maritalStatus: ['', Validators.required]
     });
   }
 }

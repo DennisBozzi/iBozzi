@@ -50,7 +50,8 @@
         "apartment": "Apartmento",
         "store": "Loja",
         "empty": "Vazio",
-        "register": "Cadastro"
+        "register": "Cadastro",
+        "autoPlaceholderTenant": "Pesquise por Nome ou CPF"
     },
     "home": {
         "title": "Início",
@@ -110,6 +111,9 @@
     "tenants": {
         "active": "Ativos",
         "all": "Todos",
+        "loading": "Carregando inquilinos",
+        "notFound": "Nenhum inquilino encontrado",
+        "searchPlaceholder": "Digite para buscar um inquilino",
         "createTenant": {
             "tenantInfo": "Informações do Inquilino",
             "fillPersonalData": "Preencha com dados pessoais do morador.",
@@ -121,6 +125,11 @@
             "masculine": "Masculino",
             "feminine": "Feminino",
             "selectGender": "Selecione um gênero",
+            "maritalStatus": "Estado Civil",
+            "single": "Solteiro",
+            "married": "Casado",
+            "widowed": "Viúvo",
+            "selectMaritalStatus": "Selecione um estado civil",
             "contacts": "Contatos",
             "contactInfo": "Informações de contatos do inquilino.",
             "email": "E-mail",

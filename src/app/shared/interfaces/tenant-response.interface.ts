@@ -1,4 +1,5 @@
 import { GenderEnum } from "./enums/gender.enum";
+import { MaritalStatus } from "./enums/marital-status.enum";
 import { UnitResponse } from "./unit-response.interface";
 
 export interface TenantResponse {
@@ -14,4 +15,5 @@ export interface TenantResponse {
     responsible?: TenantResponse | null;
     unit: UnitResponse;
     dependents: TenantResponse[];
+    MaritalStatus: MaritalStatus;
 }

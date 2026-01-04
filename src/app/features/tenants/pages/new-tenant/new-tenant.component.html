@@ -125,6 +125,65 @@
                 </div>
             </div>
 
+            <div class="relative mt-2">
+
+                <label for="" class="ml-1">{{ 'tenants.createTenant.maritalStatus' | t }}</label>
+
+                <div class="flex gap-6 flex-col sm:flex-row mt-2">
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedMarital === 1 ? 'border-primary' : 'border-base-300'"
+                        (click)="selectMarital(1)">
+                        <div class="pl-2.5 !pt-1.5 !pb-0 size-12 card"
+                            [ngClass]="selectedMarital === 1 ? 'bg-neutral' : 'bg-neutral/40'">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                boy
+                            </span>
+                        </div>
+
+                        <h2 class="font-semibold" [ngClass]="selectedMarital === 1 ? 'text-primary' : ''">
+                            {{ 'tenants.createTenant.single' | t }}
+                        </h2>
+                    </div>
+
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedMarital === 2 ? 'border-primary' : 'border-base-300'"
+                        (click)="selectMarital(2)">
+                        <div class="pl-2.5 !pt-1.5 !pb-0 size-12 card"
+                            [ngClass]="selectedMarital === 2 ? 'bg-neutral' : 'bg-neutral/40'">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                family_restroom
+                            </span>
+                        </div>
+
+                        <h2 class="font-semibold" [ngClass]="selectedMarital === 2 ? 'text-primary' : ''">
+                            {{ 'tenants.createTenant.married' | t }}
+                        </h2>
+                    </div>
+
+                    <div class="flex flex-col gap-4 items-center w-full bg-base-100 card cursor-pointer py-6 border-2"
+                        [ngClass]="selectedMarital === 3 ? 'border-primary' : 'border-base-300'"
+                        (click)="selectMarital(3)">
+                        <div class="pl-2.5 !pt-1.5 !pb-0 size-12 card"
+                            [ngClass]="selectedMarital === 3 ? 'bg-neutral' : 'bg-neutral/40'">
+                            <span class="material-icons-round text-base-content !text-3xl">
+                                heart_broken
+                            </span>
+                        </div>
+
+                        <h2 class="font-semibold" [ngClass]="selectedMarital === 3 ? 'text-primary' : ''">
+                            {{ 'tenants.createTenant.widowed' | t }}
+                        </h2>
+                    </div>
+
+                    <div class="absolute left-1 -bottom-8">
+                        <p *ngIf="form.get('maritalStatus')?.invalid && submitted" class="text-error text-sm">
+                            {{ 'tenants.createTenant.selectMaritalStatus' | t }}
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
             <span class="divider"></span>
 
             <div class="flex gap-6 flex-col relative">
