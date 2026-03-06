@@ -9,7 +9,7 @@ export interface NewContract {
     validUntil: Date;
     paymentDay: number;
     tenantId: number;
-    unitId: number;
+    unitId: number | undefined;
     rent: number;
 }
 
@@ -37,5 +37,13 @@ export class ContractsService extends ApiService {
 
     newContract(dto: NewContract): Observable<ContractResponse> {
         return this.http.post<ContractResponse>(`${environment.apiBozzi}/contract`, dto);
+    }
+
+    endContract(unitId: number): Observable<ContractResponse> {
+        return this.http.post<ContractResponse>(`${environment.apiBozzi}/contract/${unitId}/end`, {});
+    }
+
+    renewContract(dto: NewContract): Observable<ContractResponse> {
+        return this.http.post<ContractResponse>(`${environment.apiBozzi}/contract/renew`, dto);
     }
 }

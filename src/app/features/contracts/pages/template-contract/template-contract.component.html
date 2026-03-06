@@ -13,7 +13,7 @@
                         </div>
 
                         <h1 class="font-semibold mt-3">{{contract.file?.fileName}}</h1>
-                        <h2>{{contract.file?.createdAt| date: 'dd/MM/yyyy' }}</h2>
+                        <h2>{{contract.file?.createdAt| date: 'dd/MM/yyyy' :'UTC'}}</h2>
 
                         <label for="fileInput" class="btn btn-ghost btn-circle absolute top-1 right-1">
                             <span class="material-icons-round !text-base">
@@ -30,15 +30,15 @@
                     <div class="w-full gap-4 flex flex-col">
 
                         <div class="flex gap-4">
-                            <label class="label w-[30%] font-semibold" for="">{{'contracts.template.params'| t
+                            <label class="label w-[30%] font-semibold">{{'contracts.template.params'| t
                                 }}</label>
-                            <label class="label w-full font-semibold" for="">{{'contracts.template.values'| t }}</label>
+                            <label class="label w-full font-semibold">{{'contracts.template.values'| t }}</label>
                         </div>
-                        <ng-container *ngFor="let param of contract.params">
+                        <ng-container *ngFor="let param of contract.params; let i = index">
                             <div class="flex gap-4">
-                                <label class="label w-[30%] truncate" for="">{{param.replace('{','').replace('}',
+                                <label class="label w-[30%] truncate" [for]="'param-' + i">{{param.replace('{','').replace('}',
                                     '')}}</label>
-                                <input type="text" class="input w-full contract-param-input" [attr.data-param]="param">
+                                <input [id]="'param-' + i" type="text" class="input w-full contract-param-input" [attr.data-param]="param">
                             </div>
                         </ng-container>
                     </div>

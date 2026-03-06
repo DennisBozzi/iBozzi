@@ -14,6 +14,5 @@ export interface TenantResponse {
     gender: GenderEnum;
     responsible?: TenantResponse | null;
     unit: UnitResponse;
-    dependents: TenantResponse[];
     MaritalStatus: MaritalStatus;
 }

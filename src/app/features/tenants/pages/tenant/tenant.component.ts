@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { PhonePipe } from "../../../../shared/pipes";
 import { CreateUnitRequest, ToastService, UnitsService, TranslationService, TenantService } from '@/core/services';
 import { BreadcrumbItem, FloorEnum, TenantResponse, UnitResponse, UnitType } from '@/shared/interfaces';
-import { floorEnumToSelectOptions } from '@/shared/utils';
+import { floorEnumToSelectOptions, getAge } from '@/shared/utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { BreadcrumbService } from '@/core/services/breadcrumb.service';
@@ -65,6 +65,13 @@ export class TenantComponent implements OnInit {
           this.router.navigate(['/tenants']);
         }
       });
+  }
+
+  get age(): number | null {
+    if (!this.tenant?.born)
+      return null;
+
+    return getAge(this.tenant.born);
   }
 
   setBreadcrumb(label: string) {

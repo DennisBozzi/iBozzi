@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '@/environments/environments';
 import { ApiService } from './api.service';
-import { FloorEnum, UnitType, PagedResult, UnitResponse } from '@/shared/interfaces';
+import { FloorEnum, UnitType, PagedResult, UnitResponse, ContractResponse } from '@/shared/interfaces';
 
 export interface CreateUnitRequest {
   number: string;
@@ -38,5 +38,9 @@ export class UnitsService extends ApiService {
 
   removeResponsible(apId: number): Observable<UnitResponse> {
     return this.http.put<UnitResponse>(`${environment.apiBozzi}/unit/removeResponsible`, apId)
+  }
+
+  getContractByUnitId(id: number): Observable<ContractResponse> {
+    return this.http.get<ContractResponse>(`${environment.apiBozzi}/unit/${id}/contracts`)
   }
 }

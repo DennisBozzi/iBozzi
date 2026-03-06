@@ -51,7 +51,10 @@
         "store": "Store",
         "empty": "Empty",
         "register": "Register",
-        "autoPlaceholderTenant": "Search by Name or CPF"
+        "autoPlaceholderTenant": "Search by Name or CPF",
+        "tenant": "Tenant",
+        "details": "Details",
+        "maintenance": "Maintenance"
     },
     "home": {
         "title": "Home",
@@ -105,7 +108,29 @@
             "pendingPayments": "Pending Payments",
             "viewHistory": "View History",
             "vacant": "Vacant",
-            "rented": "Rented"
+            "occupied": "Occupied",
+            "rented": "Rented",
+            "currentTenant": "Current Tenant",
+            "noActiveTenant": "No Active Tenant",
+            "vacantMessage": "This unit is currently vacant. Assign a tenant to start tracking payments and contracts.",
+            "assignTenant": "Assign Tenant",
+            "addTenant": "Add Tenant",
+            "moveOut": "Move Out",
+            "renewContract": "Renew Contract",
+            "endContractTitle": "End Contract",
+            "endContractDesc": "Are you sure you want to end this contract? This action will move the contract to history and the unit will become vacant. This decision cannot be reversed.",
+            "endContractConfirm": "Yes, End it"
+        },
+        "form": {
+            "selectTenant": "Select Tenant",
+            "selectTenantError": "Please select a tenant",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "rentValue": "Rental Value",
+            "paymentDay": "Payment Day",
+            "renewContractTitle": "Renew Contract",
+            "renewContractDesc": "The current contract will be replaced by a new one. Enter dates for the new period.",
+            "currentValidUntil": "Contract valid until"
         }
     },
     "tenants": {

@@ -51,7 +51,10 @@
         "store": "Loja",
         "empty": "Vazio",
         "register": "Cadastro",
-        "autoPlaceholderTenant": "Pesquise por Nome ou CPF"
+        "autoPlaceholderTenant": "Pesquise por Nome ou CPF",
+        "tenant": "Inquilino",
+        "details": "Detalhes",
+        "maintenance": "Manutenção"
     },
     "home": {
         "title": "Início",
@@ -105,7 +108,29 @@
             "pendingPayments": "Pagamentos Pendentes",
             "viewHistory": "Ver Histórico",
             "vacant": "Vago",
-            "rented": "Alugado"
+            "occupied": "Ocupado",
+            "rented": "Alugado",
+            "currentTenant": "Inquilino Atual",
+            "noActiveTenant": "Sem Inquilino Ativo",
+            "vacantMessage": "Esta unidade está vaga no momento. Atribua um inquilino para começar a rastrear pagamentos e contratos.",
+            "assignTenant": "Atribuir Inquilino",
+            "addTenant": "Adicionar Inquilino",
+            "moveOut": "Desocupar",
+            "renewContract": "Renovar Contrato",
+            "endContractTitle": "Encerrar Contrato",
+            "endContractDesc": "Tem certeza que deseja encerrar este contrato? Esta ação transferirá o contrato para o histórico e a unidade ficará vaga. Esta decisão não poderá ser revertida.",
+            "endContractConfirm": "Sim, Encerrar"
+        },
+        "form": {
+            "selectTenant": "Selecionar Inquilino",
+            "selectTenantError": "Por favor, selecione um inquilino",
+            "startDate": "Data Início",
+            "endDate": "Data Fim",
+            "rentValue": "Valor do Aluguel",
+            "paymentDay": "Dia de Pagamento",
+            "renewContractTitle": "Renovar Contrato",
+            "renewContractDesc": "O contrato atual será substituído por um novo. Informe as datas para o novo período.",
+            "currentValidUntil": "Contrato válido até"
         }
     },
     "tenants": {

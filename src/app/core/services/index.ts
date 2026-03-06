@@ -9,3 +9,4 @@ export * from './toast.service';
 export * from './translation.service';
 export * from './user-preferences.service';
 export * from './demo.service';
+export * from './file.service';

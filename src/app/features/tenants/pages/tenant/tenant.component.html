@@ -18,11 +18,16 @@
                     </div>
 
                     <div class="flex flex-col px-6 pb-6 mt-16 text-center">
-                        <h1 class="font-semibold text-2xl">{{tenant.firstName}} {{tenant.lastName}}</h1>
+                        <h1 class="font-semibold text-2xl">
+                            {{tenant.firstName}} {{tenant.lastName}}
+                            <span class="text-sm font-normal text-base-content/60">
+                                ({{age}})
+                            </span>
+                        </h1>
                         <h2 class="mb-8 mt-3 text-base-content/70 flex gap-1 justify-center">
 
                             <span class="hidden lg:flex">Inquilino desde</span>
-                            <span>{{tenant.createdAt | date: 'dd/MM/yyyy' }}</span>
+                            <span>{{tenant.createdAt | date: 'dd/MM/yyyy':'UTC'}}</span>
                         </h2>
                         <a [href]="'https://wa.me/55' + tenant.phone" target="_blank" type="button"
                             class="btn btn-soft">
